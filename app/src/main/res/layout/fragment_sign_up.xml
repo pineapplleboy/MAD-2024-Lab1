@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.fragment.SignUpFragment">
+
+    <ImageView
+        android:id="@+id/topShadow"
+        android:layout_width="match_parent"
+        android:layout_height="434dp"
+        android:src="@drawable/welcome_screen_shadow"
+        android:rotation="180"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/bottomShadow"
+            android:layout_width="match_parent"
+            android:layout_height="174dp"
+            android:src="@drawable/welcome_screen_shadow"
+            android:rotation="0"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="544dp"
+            android:background="@color/dark"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/signUpScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/welcomeScreen"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/signUpPanel"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="24dp">
+
+            <ImageButton
+                android:id="@+id/return_from_sign_up_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/dark_button"
+                android:contentDescription="@string/return_to_welcome_screen_description"
+                android:src="@drawable/chevron_left" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:fontFamily="@font/manrope_bold"
+                android:gravity="center_vertical"
+                android:text="@string/sign_up_panel_text"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/signUpFields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/confirmSignUpButton"
+            android:layout_marginBottom="32dp">
+
+            <EditText
+                android:id="@+id/signUpLoginField"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/dark_button"
+                android:hint="@string/login_hint"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/gray_faded"/>
+
+            <EditText
+                android:id="@+id/emailField"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/dark_button"
+                android:hint="@string/email_hint"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/gray_faded"/>
+
+            <EditText
+                android:id="@+id/nameField"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/dark_button"
+                android:hint="@string/name_hint"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/gray_faded"/>
+
+            <EditText
+                android:id="@+id/signUpPasswordField"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_height="48dp"
+                android:background="@drawable/dark_button"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/gray_faded" />
+
+            <EditText
+                android:id="@+id/signUpConfirmPasswordField"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_height="48dp"
+                android:background="@drawable/dark_button"
+                android:hint="@string/confirm_password_hint"
+                android:inputType="textPassword"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/gray_faded" />
+
+            <EditText
+                android:id="@+id/birthdayField"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/dark_button"
+                android:hint="@string/birthday_hint"
+                android:paddingLeft="16dp"
+                android:paddingTop="4dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="4dp"
+                android:textColorHint="@color/gray_faded"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirmSignUpButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:background="@drawable/dark_button"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:text="@string/confirm_sign_up_text"
+            android:textColor="@color/gray_faded"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

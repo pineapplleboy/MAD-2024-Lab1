@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">MovieCatalog</string>
+    <string name="sign_in_text">Войти в аккаунт</string>
+    <string name="sign_up_text">Зарегистрироваться</string>
+    <string name="login_hint">Логин</string>
+    <string name="password_hint">Пароль</string>
+    <string name="confirm_login_text">Войти</string>
+    <string name="sign_in_panel_text">Вход в аккаунт</string>
+
+    <string name="sign_up_panel_text">Регистрация</string>
+    <string name="email_hint">Электронная почта</string>
+    <string name="name_hint">Имя</string>
+    <string name="confirm_password_hint">Подтвердите пароль</string>
+    <string name="birthday_hint">Дата рождения</string>
+    <string name="male_hint">Мужчина</string>
+    <string name="female_hint">Женщина</string>
+    <string name="confirm_sign_up_text">Зарегистрироваться</string>
+
+    <string name="return_to_welcome_screen_description">Return to welcome screen</string>
+
+    <string name="welcome_text">Добро пожаловать в movieCatalog</string>
+
 </resources>
