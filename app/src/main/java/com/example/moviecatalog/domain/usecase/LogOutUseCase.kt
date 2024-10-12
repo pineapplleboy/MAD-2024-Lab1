@@ -1,10 +1,10 @@
 package com.example.moviecatalog.domain.usecase
 
 import android.util.Log
-import com.example.moviecatalog.domain.repository.UserProfileRepository
+import com.example.moviecatalog.domain.repository.AuthRepository
 
 class LogOutUseCase(
-    private val repository: UserProfileRepository
+    private val repository: AuthRepository
 ) {
 
     fun execute(callback: (Boolean) -> Unit){

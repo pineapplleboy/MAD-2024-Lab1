@@ -9,7 +9,7 @@ class AuthInterceptor(private val authPreferences: AuthPreferences) : Intercepto
 
         val token = authPreferences.getToken()
 
-        return if (token != null && originalRequest.url.encodedPath.contains("logout")) {
+        return if (token != null/* && originalRequest.url.encodedPath.contains("logout")*/) {
             val modifiedRequest = originalRequest.newBuilder()
                 .addHeader("Authorization", "Bearer $token")
                 .build()

@@ -11,13 +11,10 @@ import android.widget.EditText
 import android.widget.ImageButton
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.AuthApiInstance
-import com.example.moviecatalog.data.model.ApiGender
 import com.example.moviecatalog.data.preferences.AuthPreferences
-import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
+import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.model.LoginCredentials
-import com.example.moviecatalog.domain.model.UserRegister
 import com.example.moviecatalog.domain.usecase.SignInUseCase
-import com.example.moviecatalog.domain.usecase.SignUpUseCase
 import com.example.moviecatalog.presentation.ui.activity.ProfileActivity
 
 class SignInFragment : Fragment() {
@@ -47,7 +44,7 @@ class SignInFragment : Fragment() {
         val authPreferences = AuthPreferences(view.context)
         val authApi = AuthApiInstance.createApi(authPreferences)
 
-        val userProfileRepository = UserProfileRepositoryImpl(authApi, authPreferences)
+        val userProfileRepository = AuthRepositoryImpl(authApi, authPreferences)
         val signInUseCase = SignInUseCase(userProfileRepository)
 
         val loginField: EditText = view.findViewById(R.id.loginField)

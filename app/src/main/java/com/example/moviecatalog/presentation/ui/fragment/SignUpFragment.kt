@@ -10,21 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.api.AuthApi
 import com.example.moviecatalog.data.api.AuthApiInstance
 import com.example.moviecatalog.data.model.ApiGender
-import com.example.moviecatalog.data.model.ApiUserRegister
 import com.example.moviecatalog.data.preferences.AuthPreferences
-import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
+import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.model.UserRegister
 import com.example.moviecatalog.domain.usecase.SignUpUseCase
 import com.example.moviecatalog.presentation.ui.activity.ProfileActivity
-import com.example.moviecatalog.presentation.ui.activity.WelcomeActivity
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.math.log
 
 class SignUpFragment : Fragment() {
 
@@ -54,7 +46,7 @@ class SignUpFragment : Fragment() {
         val authPreferences = AuthPreferences(view.context)
         val authApi = AuthApiInstance.createApi(authPreferences)
 
-        val userProfileRepository = UserProfileRepositoryImpl(authApi, authPreferences)
+        val userProfileRepository = AuthRepositoryImpl(authApi, authPreferences)
         val signUpUseCase = SignUpUseCase(userProfileRepository)
 
         val loginField: EditText = view.findViewById(R.id.signUpLoginField)

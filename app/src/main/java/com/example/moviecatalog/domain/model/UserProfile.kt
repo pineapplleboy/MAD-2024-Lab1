@@ -7,5 +7,5 @@ class UserProfile(
     val email: String,
     val avatarLink: String?,
     val birthday: String,
-    val gender: Gender
+    val gender: Int
 )

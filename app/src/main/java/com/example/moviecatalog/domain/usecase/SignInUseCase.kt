@@ -2,10 +2,10 @@ package com.example.moviecatalog.domain.usecase
 
 import android.util.Log
 import com.example.moviecatalog.domain.model.LoginCredentials
-import com.example.moviecatalog.domain.repository.UserProfileRepository
+import com.example.moviecatalog.domain.repository.AuthRepository
 
 class SignInUseCase(
-    private val repository: UserProfileRepository
+    private val repository: AuthRepository
 ) {
 
     fun execute(loginCredentials: LoginCredentials, callback: (Boolean) -> Unit){

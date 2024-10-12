@@ -3,6 +3,7 @@ package com.example.moviecatalog.data.api
 import com.example.moviecatalog.data.model.ApiLogOutMsg
 import com.example.moviecatalog.data.model.ApiLoginCredentials
 import com.example.moviecatalog.data.model.ApiToken
+import com.example.moviecatalog.data.model.ApiUserProfile
 import com.example.moviecatalog.data.model.ApiUserRegister
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,6 +11,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AuthApi {
@@ -22,4 +24,7 @@ interface AuthApi {
 
     @POST("logout")
     fun logout(): Call<ApiLogOutMsg>
+
+    @GET("profile")
+    fun getProfile(): Call<ApiUserProfile>
 }

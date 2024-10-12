@@ -2,11 +2,10 @@ package com.example.moviecatalog.domain.usecase
 
 import android.util.Log
 import com.example.moviecatalog.domain.model.UserRegister
-import com.example.moviecatalog.domain.repository.UserProfileRepository
-import okhttp3.Response
+import com.example.moviecatalog.domain.repository.AuthRepository
 
 class SignUpUseCase(
-    private val repository: UserProfileRepository
+    private val repository: AuthRepository
 ) {
 
     fun execute(user: UserRegister, callback: (Boolean) -> Unit) {

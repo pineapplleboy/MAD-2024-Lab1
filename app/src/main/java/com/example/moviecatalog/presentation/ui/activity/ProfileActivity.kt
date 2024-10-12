@@ -7,6 +7,7 @@ import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +16,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.AuthApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
+import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
-import com.example.moviecatalog.domain.repository.UserProfileRepository
+import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
 import com.example.moviecatalog.domain.usecase.LogOutUseCase
 
 class ProfileActivity : AppCompatActivity() {
@@ -45,8 +47,11 @@ class ProfileActivity : AppCompatActivity() {
         val authPreferences = AuthPreferences(this)
         val authApi = AuthApiInstance.createApi(authPreferences)
 
-        val userProfileRepository = UserProfileRepositoryImpl(authApi, authPreferences)
-        val logOutUseCase = LogOutUseCase(userProfileRepository)
+        val authRepository = AuthRepositoryImpl(authApi, authPreferences)
+        val userProfileRepository = UserProfileRepositoryImpl(authApi)
+
+        val logOutUseCase = LogOutUseCase(authRepository)
+        val getUserProfileUseCase = GetUserProfileUseCase(userProfileRepository)
 
         val logOutButton: ImageButton = findViewById(R.id.logOutButton)
 
@@ -57,6 +62,23 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+        }
+
+        val loginField: TextView = findViewById(R.id.loginText)
+        val nameField: TextView = findViewById(R.id.nameText)
+        val emailField: TextView = findViewById(R.id.emailText)
+        val birthdayField: TextView = findViewById(R.id.birthdateText)
+        val genderField: TextView = findViewById(R.id.genderText)
+        val profileAvatar: ImageView = findViewById(R.id.profileAvatar)
+        val welcomeNameText: TextView = findViewById(R.id.welcomeName)
+
+        getUserProfileUseCase.execute{
+            loginField.text = it.login
+            nameField.text = it.name
+            welcomeNameText.text = it.name
+            emailField.text = it.email
+            birthdayField.text = it.birthday
+            genderField.text = it.gender.toString()
         }
     }
 }
