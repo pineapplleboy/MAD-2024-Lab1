@@ -6,8 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.api.AuthApi
+import com.example.moviecatalog.data.api.AuthApiInstance
+import com.example.moviecatalog.data.model.ApiGender
+import com.example.moviecatalog.data.model.ApiUserRegister
+import com.example.moviecatalog.data.preferences.AuthPreferences
+import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
+import com.example.moviecatalog.domain.model.UserRegister
+import com.example.moviecatalog.domain.usecase.SignUpUseCase
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.log
 
 class SignUpFragment : Fragment() {
 
@@ -30,6 +44,35 @@ class SignUpFragment : Fragment() {
                 .replace(R.id.loginScreen, loginChoiceFragment)
                 .addToBackStack(null)
                 .commit()
+        }
+
+        val confirmButton: Button = view.findViewById(R.id.confirmSignUpButton)
+
+        val authPreferences = AuthPreferences(view.context)
+        val authApi = AuthApiInstance.createApi(authPreferences)
+
+        val userProfileRepository = UserProfileRepositoryImpl(authApi, authPreferences)
+        val signUpUseCase = SignUpUseCase(userProfileRepository)
+
+        val loginField: EditText = view.findViewById(R.id.signUpLoginField)
+        val emailField: EditText = view.findViewById(R.id.emailField)
+        val nameField: EditText = view.findViewById(R.id.nameField)
+        val passwordField: EditText = view.findViewById(R.id.signUpPasswordField)
+        val confirmPasswordField: EditText = view.findViewById(R.id.signUpConfirmPasswordField)
+        val birthdayField: EditText = view.findViewById(R.id.birthdayField)
+
+        confirmButton.setOnClickListener{
+
+            signUpUseCase.execute(
+                UserRegister(
+                    login = loginField.text.toString(),
+                    email = emailField.text.toString(),
+                    name = nameField.text.toString(),
+                    password = passwordField.text.toString(),
+                    birthday = birthdayField.text.toString(),
+                    gender = ApiGender.MALE.code
+                )
+            )
         }
     }
 }
