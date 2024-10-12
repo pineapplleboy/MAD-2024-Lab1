@@ -8,12 +8,14 @@ class SignInUseCase(
     private val repository: UserProfileRepository
 ) {
 
-    fun execute(loginCredentials: LoginCredentials){
-        repository.login(loginCredentials) {result ->
+    fun execute(loginCredentials: LoginCredentials, callback: (Boolean) -> Unit){
+        repository.login(loginCredentials) { result ->
             result.onSuccess {
                 Log.d("API", it)
+                callback(true)
             }.onFailure {
                 Log.e("API", it.message ?: "unknown error")
+                callback(false)
             }
         }
     }

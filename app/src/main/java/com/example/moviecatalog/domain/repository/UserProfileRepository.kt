@@ -8,5 +8,5 @@ interface UserProfileRepository {
 
     fun login(loginCredentials: LoginCredentials, callback: (Result<String>) -> Unit)
 
-    fun logout()
+    fun logout(callback: (Result<String>) -> Unit)
 }

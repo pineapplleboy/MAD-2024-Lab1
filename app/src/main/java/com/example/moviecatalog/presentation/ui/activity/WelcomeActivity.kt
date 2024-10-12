@@ -29,7 +29,7 @@ class WelcomeActivity : AppCompatActivity() {
             .commit()
 
         val authPreferences = AuthPreferences(this)
-        if(authPreferences.getToken() != null){
+        if(authPreferences.getToken() != ""){
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }

@@ -1,16 +1,23 @@
 package com.example.moviecatalog.presentation.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.api.AuthApiInstance
+import com.example.moviecatalog.data.preferences.AuthPreferences
+import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
+import com.example.moviecatalog.domain.repository.UserProfileRepository
+import com.example.moviecatalog.domain.usecase.LogOutUseCase
 
 class ProfileActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -35,6 +42,21 @@ class ProfileActivity : AppCompatActivity() {
 
         personalInformationText.paint.shader = shader
 
+        val authPreferences = AuthPreferences(this)
+        val authApi = AuthApiInstance.createApi(authPreferences)
 
+        val userProfileRepository = UserProfileRepositoryImpl(authApi, authPreferences)
+        val logOutUseCase = LogOutUseCase(userProfileRepository)
+
+        val logOutButton: ImageButton = findViewById(R.id.logOutButton)
+
+        logOutButton.setOnClickListener{
+            logOutUseCase.execute {
+                if(it){
+                    val intent = Intent(this, WelcomeActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 }

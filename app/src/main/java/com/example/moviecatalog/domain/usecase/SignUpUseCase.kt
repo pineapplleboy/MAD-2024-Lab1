@@ -9,12 +9,14 @@ class SignUpUseCase(
     private val repository: UserProfileRepository
 ) {
 
-    fun execute(user: UserRegister) {
-        repository.register(user) {result ->
+    fun execute(user: UserRegister, callback: (Boolean) -> Unit) {
+        repository.register(user) { result ->
             result.onSuccess {
                 Log.d("API", it)
+                callback(true)
             }.onFailure {
                 Log.e("API", it.message ?: "unknown error")
+                callback(false)
             }
         }
     }

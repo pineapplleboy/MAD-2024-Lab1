@@ -1,5 +1,6 @@
 package com.example.moviecatalog.data.api
 
+import com.example.moviecatalog.data.model.ApiLogOutMsg
 import com.example.moviecatalog.data.model.ApiLoginCredentials
 import com.example.moviecatalog.data.model.ApiToken
 import com.example.moviecatalog.data.model.ApiUserRegister
@@ -20,5 +21,5 @@ interface AuthApi {
     fun register(@Body userRegister: ApiUserRegister): Call<ApiToken>
 
     @POST("logout")
-    fun logout(): Call<Void>
+    fun logout(): Call<ApiLogOutMsg>
 }

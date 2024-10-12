@@ -2,6 +2,7 @@ package com.example.moviecatalog.data.repository
 
 import android.util.Log
 import com.example.moviecatalog.data.api.AuthApi
+import com.example.moviecatalog.data.model.ApiLogOutMsg
 import com.example.moviecatalog.data.model.ApiLoginCredentials
 import com.example.moviecatalog.data.model.ApiToken
 import com.example.moviecatalog.data.model.ApiUserRegister
@@ -78,6 +79,30 @@ class UserProfileRepositoryImpl(
             override fun onFailure(call: Call<ApiToken>, t: Throwable) {
                 callback(Result.failure(Exception("Network error: ${t.message}")))
             }
+        })
+    }
+
+    override fun logout(callback: (Result<String>) -> Unit) {
+
+        authApi.logout().enqueue(object: retrofit2.Callback<ApiLogOutMsg>{
+
+            override fun onResponse(call: Call<ApiLogOutMsg>, response: Response<ApiLogOutMsg>) {
+                if(response.isSuccessful){
+
+                    authPreferences.saveToken("")
+                    callback(Result.success("Logout successful!"))
+                }
+                else{
+
+                    val errorBody = response.errorBody()?.string()
+                    callback(Result.failure(Exception("Logout failed: $errorBody")))
+                }
+            }
+
+            override fun onFailure(call: Call<ApiLogOutMsg>, t: Throwable) {
+                callback(Result.failure(Exception("Network error: ${t.message}")))
+            }
+
         })
     }
 }

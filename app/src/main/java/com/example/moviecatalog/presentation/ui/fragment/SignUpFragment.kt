@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
 import com.example.moviecatalog.domain.model.UserRegister
 import com.example.moviecatalog.domain.usecase.SignUpUseCase
+import com.example.moviecatalog.presentation.ui.activity.ProfileActivity
+import com.example.moviecatalog.presentation.ui.activity.WelcomeActivity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -64,7 +67,7 @@ class SignUpFragment : Fragment() {
         confirmButton.setOnClickListener{
 
             signUpUseCase.execute(
-                UserRegister(
+                user = UserRegister(
                     login = loginField.text.toString(),
                     email = emailField.text.toString(),
                     name = nameField.text.toString(),
@@ -72,7 +75,12 @@ class SignUpFragment : Fragment() {
                     birthday = birthdayField.text.toString(),
                     gender = ApiGender.MALE.code
                 )
-            )
+            ){
+                if(it){
+                    val intent = Intent(view.context, ProfileActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
     }
 }

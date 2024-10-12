@@ -1,5 +1,6 @@
 package com.example.moviecatalog.presentation.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.example.moviecatalog.domain.model.LoginCredentials
 import com.example.moviecatalog.domain.model.UserRegister
 import com.example.moviecatalog.domain.usecase.SignInUseCase
 import com.example.moviecatalog.domain.usecase.SignUpUseCase
+import com.example.moviecatalog.presentation.ui.activity.ProfileActivity
 
 class SignInFragment : Fragment() {
     override fun onCreateView(
@@ -58,7 +60,12 @@ class SignInFragment : Fragment() {
                     login = loginField.text.toString(),
                     password = passwordField.text.toString(),
                 )
-            )
+            ){
+                if(it){
+                    val intent = Intent(view.context, ProfileActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
     }
 }
