@@ -19,5 +19,9 @@
     <string name="return_to_welcome_screen_description">Return to welcome screen</string>
 
     <string name="welcome_text">Добро пожаловать в movieCatalog</string>
+    <string name="personal_information_hint">Личная информация</string>
+    <string name="good_morning_text">Доброе утро,</string>
+    <string name="profile_icon_description">Profile icon</string>
+    <string name="sign_out_button_description">Sign out button</string>
 
 </resources>

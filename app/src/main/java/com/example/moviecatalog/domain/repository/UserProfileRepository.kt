@@ -7,4 +7,6 @@ interface UserProfileRepository {
     fun register(userRegister: UserRegister, callback: ((Result<String>) -> Unit))
 
     fun login(loginCredentials: LoginCredentials, callback: (Result<String>) -> Unit)
+
+    fun logout()
 }

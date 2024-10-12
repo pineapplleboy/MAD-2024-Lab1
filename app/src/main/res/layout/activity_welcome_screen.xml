@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".presentation.ui.screen.WelcomeActivity">
+    tools:context=".presentation.ui.activity.WelcomeActivity">
 
     <ImageView
         android:id="@+id/welcomeScreenBG"
