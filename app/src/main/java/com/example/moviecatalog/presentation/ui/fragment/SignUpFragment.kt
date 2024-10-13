@@ -14,6 +14,7 @@ import com.example.moviecatalog.data.api.AuthApiInstance
 import com.example.moviecatalog.data.model.ApiGender
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
+import com.example.moviecatalog.domain.model.Gender
 import com.example.moviecatalog.domain.model.UserRegister
 import com.example.moviecatalog.domain.usecase.SignUpUseCase
 import com.example.moviecatalog.presentation.ui.activity.ProfileActivity
@@ -56,6 +57,22 @@ class SignUpFragment : Fragment() {
         val confirmPasswordField: EditText = view.findViewById(R.id.signUpConfirmPasswordField)
         val birthdayField: EditText = view.findViewById(R.id.birthdayField)
 
+        val maleField: Button = view.findViewById(R.id.maleButton)
+        val femaleField: Button = view.findViewById(R.id.femaleButton)
+        var gender: Gender = Gender.MALE
+
+        maleField.setOnClickListener{
+            maleField.setBackgroundResource(R.drawable.male_button_orange)
+            femaleField.setBackgroundResource(R.drawable.female_button_dark)
+            gender = Gender.MALE
+        }
+
+        femaleField.setOnClickListener{
+            maleField.setBackgroundResource(R.drawable.male_button_dark)
+            femaleField.setBackgroundResource(R.drawable.female_button_orange)
+            gender = Gender.FEMALE
+        }
+
         confirmButton.setOnClickListener{
 
             signUpUseCase.execute(
@@ -65,7 +82,7 @@ class SignUpFragment : Fragment() {
                     name = nameField.text.toString(),
                     password = passwordField.text.toString(),
                     birthday = birthdayField.text.toString(),
-                    gender = ApiGender.MALE.code
+                    gender = gender.code
                 )
             ){
                 if(it){

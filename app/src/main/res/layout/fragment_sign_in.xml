@@ -84,35 +84,24 @@
 
             <EditText
                 android:id="@+id/loginField"
-                android:layout_width="fill_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/dark_button"
+                style="@style/InputTextView.Welcome"
                 android:hint="@string/login_hint"
-                android:paddingLeft="16dp"
-                android:paddingTop="4dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="4dp"
-                android:textColorHint="@color/gray_faded" />
+                android:layout_marginBottom="8dp"
+                android:inputType="text"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/passwordField"
-                android:layout_width="fill_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/dark_button"
+                style="@style/InputTextView.Welcome"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
-                android:paddingLeft="16dp"
-                android:paddingTop="4dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="4dp"
-                android:textColorHint="@color/gray_faded" />
+                android:autofillHints=""/>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/confirm_login_button"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:background="@drawable/dark_button"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
@@ -121,7 +110,11 @@
             android:textColor="@color/gray_faded"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/manrope_bold"
+            android:textSize="14sp"
+            android:letterSpacing="0.0071"
+            android:textAllCaps="false"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

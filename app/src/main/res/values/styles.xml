@@ -16,10 +16,18 @@
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="InputTextView.Profile">
         <item name="android:fontFamily">@font/manrope_bold</item>
         <item name="android:textColor">@color/gray</item>
-        <item name="android:textSize">14sp</item>
         <item name="android:letterSpacing">0.0071</item>
-        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="InputTextView.Welcome">
+        <item name="android:fontFamily">@font/manrope</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray_faded</item>
     </style>
 </resources>

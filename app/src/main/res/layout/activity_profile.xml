@@ -139,7 +139,7 @@
 
                         <TextView
                             android:id="@+id/loginText"
-                            style="@style/InputTextView"
+                            style="@style/InputTextView.Profile"
                             android:text="@string/login_hint" />
                     </LinearLayout>
 
@@ -155,7 +155,7 @@
 
                         <TextView
                             android:id="@+id/emailText"
-                            style="@style/InputTextView"
+                            style="@style/InputTextView.Profile"
                             android:text="@string/email_hint" />
                     </LinearLayout>
 
@@ -171,7 +171,7 @@
 
                         <TextView
                             android:id="@+id/nameText"
-                            style="@style/InputTextView"
+                            style="@style/InputTextView.Profile"
                             android:text="@string/name_hint" />
                     </LinearLayout>
 
@@ -187,7 +187,7 @@
 
                         <TextView
                             android:id="@+id/birthdateText"
-                            style="@style/InputTextView"
+                            style="@style/InputTextView.Profile"
                             android:text="@string/birthday_hint" />
                     </LinearLayout>
 
@@ -201,19 +201,37 @@
                             style="@style/HintTextView"
                             android:text="Пол" />
 
-                        <TextView
-                            android:id="@+id/genderText"
-                            style="@style/InputTextView"
-                            android:text="Пол" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/maleText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="48dp"
+                                android:background="@drawable/male_button_orange"
+                                android:textColor="@color/white"
+                                android:text="@string/male_hint"
+                                android:textAllCaps="false"/>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/femaleText"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="48dp"
+                                android:background="@drawable/female_button_dark"
+                                android:textColor="@color/white"
+                                android:text="@string/female_hint"
+                                android:textAllCaps="false"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
-
             </ScrollView>
-
-
         </LinearLayout>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

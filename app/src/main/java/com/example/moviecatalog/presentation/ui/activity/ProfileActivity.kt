@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -68,7 +69,8 @@ class ProfileActivity : AppCompatActivity() {
         val nameField: TextView = findViewById(R.id.nameText)
         val emailField: TextView = findViewById(R.id.emailText)
         val birthdayField: TextView = findViewById(R.id.birthdateText)
-        val genderField: TextView = findViewById(R.id.genderText)
+        val genderMaleField: Button = findViewById(R.id.maleText)
+        val genderFemaleField: Button = findViewById(R.id.femaleText)
         val profileAvatar: ImageView = findViewById(R.id.profileAvatar)
         val welcomeNameText: TextView = findViewById(R.id.welcomeName)
 
@@ -78,7 +80,8 @@ class ProfileActivity : AppCompatActivity() {
             welcomeNameText.text = it.name
             emailField.text = it.email
             birthdayField.text = it.birthday
-            genderField.text = it.gender.toString()
+            genderMaleField.setBackgroundResource(if(it.gender == 0) R.drawable.male_button_orange else R.drawable.male_button_dark)
+            genderFemaleField.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
         }
     }
 }
