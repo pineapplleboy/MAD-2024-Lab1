@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MovieCatalog"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.activity.MoviesActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.activity.ProfileActivity"
             android:exported="false" />
         <activity

@@ -21,6 +21,8 @@ import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
 import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
 import com.example.moviecatalog.domain.usecase.LogOutUseCase
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -82,6 +84,28 @@ class ProfileActivity : AppCompatActivity() {
             birthdayField.text = it.birthday
             genderMaleField.setBackgroundResource(if(it.gender == 0) R.drawable.male_button_orange else R.drawable.male_button_dark)
             genderFemaleField.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
+        }
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.navigationPanel)
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_profile -> {
+                    true
+                }
+                R.id.navigation_movies -> {
+                    val intent = Intent(this, MoviesActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.navigation_feed -> {
+                    true
+                }
+                R.id.navigation_library -> {
+                    true
+                }
+                else -> false
+            }
         }
     }
 }

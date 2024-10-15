@@ -17,6 +17,7 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="InputTextView.Profile">
@@ -29,5 +30,29 @@
         <item name="android:fontFamily">@font/manrope</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/gray_faded</item>
+    </style>
+
+    <style name="MovieProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:progress">0</item>
+        <item name="android:max">100</item>
+        <item name="android:backgroundTint">@color/gray</item>
+        <item name="android:progressDrawable">@drawable/progress_gradient</item>
+    </style>
+
+    <style name="BottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="itemTextColor">@color/gray_faded</item>
+        <item name="itemIconTint">@color/gray_faded</item>
+        <item name="itemIconSize">28dp</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="android:padding">8dp</item>
+        <item name="itemMinHeight">48dp</item>
+    </style>
+
+    <style name="BottomNavigationTextStyle">
+        <item name="fontFamily">@font/manrope</item>
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>

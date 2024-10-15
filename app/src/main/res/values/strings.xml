@@ -23,5 +23,10 @@
     <string name="good_morning_text">Доброе утро,</string>
     <string name="profile_icon_description">Profile icon</string>
     <string name="sign_out_button_description">Sign out button</string>
+    <string name="watch_button_text">Смотреть</string>
+    <string name="navigation_feed_text">Лента</string>
+    <string name="navigation_movies_text">Фильмы</string>
+    <string name="navigation_lbrary_text">Избранное</string>
+    <string name="navigation_profile_text">Профиль</string>
 
 </resources>
