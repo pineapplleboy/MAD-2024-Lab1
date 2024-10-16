@@ -42,17 +42,43 @@
         <item name="android:progressDrawable">@drawable/progress_gradient</item>
     </style>
 
-    <style name="BottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
-        <item name="itemTextColor">@color/gray_faded</item>
-        <item name="itemIconTint">@color/gray_faded</item>
-        <item name="itemIconSize">28dp</item>
-        <item name="labelVisibilityMode">labeled</item>
+    <style name="BottomNavigation">
+        <item name="android:id">@id/navigationPanel</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:background">@drawable/dark_button</item>
         <item name="android:padding">8dp</item>
-        <item name="itemMinHeight">48dp</item>
     </style>
 
-    <style name="BottomNavigationTextStyle">
-        <item name="fontFamily">@font/manrope</item>
-        <item name="android:textSize">12sp</item>
+    <style name="BottomNavigationItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
+
+    <style name="BottomNavigtaionIcon">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+    <style name="BottomNavigationText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/gray_faded</item>
+    </style>
+
+
+
 </resources>

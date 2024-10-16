@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -86,26 +87,11 @@ class ProfileActivity : AppCompatActivity() {
             genderFemaleField.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
         }
 
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.navigationPanel)
+        val moviesLinearLayout: LinearLayout = findViewById(R.id.moviesNavigation)
 
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_profile -> {
-                    true
-                }
-                R.id.navigation_movies -> {
-                    val intent = Intent(this, MoviesActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.navigation_feed -> {
-                    true
-                }
-                R.id.navigation_library -> {
-                    true
-                }
-                else -> false
-            }
+        moviesLinearLayout.setOnClickListener{
+            val intent = Intent(this, MoviesActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -9,6 +9,7 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -50,26 +51,12 @@ class MoviesActivity : AppCompatActivity() {
             false
         )
 
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.navigationPanel)
+        val profileLinearLayout: LinearLayout = findViewById(R.id.profileNavigation)
 
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_profile -> {
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.navigation_movies -> {
-                    true
-                }
-                R.id.navigation_feed -> {
-                    true
-                }
-                R.id.navigation_library -> {
-                    true
-                }
-                else -> false
-            }
+        profileLinearLayout.setOnClickListener{
+
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
         }
 
         val progressBar: Array<ProgressBar> = arrayOf(

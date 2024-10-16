@@ -8,139 +8,226 @@
     tools:context=".presentation.ui.activity.MoviesActivity"
     android:background="@color/dark">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/moviesHeader"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/topMovieImage"
-            android:layout_width="match_parent"
-            android:layout_height="464dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/bottomShadow"
-            android:layout_width="match_parent"
-            android:layout_height="148dp"
-            android:background="@drawable/welcome_screen_shadow"
-            app:layout_constraintBottom_toBottomOf="@+id/topMovieImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <View
-            android:id="@+id/topShadow"
-            android:layout_width="match_parent"
-            android:layout_height="148dp"
-            android:background="@drawable/welcome_screen_shadow"
-            android:rotation="180"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/topMovieImage" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ProgressBar
-                android:id="@+id/progressBar1"
-                style="@style/MovieProgressBar"
-                android:layout_marginEnd="4dp"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar2"
-                style="@style/MovieProgressBar"
-                android:layout_marginEnd="4dp"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar3"
-                style="@style/MovieProgressBar"
-                android:layout_marginEnd="4dp"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar4"
-                style="@style/MovieProgressBar"
-                android:layout_marginEnd="4dp"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar5"
-                style="@style/MovieProgressBar"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/topMovieImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/topMovieName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/manrope_bold"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="36sp"
-                    tools:text="Название очень длинное" />
-
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/orange_button"
-                android:fontFamily="@font/manrope_bold"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                android:text="@string/watch_button_text"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigationPanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/dark_button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigationPanel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu"
-        style="@style/BottomNavigationViewStyle"
-        app:itemTextAppearanceActive="@style/BottomNavigationTextStyle"
-        app:itemTextAppearanceInactive="@style/BottomNavigationTextStyle" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/moviesHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/topMovieImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="464dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/bottomShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="148dp"
+                    android:background="@drawable/welcome_screen_shadow"
+                    app:layout_constraintBottom_toBottomOf="@+id/topMovieImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/topShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="148dp"
+                    android:background="@drawable/welcome_screen_shadow"
+                    android:rotation="180"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/topMovieImage" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar1"
+                        style="@style/MovieProgressBar"
+                        android:layout_marginEnd="4dp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar2"
+                        style="@style/MovieProgressBar"
+                        android:layout_marginEnd="4dp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar3"
+                        style="@style/MovieProgressBar"
+                        android:layout_marginEnd="4dp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar4"
+                        style="@style/MovieProgressBar"
+                        android:layout_marginEnd="4dp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar5"
+                        style="@style/MovieProgressBar" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="@+id/topMovieImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/topMovieName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/manrope_bold"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="36sp"
+                            tools:text="Название очень длинное" />
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/orange_button"
+                        android:fontFamily="@font/manrope_bold"
+                        android:paddingStart="24dp"
+                        android:paddingEnd="24dp"
+                        android:text="@string/watch_button_text"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/randomMovieButton"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:orientation="horizontal"
+                android:background="@drawable/orange_button"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_gravity="center_vertical">
+                
+                <ImageView
+                    android:layout_marginStart="16dp"
+                    android:layout_width="124dp"
+                    android:layout_height="124dp"
+                    android:src="@drawable/dice"
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/manrope_bold"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/random_movie_button_text"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="16dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        style="@style/BottomNavigation"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/feedNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/feed"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_feed_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/moviesNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/movies"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_movies_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/libraryNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/library"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_lbrary_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profileNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/profile"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_profile_text"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
