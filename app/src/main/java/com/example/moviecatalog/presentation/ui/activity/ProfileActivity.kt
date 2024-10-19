@@ -20,17 +20,25 @@ import com.example.moviecatalog.data.api.AuthApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
+import com.example.moviecatalog.databinding.ActivityMoviesBinding
+import com.example.moviecatalog.databinding.ActivityProfileBinding
 import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
 import com.example.moviecatalog.domain.usecase.LogOutUseCase
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityProfileBinding
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_profile)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -57,9 +65,7 @@ class ProfileActivity : AppCompatActivity() {
         val logOutUseCase = LogOutUseCase(authRepository)
         val getUserProfileUseCase = GetUserProfileUseCase(userProfileRepository)
 
-        val logOutButton: ImageButton = findViewById(R.id.logOutButton)
-
-        logOutButton.setOnClickListener{
+        binding.logOutButton.setOnClickListener{
             logOutUseCase.execute {
                 if(it){
                     val intent = Intent(this, WelcomeActivity::class.java)
@@ -68,28 +74,17 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
 
-        val loginField: TextView = findViewById(R.id.loginText)
-        val nameField: TextView = findViewById(R.id.nameText)
-        val emailField: TextView = findViewById(R.id.emailText)
-        val birthdayField: TextView = findViewById(R.id.birthdateText)
-        val genderMaleField: Button = findViewById(R.id.maleText)
-        val genderFemaleField: Button = findViewById(R.id.femaleText)
-        val profileAvatar: ImageView = findViewById(R.id.profileAvatar)
-        val welcomeNameText: TextView = findViewById(R.id.welcomeName)
-
         getUserProfileUseCase.execute{
-            loginField.text = it.login
-            nameField.text = it.name
-            welcomeNameText.text = it.name
-            emailField.text = it.email
-            birthdayField.text = it.birthday
-            genderMaleField.setBackgroundResource(if(it.gender == 0) R.drawable.male_button_orange else R.drawable.male_button_dark)
-            genderFemaleField.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
+            binding.loginText.text = it.login
+            binding.nameText.text = it.name
+            binding.welcomeName.text = it.name
+            binding.emailText.text = it.email
+            binding.birthdateText.text = it.birthday
+            binding.maleText.setBackgroundResource(if(it.gender == 0) R.drawable.male_button_orange else R.drawable.male_button_dark)
+            binding.femaleText.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
         }
 
-        val moviesLinearLayout: LinearLayout = findViewById(R.id.moviesNavigation)
-
-        moviesLinearLayout.setOnClickListener{
+        binding.moviesNavigation.setOnClickListener{
             val intent = Intent(this, MoviesActivity::class.java)
             startActivity(intent)
         }

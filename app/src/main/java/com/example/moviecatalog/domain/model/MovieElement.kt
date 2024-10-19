@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.model
 
-class MovieElement(
+data class MovieElement(
     val id: String,
     val name: String?,
     val poster: String?,

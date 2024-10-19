@@ -3,9 +3,11 @@ package com.example.moviecatalog.presentation.ui.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Movie
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
@@ -16,12 +18,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.MovieApiInstance
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
+import com.example.moviecatalog.databinding.ActivityMoviesBinding
 import com.example.moviecatalog.domain.model.MovieElement
+import com.example.moviecatalog.domain.usecase.GetMoviesPageUseCase
 import com.example.moviecatalog.domain.usecase.GetTopMoviesUseCase
+import com.example.moviecatalog.presentation.MovieListAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MoviesActivity : AppCompatActivity() {
@@ -30,16 +38,21 @@ class MoviesActivity : AppCompatActivity() {
     private lateinit var runnable: Runnable
     private var currentTopMovie = -1
     private lateinit var topMovies: List<MovieElement>
-    private lateinit var topMovieImage: ImageView
-    private lateinit var topMovieName: TextView
 
     private lateinit var countDownTimer: CountDownTimer
+    private lateinit var binding: ActivityMoviesBinding
+
+    private var currentMoviePage = 1
+    private val movies = mutableListOf<MovieElement>()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_movies)
+        binding = ActivityMoviesBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -51,24 +64,25 @@ class MoviesActivity : AppCompatActivity() {
             false
         )
 
-        val profileLinearLayout: LinearLayout = findViewById(R.id.profileNavigation)
+        val movieAdapter = MovieListAdapter()
+        val movieRecyclerView = binding.moviesRecyclerView.apply{
+            layoutManager = GridLayoutManager(this.context, 3)
+            adapter = movieAdapter
+        }
 
-        profileLinearLayout.setOnClickListener{
+        binding.profileNavigation.setOnClickListener{
 
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 
         val progressBar: Array<ProgressBar> = arrayOf(
-            findViewById(R.id.progressBar1),
-            findViewById(R.id.progressBar2),
-            findViewById(R.id.progressBar3),
-            findViewById(R.id.progressBar4),
-            findViewById(R.id.progressBar5)
+            binding.progressBar1,
+            binding.progressBar2,
+            binding.progressBar3,
+            binding.progressBar4,
+            binding.progressBar5
         )
-
-        topMovieImage = findViewById(R.id.topMovieImage)
-        topMovieName = findViewById(R.id.topMovieName)
 
         handler = Handler()
 
@@ -91,11 +105,40 @@ class MoviesActivity : AppCompatActivity() {
 
         val movieApi = MovieApiInstance.createApi()
         val repository = MovieRepositoryImpl(movieApi)
+
         val getTopMoviesUseCase = GetTopMoviesUseCase(repository)
         getTopMoviesUseCase.execute { movies ->
             topMovies = movies
             handler.post(runnable)
         }
+
+        val getMoviesByPageUseCase = GetMoviesPageUseCase(repository)
+        getMoviesByPageUseCase.execute(1) {
+            it.movies?.let { it1 -> movies.addAll(it1) }
+            movieAdapter.submitList(movies)
+        }
+
+        movieRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as GridLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                val threshold = 1
+                if (totalItemCount <= lastVisibleItemPosition + threshold) {
+                    currentMoviePage++
+                    getMoviesByPageUseCase.execute(currentMoviePage) {
+                        it.movies?.let {
+                                it1 -> movies.addAll(it1)
+                            movieAdapter.submitList(movies.toList())
+                            movieAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun startProgressBar(progressBar: ProgressBar, makeNullOnFinish: Boolean = false) {
@@ -128,8 +171,8 @@ class MoviesActivity : AppCompatActivity() {
     ){
         Glide.with(this)
             .load(movie.poster)
-            .into(topMovieImage)
+            .into(binding.topMovieImage)
 
-        topMovieName.text = movie.name
+        binding.topMovieName.text = movie.name
     }
 }

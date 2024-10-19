@@ -29,5 +29,6 @@
     <string name="navigation_lbrary_text">Избранное</string>
     <string name="navigation_profile_text">Профиль</string>
     <string name="random_movie_button_text">Случайный фильм</string>
+    <string name="all_movies_text">Все фильмы</string>
 
 </resources>
