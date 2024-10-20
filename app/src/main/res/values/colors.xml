@@ -6,4 +6,8 @@
     <color name="dark">#1E1E1E</color>
     <color name="gray_faded">#999999</color>
     <color name="gray">#CCCCCC</color>
+    <color name="orange_dark">#DF2800</color>
+    <color name="orange_bright">#FF6633</color>
+    <color name="shadow_dark">#FF1A1A1A</color>
+    <color name="shadow_bright">#001A1A1A</color>
 </resources>

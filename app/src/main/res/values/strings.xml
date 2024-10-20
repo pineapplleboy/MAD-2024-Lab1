@@ -30,5 +30,12 @@
     <string name="navigation_profile_text">Профиль</string>
     <string name="random_movie_button_text">Случайный фильм</string>
     <string name="all_movies_text">Все фильмы</string>
+    <string name="movie_poster">Movie poster</string>
+    <string name="friend_avatar">Friend avatar</string>
+    <string name="friends_amount">Нравится %1$s вашим друзьям</string>
+    <string name="rating">Рейтинг</string>
+    <string name="movie_catalog_rating">Movie catalog rating</string>
+    <string name="kinopoisk_rating">Kinopoisk rating</string>
+    <string name="imdb_rating">IMDb rating</string>
 
 </resources>
