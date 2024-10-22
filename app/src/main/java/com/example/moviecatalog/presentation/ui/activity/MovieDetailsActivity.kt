@@ -59,7 +59,7 @@ class MovieDetailsActivity : ComponentActivity() {
                             }
                         }
                         else movie?.let {
-                            MoviesDetails(it)
+                            MoviesDetails(it, this)
                             Log.d("MovieDetails", movie.toString())
                         }
                     }

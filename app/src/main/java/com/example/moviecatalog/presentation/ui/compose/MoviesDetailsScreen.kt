@@ -1,5 +1,7 @@
 package com.example.moviecatalog.presentation.ui.compose
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,6 +23,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,10 +44,12 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
 import com.example.moviecatalog.domain.model.MovieDetails
+import com.example.moviecatalog.presentation.ui.activity.MoviesActivity
 
 @Composable
 fun MoviesDetails(
     movie: MovieDetails,
+    context: Context,
     modifier: Modifier = Modifier
 ) {
     MoviePoster(
@@ -53,7 +60,7 @@ fun MoviesDetails(
         item{
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(
                         start = 24.dp,
@@ -86,6 +93,50 @@ fun MoviesDetails(
                     income = movie.fees ?: 0
                 )
             }
+        }
+    }
+
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .padding(
+                horizontal = 24.dp,
+                vertical = 76.dp
+            )
+    ){
+        IconButton(
+            modifier = Modifier
+                .size(40.dp)
+                .background(
+                    color = colorResource(id = R.color.dark_faded),
+                    shape = RoundedCornerShape(8.dp)
+                ),
+            onClick = {
+                val intent = Intent(context, MoviesActivity::class.java)
+                context.startActivity(intent)
+            }) {
+            Image(
+                painter = painterResource(id = R.drawable.chevron_left),
+                colorFilter = ColorFilter.tint(colorResource(id = R.color.gray)),
+                contentDescription = stringResource(R.string.return_to_movies_screen)
+            )
+        }
+
+        IconButton(
+            modifier = Modifier
+                .size(40.dp)
+                .background(
+                    color = colorResource(id = R.color.dark_faded),
+                    shape = RoundedCornerShape(8.dp)
+                ),
+            onClick = {
+
+            }) {
+            Image(
+                painter = painterResource(id = R.drawable.like),
+                colorFilter = ColorFilter.tint(colorResource(id = R.color.gray)),
+                contentDescription = stringResource(R.string.return_to_movies_screen)
+            )
         }
     }
 }

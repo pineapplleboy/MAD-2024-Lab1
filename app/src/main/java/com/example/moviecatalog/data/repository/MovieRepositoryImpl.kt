@@ -86,53 +86,54 @@ class MovieRepositoryImpl(
             }
         })
     }
+}
 
-    fun ApiMovieDetails.toDomainModel(): MovieDetails{
-        return MovieDetails(
-            name = this.name,
-            id = this.id,
-            poster = this.poster,
-            year = this.year,
-            country = this.country,
-            genres = this.genres?.map{ it.toDomainModel() },
-            reviews = this.reviews?.map {it.toDomainModel() },
-            time = this.time,
-            tagline = this.tagline,
-            description = this.description,
-            director = this.director,
-            budget = this.budget,
-            ageLimit = this.ageLimit,
-            fees = this.fees
-        )
-    }
 
-    fun ApiMovieElement.toDomainModel(): MovieElement {
-        return MovieElement(
-            id = this.id,
-            name = this.name,
-            poster = this.poster,
-            year = this.year,
-            country = this.country,
-            genres = this.genres?.map { it.toDomainModel() },
-            reviews = this.reviews?.map { it.toDomainModel() }
-        )
-    }
+fun ApiMovieDetails.toDomainModel(): MovieDetails{
+    return MovieDetails(
+        name = this.name,
+        id = this.id,
+        poster = this.poster,
+        year = this.year,
+        country = this.country,
+        genres = this.genres?.map{ it.toDomainModel() },
+        reviews = this.reviews?.map {it.toDomainModel() },
+        time = this.time,
+        tagline = this.tagline,
+        description = this.description,
+        director = this.director,
+        budget = this.budget,
+        ageLimit = this.ageLimit,
+        fees = this.fees
+    )
+}
 
-    fun ApiGenre.toDomainModel() : Genre {
-        return Genre(
-            id = this.id,
-            name = this.name
-        )
-    }
+fun ApiMovieElement.toDomainModel(): MovieElement {
+    return MovieElement(
+        id = this.id,
+        name = this.name,
+        poster = this.poster,
+        year = this.year,
+        country = this.country,
+        genres = this.genres?.map { it.toDomainModel() },
+        reviews = this.reviews?.map { it.toDomainModel() }
+    )
+}
 
-    fun ApiReviewShort.toDomainModel(): ReviewShort{
-        return ReviewShort(
-            id = this.id,
-            rating = this.rating
-        )
-    }
+fun ApiGenre.toDomainModel() : Genre {
+    return Genre(
+        id = this.id,
+        name = this.name
+    )
+}
 
-    fun List<ApiMovieElement>.toDomainModelList(): List<MovieElement> {
-        return this.map { it.toDomainModel() }
-    }
+fun ApiReviewShort.toDomainModel(): ReviewShort{
+    return ReviewShort(
+        id = this.id,
+        rating = this.rating
+    )
+}
+
+fun List<ApiMovieElement>.toDomainModelList(): List<MovieElement> {
+    return this.map { it.toDomainModel() }
 }

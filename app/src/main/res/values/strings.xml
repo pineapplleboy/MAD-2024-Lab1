@@ -50,5 +50,6 @@
     <string name="information_income">Сборы в мире</string>
     <string name="title_activity_movie_details">MovieDetailsActivity</string>
     <string name="unnamed">Нет названия</string>
+    <string name="return_to_movies_screen">Return to movies screen</string>
 
 </resources>
