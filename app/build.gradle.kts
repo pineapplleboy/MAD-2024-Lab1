@@ -16,6 +16,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildFeatures {
@@ -43,10 +46,19 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.2"
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
 
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -54,6 +66,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.9.2")
+    implementation (libs.accompanist.flowlayout)
     implementation(libs.coil.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -69,4 +82,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+    debugImplementation(libs.androidx.ui.test.manifest)
 }

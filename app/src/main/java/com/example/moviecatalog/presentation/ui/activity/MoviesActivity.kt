@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Movie
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -30,6 +31,7 @@ import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.usecase.GetMoviesPageUseCase
 import com.example.moviecatalog.domain.usecase.GetTopMoviesUseCase
 import com.example.moviecatalog.presentation.MovieListAdapter
+import com.example.moviecatalog.presentation.ui.compose.MoviesDetails
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MoviesActivity : AppCompatActivity() {

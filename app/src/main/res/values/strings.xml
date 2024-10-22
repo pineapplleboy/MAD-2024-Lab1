@@ -37,5 +37,18 @@
     <string name="movie_catalog_rating">Movie catalog rating</string>
     <string name="kinopoisk_rating">Kinopoisk rating</string>
     <string name="imdb_rating">IMDb rating</string>
+    <string name="information_panel">Информация</string>
+    <string name="information_countries">Страны</string>
+    <string name="information_age">Возраст</string>
+    <string name="information_durability">Время</string>
+    <string name="information_release_year">Год выхода</string>
+    <string name="information_director">Режиссёр</string>
+    <string name="director_photo_description">Director photo</string>
+    <string name="information_genres">Жанры</string>
+    <string name="information_finance">Финансы</string>
+    <string name="information_budget">Бюджет</string>
+    <string name="information_income">Сборы в мире</string>
+    <string name="title_activity_movie_details">MovieDetailsActivity</string>
+    <string name="unnamed">Нет названия</string>
 
 </resources>
