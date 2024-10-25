@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.ui.activity
+package com.example.moviecatalog.app.presentation.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.preferences.AuthPreferences
-import com.example.moviecatalog.presentation.ui.fragment.LoginChoiceFragment
+import com.example.moviecatalog.app.presentation.ui.fragment.LoginChoiceFragment
 
 class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

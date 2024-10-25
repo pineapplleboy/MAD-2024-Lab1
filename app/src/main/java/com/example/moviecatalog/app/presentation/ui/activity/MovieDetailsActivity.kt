@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.ui.activity
+package com.example.moviecatalog.app.presentation.ui.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -24,8 +24,8 @@ import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.model.MovieDetails
 import com.example.moviecatalog.domain.usecase.AddToFavoritesUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
-import com.example.moviecatalog.presentation.ui.activity.ui.theme.MovieCatalogTheme
-import com.example.moviecatalog.presentation.ui.compose.MoviesDetails
+import com.example.moviecatalog.app.presentation.ui.activity.ui.theme.MovieCatalogTheme
+import com.example.moviecatalog.app.presentation.ui.compose.MoviesDetails
 
 
 class MovieDetailsActivity : ComponentActivity() {

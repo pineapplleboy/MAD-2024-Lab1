@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation
+package com.example.moviecatalog.app.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.moviecatalog.R
 import com.example.moviecatalog.domain.model.MovieElement
 
-class MovieListAdapter : ListAdapter<MovieElement,MovieViewHolder>(DIFF){
+class MovieListAdapter : ListAdapter<MovieElement, MovieViewHolder>(DIFF){
 
     private companion object {
         val DIFF = object : DiffUtil.ItemCallback<MovieElement>(){

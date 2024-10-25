@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation
+package com.example.moviecatalog.app.presentation
 
 import android.content.Intent
 import android.view.View
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecatalog.databinding.MoviePreviewBinding
 import com.example.moviecatalog.domain.model.MovieElement
-import com.example.moviecatalog.presentation.ui.activity.MovieDetailsActivity
+import com.example.moviecatalog.app.presentation.ui.activity.MovieDetailsActivity
 
 
 class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {

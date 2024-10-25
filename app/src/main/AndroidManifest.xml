@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".app.app.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,26 +16,26 @@
         android:theme="@style/Theme.MovieCatalog"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.activity.FavoritesActivity"
+            android:name=".app.presentation.ui.activity.FavoritesActivity"
             android:exported="false"
             android:label="@string/title_activity_favorites"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.ui.activity.MovieDetailsActivity"
+            android:name=".app.presentation.ui.activity.MovieDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_movie_details"
             android:theme="@style/Theme.MovieCatalog" />
         <activity
-            android:name=".presentation.ui.activity.MoviesActivity"
+            android:name=".app.presentation.ui.activity.MoviesActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.activity.ProfileActivity"
+            android:name=".app.presentation.ui.activity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.activity.LaunchScreen"
+            android:name=".app.presentation.ui.activity.LaunchScreen"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.activity.WelcomeActivity"
+            android:name=".app.presentation.ui.activity.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

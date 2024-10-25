@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.ui.activity
+package com.example.moviecatalog.app.presentation.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

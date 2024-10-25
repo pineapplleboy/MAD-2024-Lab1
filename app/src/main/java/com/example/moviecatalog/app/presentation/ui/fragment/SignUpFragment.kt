@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.ui.fragment
+package com.example.moviecatalog.app.presentation.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,7 @@ import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.model.Gender
 import com.example.moviecatalog.domain.model.UserRegister
 import com.example.moviecatalog.domain.usecase.SignUpUseCase
-import com.example.moviecatalog.presentation.ui.activity.ProfileActivity
+import com.example.moviecatalog.app.presentation.ui.activity.ProfileActivity
 
 class SignUpFragment : Fragment() {
 

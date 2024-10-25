@@ -1,0 +1,23 @@
+package com.example.moviecatalog.app.app
+
+import android.app.Application
+import com.example.moviecatalog.app.di.appModule
+import com.example.moviecatalog.app.di.dataModule
+import com.example.moviecatalog.app.di.domainModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.logger.Level
+
+class App : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin{
+            androidLogger(Level.DEBUG)
+            androidContext(this@App)
+            modules(listOf(appModule, domainModule, dataModule))
+        }
+    }
+}

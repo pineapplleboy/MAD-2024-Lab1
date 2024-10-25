@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.ui.compose
+package com.example.moviecatalog.app.presentation.ui.compose
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image

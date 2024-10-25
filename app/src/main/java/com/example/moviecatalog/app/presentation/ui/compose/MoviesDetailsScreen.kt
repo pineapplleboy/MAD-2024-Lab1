@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.ui.compose
+package com.example.moviecatalog.app.presentation.ui.compose
 
 import android.content.Context
 import android.content.Intent
@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
 import com.example.moviecatalog.domain.model.MovieDetails
-import com.example.moviecatalog.presentation.ui.activity.MoviesActivity
+import com.example.moviecatalog.app.presentation.ui.activity.MoviesActivity
 
 @Composable
 fun MoviesDetails(

@@ -1,4 +1,4 @@
-package com.example.moviecatalog.presentation.ui.activity
+package com.example.moviecatalog.app.presentation.ui.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -15,8 +15,8 @@ import com.example.moviecatalog.databinding.ActivityMoviesBinding
 import com.example.moviecatalog.domain.model.Genre
 import com.example.moviecatalog.domain.repository.FavoritesRepository
 import com.example.moviecatalog.domain.usecase.GetFavoritesUseCase
-import com.example.moviecatalog.presentation.ui.compose.Favorites
-import com.example.moviecatalog.presentation.ui.compose.FavoritesPreview
+import com.example.moviecatalog.app.presentation.ui.compose.Favorites
+import com.example.moviecatalog.app.presentation.ui.compose.FavoritesPreview
 
 private lateinit var binding: ActivityFavoritesBinding
 
