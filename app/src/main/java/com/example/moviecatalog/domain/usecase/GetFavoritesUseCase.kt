@@ -7,14 +7,7 @@ import com.example.moviecatalog.domain.repository.FavoritesRepository
 class GetFavoritesUseCase(
     private val repository: FavoritesRepository
 ) {
-    fun execute(callback: (List<MovieElement>) -> Unit){
-        repository.get{result ->
-            result.onSuccess {
-                callback(it)
-            }
-                .onFailure {
-                    Log.e("API", it.message ?: "unknown error")
-                }
-        }
+    suspend fun execute(): Result<List<MovieElement>>{
+        return repository.get()
     }
 }

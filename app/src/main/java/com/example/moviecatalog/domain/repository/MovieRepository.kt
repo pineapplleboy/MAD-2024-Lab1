@@ -6,7 +6,7 @@ import com.example.moviecatalog.domain.model.MoviesPagedList
 
 interface MovieRepository {
 
-    fun getMoviesByPage(page: Int, callback: (Result<MoviesPagedList>) -> Unit)
+    suspend fun getMoviesByPage(page: Int): Result<MoviesPagedList>
 
-    fun getMovieDetails(id: String, callback: (Result<MovieDetails>) -> Unit)
+    suspend fun getMovieDetails(id: String): Result<MovieDetails>
 }

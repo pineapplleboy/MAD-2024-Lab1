@@ -4,9 +4,9 @@ import com.example.moviecatalog.domain.model.LoginCredentials
 import com.example.moviecatalog.domain.model.UserRegister
 
 interface AuthRepository {
-    fun register(userRegister: UserRegister, callback: ((Result<String>) -> Unit))
+    suspend fun register(userRegister: UserRegister): Result<Unit>
 
-    fun login(loginCredentials: LoginCredentials, callback: (Result<String>) -> Unit)
+    suspend fun login(loginCredentials: LoginCredentials): Result<Unit>
 
-    fun logout(callback: (Result<String>) -> Unit)
+    suspend fun logout(): Result<Unit>
 }

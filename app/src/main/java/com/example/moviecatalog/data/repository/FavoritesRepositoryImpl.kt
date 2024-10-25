@@ -5,6 +5,7 @@ import com.example.moviecatalog.data.api.FavoritesApi
 import com.example.moviecatalog.data.model.ApiMovieDetails
 import com.example.moviecatalog.data.model.ApiMovieElement
 import com.example.moviecatalog.data.model.FavoriteMoviesApi
+import com.example.moviecatalog.data.safeApiCall
 import com.example.moviecatalog.domain.model.MovieDetails
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.repository.FavoritesRepository
@@ -15,66 +16,35 @@ class FavoritesRepositoryImpl(
     private val favoritesApi: FavoritesApi
 ) : FavoritesRepository {
 
-    override fun get(callback: (Result<List<MovieElement>>) -> Unit) {
-        favoritesApi.get().enqueue(object : retrofit2.Callback<FavoriteMoviesApi>{
+    override suspend fun get(): Result<List<MovieElement>> {
 
-            override fun onResponse(
-                call: Call<FavoriteMoviesApi>,
-                response: Response<FavoriteMoviesApi>
-            ) {
-                if(response.isSuccessful){
-                    val movies = response.body()
-                    if(movies != null){
-                        callback(Result.success(movies.movies.toDomainModelList()))
-                    }
-                }
-                else{
-                    val errorBody = response.errorBody()?.string()
-                    callback(Result.failure(Exception("Getting favorites failed: $errorBody")))
-                }
+        return safeApiCall(
+            apiCall = {
+                favoritesApi.get().execute()
+            },
+            transform = {
+                it.movies.toDomainModelList()
             }
-
-            override fun onFailure(call: Call<FavoriteMoviesApi>, t: Throwable) {
-                callback(Result.failure(Exception("Network error: ${t.message}")))
-            }
-        })
+        )
     }
 
-    override fun add(id: String, callback: (Result<Unit>) -> Unit) {
-        favoritesApi.add(id).enqueue(object: retrofit2.Callback<Unit>{
+    override suspend fun add(id: String): Result<Unit> {
 
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if(response.isSuccessful){
-                    callback(Result.success(Unit))
-                }
-                else{
-                    val errorBody = response.errorBody()?.string()
-                    callback(Result.failure(Exception("Adding favorite failed: $errorBody")))
-                }
-            }
-
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                callback(Result.failure(Exception("Network error: ${t.message}")))
-            }
-        })
+        return safeApiCall(
+            apiCall = {
+                favoritesApi.add(id).execute()
+            },
+            transform = {}
+        )
     }
 
-    override fun delete(id: String, callback: (Result<Unit>) -> Unit) {
-        favoritesApi.delete(id).enqueue(object: retrofit2.Callback<Unit>{
+    override suspend fun delete(id: String): Result<Unit> {
 
-            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                if(response.isSuccessful){
-                    callback(Result.success(Unit))
-                }
-                else{
-                    val errorBody = response.errorBody()?.string()
-                    callback(Result.failure(Exception("Deleting favorite failed: $errorBody")))
-                }
-            }
-
-            override fun onFailure(call: Call<Unit>, t: Throwable) {
-                callback(Result.failure(Exception("Network error: ${t.message}")))
-            }
-        })
+        return safeApiCall(
+            apiCall = {
+                favoritesApi.delete(id).execute()
+            },
+            transform = {}
+        )
     }
 }

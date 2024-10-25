@@ -15,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.AuthApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
@@ -26,6 +27,7 @@ import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
 import com.example.moviecatalog.domain.usecase.LogOutUseCase
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -66,22 +68,28 @@ class ProfileActivity : AppCompatActivity() {
         val getUserProfileUseCase = GetUserProfileUseCase(userProfileRepository)
 
         binding.logOutButton.setOnClickListener{
-            logOutUseCase.execute {
-                if(it){
-                    val intent = Intent(this, WelcomeActivity::class.java)
+            lifecycleScope.launch{
+                val result = logOutUseCase.execute()
+                result.onSuccess {
+                    val intent = Intent(this@ProfileActivity, WelcomeActivity::class.java)
                     startActivity(intent)
                 }
             }
         }
 
-        getUserProfileUseCase.execute{
-            binding.loginText.text = it.login
-            binding.nameText.text = it.name
-            binding.welcomeName.text = it.name
-            binding.emailText.text = it.email
-            binding.birthdateText.text = it.birthday
-            binding.maleText.setBackgroundResource(if(it.gender == 0) R.drawable.male_button_orange else R.drawable.male_button_dark)
-            binding.femaleText.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
+        lifecycleScope.launch{
+
+            val result = getUserProfileUseCase.execute()
+
+            result.onSuccess {
+                binding.loginText.text = it.login
+                binding.nameText.text = it.name
+                binding.welcomeName.text = it.name
+                binding.emailText.text = it.email
+                binding.birthdateText.text = it.birthday
+                binding.maleText.setBackgroundResource(if(it.gender == 0) R.drawable.male_button_orange else R.drawable.male_button_dark)
+                binding.femaleText.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
+            }
         }
 
         binding.moviesNavigation.setOnClickListener{

@@ -7,16 +7,8 @@ class LogOutUseCase(
     private val repository: AuthRepository
 ) {
 
-    fun execute(callback: (Boolean) -> Unit){
+    suspend fun execute(): Result<Unit>{
 
-        repository.logout { result ->
-            result.onSuccess {
-                Log.d("API", it)
-                callback(true)
-            }.onFailure {
-                Log.e("API", it.message ?: "unknown error")
-                callback(false)
-            }
-        }
+        return repository.logout()
     }
 }

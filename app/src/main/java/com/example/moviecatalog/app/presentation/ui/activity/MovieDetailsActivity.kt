@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.FavoritesApiInstance
 import com.example.moviecatalog.data.api.MovieApiInstance
@@ -26,6 +27,7 @@ import com.example.moviecatalog.domain.usecase.AddToFavoritesUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
 import com.example.moviecatalog.app.presentation.ui.activity.ui.theme.MovieCatalogTheme
 import com.example.moviecatalog.app.presentation.ui.compose.MoviesDetails
+import kotlinx.coroutines.launch
 
 
 class MovieDetailsActivity : ComponentActivity() {
@@ -63,16 +65,19 @@ class MovieDetailsActivity : ComponentActivity() {
 
                     if(movieId != null){
                         if(!movieLoaded){
-                            getMovieDetailsUseCase.execute(movieId){
-                                movie = it
-                                movieLoaded = true
+                            LaunchedEffect(movieId) {
+                                val result = getMovieDetailsUseCase.execute(movieId)
+                                result.onSuccess {
+                                    movie = it
+                                    movieLoaded = true
+                                }
                             }
                         }
                         else movie?.let {
                             MoviesDetails(it, this,
                                 addToFavorites = {
-                                    addToFavoritesUseCase.execute(it){
-
+                                    lifecycleScope.launch {
+                                        addToFavoritesUseCase.execute(it)
                                     }
                                 })
                         }

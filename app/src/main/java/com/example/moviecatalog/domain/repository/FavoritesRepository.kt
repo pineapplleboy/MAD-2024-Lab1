@@ -4,9 +4,9 @@ import com.example.moviecatalog.domain.model.MovieElement
 
 interface FavoritesRepository {
 
-    fun get(callback: (Result<List<MovieElement>>) -> Unit)
+    suspend fun get(): Result<List<MovieElement>>
 
-    fun add(id: String, callback: (Result<Unit>) -> Unit)
+    suspend fun add(id: String): Result<Unit>
 
-    fun delete(id: String, callback: (Result<Unit>) -> Unit)
+    suspend fun delete(id: String): Result<Unit>
 }

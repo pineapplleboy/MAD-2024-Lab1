@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.AuthApiInstance
 import com.example.moviecatalog.data.model.ApiGender
@@ -18,6 +19,7 @@ import com.example.moviecatalog.domain.model.Gender
 import com.example.moviecatalog.domain.model.UserRegister
 import com.example.moviecatalog.domain.usecase.SignUpUseCase
 import com.example.moviecatalog.app.presentation.ui.activity.ProfileActivity
+import kotlinx.coroutines.launch
 
 class SignUpFragment : Fragment() {
 
@@ -75,17 +77,19 @@ class SignUpFragment : Fragment() {
 
         confirmButton.setOnClickListener{
 
-            signUpUseCase.execute(
-                user = UserRegister(
-                    login = loginField.text.toString(),
-                    email = emailField.text.toString(),
-                    name = nameField.text.toString(),
-                    password = passwordField.text.toString(),
-                    birthday = birthdayField.text.toString(),
-                    gender = gender.code
+            lifecycleScope.launch {
+                val result = signUpUseCase.execute(
+                    user = UserRegister(
+                        login = loginField.text.toString(),
+                        email = emailField.text.toString(),
+                        name = nameField.text.toString(),
+                        password = passwordField.text.toString(),
+                        birthday = birthdayField.text.toString(),
+                        gender = gender.code
+                    )
                 )
-            ){
-                if(it){
+
+                result.onSuccess {
                     val intent = Intent(view.context, ProfileActivity::class.java)
                     startActivity(intent)
                 }

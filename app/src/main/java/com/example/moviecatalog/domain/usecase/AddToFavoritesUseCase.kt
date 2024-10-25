@@ -7,14 +7,7 @@ import com.example.moviecatalog.domain.repository.FavoritesRepository
 class AddToFavoritesUseCase(
     private val repository: FavoritesRepository
 ) {
-    fun execute(id: String, callback: () -> Unit) {
-        repository.add(id) { result ->
-            result.onSuccess {
-                callback()
-            }
-                .onFailure {
-                    Log.e("API", it.message ?: "unknown error")
-                }
-        }
+    suspend fun execute(id: String): Result<Unit> {
+        return repository.add(id)
     }
 }

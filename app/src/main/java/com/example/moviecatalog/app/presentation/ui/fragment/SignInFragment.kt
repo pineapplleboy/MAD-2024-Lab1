@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.AuthApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
@@ -16,6 +17,7 @@ import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.model.LoginCredentials
 import com.example.moviecatalog.domain.usecase.SignInUseCase
 import com.example.moviecatalog.app.presentation.ui.activity.ProfileActivity
+import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment() {
     override fun onCreateView(
@@ -52,13 +54,15 @@ class SignInFragment : Fragment() {
 
         confirmButton.setOnClickListener{
 
-            signInUseCase.execute(
-                LoginCredentials(
-                    login = loginField.text.toString(),
-                    password = passwordField.text.toString(),
+            lifecycleScope.launch{
+                val result = signInUseCase.execute(
+                    LoginCredentials(
+                        login = loginField.text.toString(),
+                        password = passwordField.text.toString(),
+                    )
                 )
-            ){
-                if(it){
+
+                result.onSuccess {
                     val intent = Intent(view.context, ProfileActivity::class.java)
                     startActivity(intent)
                 }

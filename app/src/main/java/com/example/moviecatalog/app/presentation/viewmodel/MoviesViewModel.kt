@@ -4,9 +4,11 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.usecase.GetMoviesPageUseCase
 import com.example.moviecatalog.domain.usecase.GetTopMoviesUseCase
+import kotlinx.coroutines.launch
 
 class MoviesViewModel(
     private val getMoviesPageUseCase: GetMoviesPageUseCase,
@@ -30,18 +32,23 @@ class MoviesViewModel(
     }
 
     fun loadNextPage() {
-        currentPage++
-        getMoviesPageUseCase.execute(currentPage) { result ->
-            result.movies?.let { loadedMovies ->
-                val updatedMovies = moviesMutable.value.orEmpty() + loadedMovies
+        viewModelScope.launch {
+            currentPage++
+            val result = getMoviesPageUseCase.execute(currentPage)
+            result.onSuccess {
+                val updatedMovies = moviesMutable.value.orEmpty() + it.movies.orEmpty()
                 moviesMutable.postValue(updatedMovies)
             }
+
         }
     }
 
     private fun loadTopMovies() {
-        getTopMoviesUseCase.execute { movies ->
-            topMoviesMutable.postValue(movies)
+        viewModelScope.launch {
+            val result = getTopMoviesUseCase.execute()
+            result.onSuccess {
+                topMoviesMutable.postValue(it)
+            }
         }
     }
 
@@ -58,7 +65,7 @@ class MoviesViewModel(
     private fun startProgressBar() {
         val timer = object : CountDownTimer(5000, 100) {
             override fun onTick(millisUntilFinished: Long) {
-                // Logic to update the progress of each bar could be added here
+
             }
             override fun onFinish() {
                 startProgressBarCycle()

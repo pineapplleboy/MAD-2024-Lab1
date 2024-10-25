@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
 import com.example.moviecatalog.data.api.FavoritesApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
@@ -17,6 +18,7 @@ import com.example.moviecatalog.domain.repository.FavoritesRepository
 import com.example.moviecatalog.domain.usecase.GetFavoritesUseCase
 import com.example.moviecatalog.app.presentation.ui.compose.Favorites
 import com.example.moviecatalog.app.presentation.ui.compose.FavoritesPreview
+import kotlinx.coroutines.launch
 
 private lateinit var binding: ActivityFavoritesBinding
 
@@ -38,12 +40,17 @@ class FavoritesActivity : AppCompatActivity() {
         ))
 
         val getFavoritesUseCase = GetFavoritesUseCase(favoritesRepository)
-        getFavoritesUseCase.execute {
-            binding.favoritesScreen.setContent {
-                Favorites(
-                    genres = listOf(),
-                    movies = it
-                )
+
+        lifecycleScope.launch {
+
+            val result = getFavoritesUseCase.execute()
+            result.onSuccess {
+                binding.favoritesScreen.setContent {
+                    Favorites(
+                        genres = listOf(),
+                        movies = it
+                    )
+                }
             }
         }
     }
