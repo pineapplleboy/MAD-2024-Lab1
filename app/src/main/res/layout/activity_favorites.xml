@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.activity.FavoritesActivity"
+    android:background="@color/dark">
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/favoritesScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout
+        android:id="@+id/navigationPanel"
+        style="@style/BottomNavigation"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/feedNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/feed"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_feed_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/moviesNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/movies"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_movies_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/libraryNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/library"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_lbrary_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profileNavigation"
+            style="@style/BottomNavigationItem">
+
+            <View
+                style="@style/BottomNavigtaionIcon"
+                android:background="@drawable/profile"/>
+            <TextView
+                style="@style/BottomNavigationText"
+                android:text="@string/navigation_profile_text"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

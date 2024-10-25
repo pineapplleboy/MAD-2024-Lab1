@@ -78,6 +78,11 @@ class MoviesActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.libraryNavigation.setOnClickListener{
+            val intent = Intent(this, FavoritesActivity::class.java)
+            startActivity(intent)
+        }
+
         val progressBar: Array<ProgressBar> = arrayOf(
             binding.progressBar1,
             binding.progressBar2,

@@ -51,5 +51,10 @@
     <string name="title_activity_movie_details">MovieDetailsActivity</string>
     <string name="unnamed">Нет названия</string>
     <string name="return_to_movies_screen">Return to movies screen</string>
+    <string name="favorites">Избранное</string>
+    <string name="favorite_genres">Любимые жанры</string>
+    <string name="favorite_movies">Любимые фильмы</string>
+    <string name="title_activity_favorites">FavoritesActivity</string>
+    <string name="add_movie_to_favorites_button">Add movie to favorites button</string>
 
 </resources>

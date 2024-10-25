@@ -16,9 +16,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import com.example.moviecatalog.R
+import com.example.moviecatalog.data.api.FavoritesApiInstance
 import com.example.moviecatalog.data.api.MovieApiInstance
+import com.example.moviecatalog.data.preferences.AuthPreferences
+import com.example.moviecatalog.data.repository.FavoritesRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
 import com.example.moviecatalog.domain.model.MovieDetails
+import com.example.moviecatalog.domain.usecase.AddToFavoritesUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
 import com.example.moviecatalog.presentation.ui.activity.ui.theme.MovieCatalogTheme
 import com.example.moviecatalog.presentation.ui.compose.MoviesDetails
@@ -44,6 +48,12 @@ class MovieDetailsActivity : ComponentActivity() {
                     val movieRepository = MovieRepositoryImpl(MovieApiInstance.createApi())
                     val getMovieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
 
+                    val favoritesApi = FavoritesApiInstance.createApi(
+                        AuthPreferences(this)
+                    )
+                    val favoritesRepository = FavoritesRepositoryImpl(favoritesApi)
+                    val addToFavoritesUseCase = AddToFavoritesUseCase(favoritesRepository)
+
                     var movieLoaded by remember {
                         mutableStateOf(false)
                     }
@@ -59,8 +69,12 @@ class MovieDetailsActivity : ComponentActivity() {
                             }
                         }
                         else movie?.let {
-                            MoviesDetails(it, this)
-                            Log.d("MovieDetails", movie.toString())
+                            MoviesDetails(it, this,
+                                addToFavorites = {
+                                    addToFavoritesUseCase.execute(it){
+
+                                    }
+                                })
                         }
                     }
                 }

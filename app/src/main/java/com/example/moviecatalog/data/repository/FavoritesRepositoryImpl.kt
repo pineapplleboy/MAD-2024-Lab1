@@ -4,6 +4,7 @@ import android.net.http.HttpException
 import com.example.moviecatalog.data.api.FavoritesApi
 import com.example.moviecatalog.data.model.ApiMovieDetails
 import com.example.moviecatalog.data.model.ApiMovieElement
+import com.example.moviecatalog.data.model.FavoriteMoviesApi
 import com.example.moviecatalog.domain.model.MovieDetails
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.repository.FavoritesRepository
@@ -15,16 +16,16 @@ class FavoritesRepositoryImpl(
 ) : FavoritesRepository {
 
     override fun get(callback: (Result<List<MovieElement>>) -> Unit) {
-        favoritesApi.get().enqueue(object : retrofit2.Callback<List<ApiMovieElement>>{
+        favoritesApi.get().enqueue(object : retrofit2.Callback<FavoriteMoviesApi>{
 
             override fun onResponse(
-                call: Call<List<ApiMovieElement>>,
-                response: Response<List<ApiMovieElement>>
+                call: Call<FavoriteMoviesApi>,
+                response: Response<FavoriteMoviesApi>
             ) {
                 if(response.isSuccessful){
                     val movies = response.body()
                     if(movies != null){
-                        callback(Result.success(movies.toDomainModelList()))
+                        callback(Result.success(movies.movies.toDomainModelList()))
                     }
                 }
                 else{
@@ -33,7 +34,7 @@ class FavoritesRepositoryImpl(
                 }
             }
 
-            override fun onFailure(call: Call<List<ApiMovieElement>>, t: Throwable) {
+            override fun onFailure(call: Call<FavoriteMoviesApi>, t: Throwable) {
                 callback(Result.failure(Exception("Network error: ${t.message}")))
             }
         })

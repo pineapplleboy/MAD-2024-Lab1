@@ -6,6 +6,7 @@ import com.example.moviecatalog.data.model.ApiMovieElement
 import com.example.moviecatalog.data.model.ApiToken
 import com.example.moviecatalog.data.model.ApiUserProfile
 import com.example.moviecatalog.data.model.ApiUserRegister
+import com.example.moviecatalog.data.model.FavoriteMoviesApi
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,12 +15,12 @@ import retrofit2.http.Path
 
 interface FavoritesApi {
 
-    @POST("")
-    fun get(): Call<List<ApiMovieElement>>
+    @GET(".")
+    fun get(): Call<FavoriteMoviesApi>
 
-    @POST("add/{id}")
+    @POST("{id}/add")
     fun add(@Path("id") id: String): Call<Unit>
 
-    @POST("delete/{id}")
+    @POST("{id}/delete")
     fun delete(@Path("id") id: String): Call<Unit>
 }

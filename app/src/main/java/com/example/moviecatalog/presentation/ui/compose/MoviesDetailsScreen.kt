@@ -50,6 +50,7 @@ import com.example.moviecatalog.presentation.ui.activity.MoviesActivity
 fun MoviesDetails(
     movie: MovieDetails,
     context: Context,
+    addToFavorites: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     MoviePoster(
@@ -130,12 +131,12 @@ fun MoviesDetails(
                     shape = RoundedCornerShape(8.dp)
                 ),
             onClick = {
-
+                addToFavorites(movie.id)
             }) {
             Image(
                 painter = painterResource(id = R.drawable.like),
                 colorFilter = ColorFilter.tint(colorResource(id = R.color.gray)),
-                contentDescription = stringResource(R.string.return_to_movies_screen)
+                contentDescription = stringResource(R.string.add_movie_to_favorites_button)
             )
         }
     }
