@@ -1,31 +1,31 @@
 package com.example.moviecatalog.data.api
 
-import AuthInterceptor
+import MovieCatalogApiInterceptor
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object FavoritesApiInstance {
+object MovieCatalogApiInstance{
 
-    private fun createClient(authPreferences: AuthPreferences): OkHttpClient {
+    private fun createClient(authPreferences: AuthPreferences): OkHttpClient{
         val interceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .addInterceptor(AuthInterceptor(authPreferences))
+            .addInterceptor(MovieCatalogApiInterceptor(authPreferences))
             .build()
     }
 
-    fun createApi(authPreferences: AuthPreferences): FavoritesApi{
+    fun createApi(authPreferences: AuthPreferences): MovieCatalogApi{
         return Retrofit.Builder()
-            .baseUrl("https://react-midterm.kreosoft.space/api/favorites/")
+            .baseUrl("https://react-midterm.kreosoft.space/api/")
             .client(createClient(authPreferences))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(FavoritesApi::class.java)
+            .create(MovieCatalogApi::class.java)
     }
 }

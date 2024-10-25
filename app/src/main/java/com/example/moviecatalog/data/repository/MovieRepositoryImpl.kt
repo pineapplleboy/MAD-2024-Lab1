@@ -1,12 +1,10 @@
 package com.example.moviecatalog.data.repository
 
-import com.example.moviecatalog.data.api.MovieApi
+import com.example.moviecatalog.data.api.MovieCatalogApi
 import com.example.moviecatalog.data.model.ApiGenre
 import com.example.moviecatalog.data.model.ApiMovieDetails
 import com.example.moviecatalog.data.model.ApiMovieElement
-import com.example.moviecatalog.data.model.ApiMoviesPagedList
 import com.example.moviecatalog.data.model.ApiReviewShort
-import com.example.moviecatalog.data.model.ApiUserProfile
 import com.example.moviecatalog.data.safeApiCall
 import com.example.moviecatalog.domain.model.Genre
 import com.example.moviecatalog.domain.model.MovieDetails
@@ -15,20 +13,16 @@ import com.example.moviecatalog.domain.model.MoviesPagedList
 import com.example.moviecatalog.domain.model.PageInfo
 import com.example.moviecatalog.domain.model.ReviewShort
 import com.example.moviecatalog.domain.repository.MovieRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Response
 
 class MovieRepositoryImpl(
-    private val movieApi: MovieApi
+    private val api: MovieCatalogApi
 ): MovieRepository {
 
     override suspend fun getMoviesByPage(page: Int): Result<MoviesPagedList> {
 
         return safeApiCall(
             apiCall = {
-                movieApi.getMoviesByPage(page).execute()
+                api.getMoviesByPage(page).execute()
             },
             transform = {
                 MoviesPagedList(
@@ -47,7 +41,7 @@ class MovieRepositoryImpl(
 
         return safeApiCall(
             apiCall = {
-                movieApi.getMovieDetails(id).execute()
+                api.getMovieDetails(id).execute()
             },
             transform = {
                 it.toDomainModel()

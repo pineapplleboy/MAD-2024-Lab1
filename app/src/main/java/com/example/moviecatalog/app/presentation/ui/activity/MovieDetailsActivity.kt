@@ -1,13 +1,11 @@
 package com.example.moviecatalog.app.presentation.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,8 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.api.FavoritesApiInstance
-import com.example.moviecatalog.data.api.MovieApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.FavoritesRepositoryImpl
 import com.example.moviecatalog.data.repository.MovieRepositoryImpl
@@ -27,6 +23,7 @@ import com.example.moviecatalog.domain.usecase.AddToFavoritesUseCase
 import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
 import com.example.moviecatalog.app.presentation.ui.activity.ui.theme.MovieCatalogTheme
 import com.example.moviecatalog.app.presentation.ui.compose.MoviesDetails
+import com.example.moviecatalog.data.api.MovieCatalogApiInstance
 import kotlinx.coroutines.launch
 
 
@@ -47,10 +44,12 @@ class MovieDetailsActivity : ComponentActivity() {
                     )
 
                     val movieId = intent.getStringExtra("MOVIE_ID")
-                    val movieRepository = MovieRepositoryImpl(MovieApiInstance.createApi())
+                    val movieRepository = MovieRepositoryImpl(MovieCatalogApiInstance.createApi(
+                        AuthPreferences(this)
+                    ))
                     val getMovieDetailsUseCase = GetMovieDetailsUseCase(movieRepository)
 
-                    val favoritesApi = FavoritesApiInstance.createApi(
+                    val favoritesApi = MovieCatalogApiInstance.createApi(
                         AuthPreferences(this)
                     )
                     val favoritesRepository = FavoritesRepositoryImpl(favoritesApi)

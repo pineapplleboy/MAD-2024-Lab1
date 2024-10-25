@@ -1,26 +1,19 @@
 package com.example.moviecatalog.data.repository
 
-import android.net.http.HttpException
-import com.example.moviecatalog.data.api.FavoritesApi
-import com.example.moviecatalog.data.model.ApiMovieDetails
-import com.example.moviecatalog.data.model.ApiMovieElement
-import com.example.moviecatalog.data.model.FavoriteMoviesApi
+import com.example.moviecatalog.data.api.MovieCatalogApi
 import com.example.moviecatalog.data.safeApiCall
-import com.example.moviecatalog.domain.model.MovieDetails
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.repository.FavoritesRepository
-import retrofit2.Call
-import retrofit2.Response
 
 class FavoritesRepositoryImpl(
-    private val favoritesApi: FavoritesApi
+    private val api: MovieCatalogApi
 ) : FavoritesRepository {
 
     override suspend fun get(): Result<List<MovieElement>> {
 
         return safeApiCall(
             apiCall = {
-                favoritesApi.get().execute()
+                api.get().execute()
             },
             transform = {
                 it.movies.toDomainModelList()
@@ -32,7 +25,7 @@ class FavoritesRepositoryImpl(
 
         return safeApiCall(
             apiCall = {
-                favoritesApi.add(id).execute()
+                api.add(id).execute()
             },
             transform = {}
         )
@@ -42,7 +35,7 @@ class FavoritesRepositoryImpl(
 
         return safeApiCall(
             apiCall = {
-                favoritesApi.delete(id).execute()
+                api.delete(id).execute()
             },
             transform = {}
         )

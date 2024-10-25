@@ -1,22 +1,19 @@
 package com.example.moviecatalog.data.repository
 
-import com.example.moviecatalog.data.api.AuthApi
-import com.example.moviecatalog.data.model.ApiUserProfile
+import com.example.moviecatalog.data.api.MovieCatalogApi
 import com.example.moviecatalog.data.safeApiCall
 import com.example.moviecatalog.domain.model.UserProfile
 import com.example.moviecatalog.domain.repository.UserProfileRepository
-import retrofit2.Call
-import retrofit2.Response
 
 class UserProfileRepositoryImpl(
-    private val authApi: AuthApi
+    private val movieCatalogApi: MovieCatalogApi
 ): UserProfileRepository {
 
     override suspend fun getProfile(): Result<UserProfile> {
 
         return safeApiCall(
             apiCall = {
-                authApi.getProfile().execute()
+                movieCatalogApi.getProfile().execute()
             },
             transform = {
                 UserProfile(

@@ -1,15 +1,14 @@
-import android.content.SharedPreferences
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor(private val authPreferences: AuthPreferences) : Interceptor {
+class MovieCatalogApiInterceptor(private val authPreferences: AuthPreferences) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
         val token = authPreferences.getToken()
 
-        return if (token != null/* && originalRequest.url.encodedPath.contains("logout")*/) {
+        return if (token != null) {
             val modifiedRequest = originalRequest.newBuilder()
                 .addHeader("Authorization", "Bearer $token")
                 .build()

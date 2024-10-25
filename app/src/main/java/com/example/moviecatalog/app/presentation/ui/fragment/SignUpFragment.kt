@@ -11,8 +11,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.api.AuthApiInstance
-import com.example.moviecatalog.data.model.ApiGender
+import com.example.moviecatalog.data.api.MovieCatalogApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.model.Gender
@@ -47,7 +46,7 @@ class SignUpFragment : Fragment() {
         val confirmButton: Button = view.findViewById(R.id.confirmSignUpButton)
 
         val authPreferences = AuthPreferences(view.context)
-        val authApi = AuthApiInstance.createApi(authPreferences)
+        val authApi = MovieCatalogApiInstance.createApi(authPreferences)
 
         val userProfileRepository = AuthRepositoryImpl(authApi, authPreferences)
         val signUpUseCase = SignUpUseCase(userProfileRepository)

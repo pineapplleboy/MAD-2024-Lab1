@@ -6,10 +6,6 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,16 +13,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.api.AuthApiInstance
+import com.example.moviecatalog.data.api.MovieCatalogApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
-import com.example.moviecatalog.databinding.ActivityMoviesBinding
 import com.example.moviecatalog.databinding.ActivityProfileBinding
 import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
 import com.example.moviecatalog.domain.usecase.LogOutUseCase
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
@@ -59,7 +52,7 @@ class ProfileActivity : AppCompatActivity() {
         personalInformationText.paint.shader = shader
 
         val authPreferences = AuthPreferences(this)
-        val authApi = AuthApiInstance.createApi(authPreferences)
+        val authApi = MovieCatalogApiInstance.createApi(authPreferences)
 
         val authRepository = AuthRepositoryImpl(authApi, authPreferences)
         val userProfileRepository = UserProfileRepositoryImpl(authApi)
