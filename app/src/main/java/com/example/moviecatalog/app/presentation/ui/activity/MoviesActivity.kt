@@ -109,12 +109,12 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun observeDataChanges() {
-        vm.topMovies.observe(this, Observer {
+        vm.topMovies.observe(this) {
             handler.post(runnable)
-        })
-        vm.movies.observe(this, Observer {
+        }
+        vm.movies.observe(this) {
             (binding.moviesRecyclerView.adapter as MovieListAdapter).submitList(it)
-        })
+        }
     }
 
     private fun showTopMovie(movie: MovieElement?) {

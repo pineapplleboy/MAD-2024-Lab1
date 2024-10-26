@@ -5,25 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import com.example.moviecatalog.R
+import com.example.moviecatalog.databinding.FragmentLoginChoiceBinding
 
 class LoginChoiceFragment : Fragment() {
+
+    private lateinit var binding: FragmentLoginChoiceBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_login_choice, container, false)
+    ): View {
+        binding = FragmentLoginChoiceBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val signInButton: Button = view.findViewById(R.id.signInButton)
-        val signUpButton: Button = view.findViewById(R.id.signUpButton)
-
-        signInButton.setOnClickListener{
+        binding.signInButton.setOnClickListener {
             val signInFragment = SignInFragment()
 
             parentFragmentManager.beginTransaction()
@@ -32,7 +32,7 @@ class LoginChoiceFragment : Fragment() {
                 .commit()
         }
 
-        signUpButton.setOnClickListener{
+        binding.signUpButton.setOnClickListener {
             val signUpFragment = SignUpFragment()
 
             parentFragmentManager.beginTransaction()

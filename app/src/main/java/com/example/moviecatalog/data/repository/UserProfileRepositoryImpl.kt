@@ -6,14 +6,14 @@ import com.example.moviecatalog.domain.model.UserProfile
 import com.example.moviecatalog.domain.repository.UserProfileRepository
 
 class UserProfileRepositoryImpl(
-    private val movieCatalogApi: MovieCatalogApi
+    private val api: MovieCatalogApi
 ): UserProfileRepository {
 
     override suspend fun getProfile(): Result<UserProfile> {
 
         return safeApiCall(
             apiCall = {
-                movieCatalogApi.getProfile().execute()
+                api.getProfile().execute()
             },
             transform = {
                 UserProfile(
@@ -22,7 +22,7 @@ class UserProfileRepositoryImpl(
                     birthday = it.birthDate,
                     email = it.email,
                     gender = it.gender,
-                    login = it.name,
+                    login = it.nickName,
                     name = it.name
                 )
             }

@@ -6,66 +6,51 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.api.MovieCatalogApiInstance
-import com.example.moviecatalog.data.preferences.AuthPreferences
-import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.model.LoginCredentials
-import com.example.moviecatalog.domain.usecase.SignInUseCase
 import com.example.moviecatalog.app.presentation.ui.activity.ProfileActivity
-import kotlinx.coroutines.launch
+import com.example.moviecatalog.app.presentation.viewmodel.SignInViewModel
+import com.example.moviecatalog.databinding.FragmentSignInBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment : Fragment() {
+
+    private lateinit var binding: FragmentSignInBinding
+    private val vm by viewModel<SignInViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+    ): View {
+        binding = FragmentSignInBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val returnButton: ImageButton = view.findViewById(R.id.return_from_sign_in_button)
         val loginChoiceFragment = LoginChoiceFragment()
 
-        returnButton.setOnClickListener{
+        binding.returnFromSignInButton.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.loginScreen, loginChoiceFragment)
                 .addToBackStack(null)
                 .commit()
         }
 
-        val confirmButton: Button = view.findViewById(R.id.confirm_login_button)
+        binding.confirmLoginButton.setOnClickListener{
 
-        val authPreferences = AuthPreferences(view.context)
-        val authApi = MovieCatalogApiInstance.createApi(authPreferences)
-
-        val userProfileRepository = AuthRepositoryImpl(authApi, authPreferences)
-        val signInUseCase = SignInUseCase(userProfileRepository)
-
-        val loginField: EditText = view.findViewById(R.id.loginField)
-        val passwordField: EditText = view.findViewById(R.id.passwordField)
-
-        confirmButton.setOnClickListener{
-
-            lifecycleScope.launch{
-                val result = signInUseCase.execute(
-                    LoginCredentials(
-                        login = loginField.text.toString(),
-                        password = passwordField.text.toString(),
-                    )
+            vm.signIn(
+                LoginCredentials(
+                    login = binding.loginField.text.toString(),
+                    password = binding.passwordField.text.toString(),
                 )
+            )
+        }
 
-                result.onSuccess {
-                    val intent = Intent(view.context, ProfileActivity::class.java)
-                    startActivity(intent)
-                }
+        vm.signInResult.observe(this){
+            if(it){
+                val intent = Intent(view.context, ProfileActivity::class.java)
+                startActivity(intent)
             }
         }
     }
