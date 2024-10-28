@@ -5,18 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.ui.activity.FavoritesActivity"
+    tools:context=".app.presentation.ui.activity.MainActivity"
     android:background="@color/dark">
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/favoritesScreen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
     <LinearLayout
         android:id="@+id/navigationPanel"
-        style="@style/BottomNavigation"
-        tools:ignore="MissingConstraints">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/dark_button"
+        android:padding="8dp">
 
         <LinearLayout
             android:id="@+id/feedNavigation"
@@ -71,5 +75,17 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationScreen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigationPanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_profile" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

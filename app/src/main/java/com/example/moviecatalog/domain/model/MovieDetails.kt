@@ -7,7 +7,7 @@ class MovieDetails(
     val year: Int,
     val country: String?,
     val genres: List<Genre>?,
-    val reviews: List<ReviewShort>?,
+    val reviews: List<Review>?,
     val time: Int,
     val tagline: String?,
     val description: String?,

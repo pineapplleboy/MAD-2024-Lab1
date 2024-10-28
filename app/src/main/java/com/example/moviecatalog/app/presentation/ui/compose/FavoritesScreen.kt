@@ -1,5 +1,6 @@
 package com.example.moviecatalog.app.presentation.ui.compose
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -7,10 +8,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -21,6 +25,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,68 +38,21 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.presentation.viewmodel.FavoritesViewModel
 import com.example.moviecatalog.domain.model.Genre
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.model.ReviewShort
 
-@Preview
-@Composable
-fun FavoritesPreview() {
-    Favorites(
-        genres = listOf(
-            Genre("", "Horror"),
-            Genre("", "Drama"),
-            Genre("", "Anime"),
-            Genre("", "Action"),
-        ),
-        movies = listOf(
-            MovieElement(
-                id = "",
-                name = "",
-                country = "",
-                year = 1313,
-                poster = "",
-                genres = listOf(),
-                reviews = listOf()
-            ),
-            MovieElement(
-                id = "",
-                name = "",
-                country = "",
-                year = 1313,
-                poster = "",
-                genres = listOf(),
-                reviews = listOf()
-            ),
-            MovieElement(
-                id = "",
-                name = "",
-                country = "",
-                year = 1313,
-                poster = "",
-                genres = listOf(),
-                reviews = listOf()
-            ),
-            MovieElement(
-                id = "",
-                name = "",
-                country = "",
-                year = 1313,
-                poster = "",
-                genres = listOf(),
-                reviews = listOf()
-            )
-        )
-    )
-}
-
 @Composable
 fun Favorites(
-    genres: List<Genre>,
-    movies: List<MovieElement>,
+    vm: FavoritesViewModel,
     modifier: Modifier = Modifier
 ) {
+    val favoriteMovies by vm.favoriteMovies.observeAsState(listOf())
+    val favoriteGenres by vm.favoriteGenres.observeAsState(listOf())
+
     Column(
         verticalArrangement = Arrangement.spacedBy(32.dp),
         modifier = modifier
@@ -113,10 +72,13 @@ fun Favorites(
             fontSize = 24.sp
         )
         FavoriteGenres(
-            genres = genres
+            genres = favoriteGenres,
+            onDeleteGenre = {
+                vm.deleteFavoriteGenre(it)
+            }
         )
         FavoriteMovies(
-            movies = movies
+            movies = favoriteMovies
         )
     }
 }
@@ -124,7 +86,8 @@ fun Favorites(
 @Composable
 fun FavoriteGenres(
     genres: List<Genre>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDeleteGenre: (Genre) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -141,7 +104,9 @@ fun FavoriteGenres(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(genres){
-                GenreElement(genre = it)
+                GenreElement(genre = it){
+                    onDeleteGenre(it)
+                }
             }
         }
     }
@@ -169,7 +134,9 @@ fun FavoriteMovies(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(movies){
-                MovieElementUI(movie = it)
+                MovieElementUI(movie = it, modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(2f / 3f))
             }
         }
     }
@@ -178,7 +145,8 @@ fun FavoriteMovies(
 @Composable
 fun GenreElement(
     genre: Genre,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDelete: (Genre) -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -210,6 +178,7 @@ fun GenreElement(
                     shape = RoundedCornerShape(8.dp)
                 ),
             onClick = {
+                onDelete(genre)
             }
         ) {
             Icon(
@@ -230,10 +199,33 @@ fun MovieElementUI(
         modifier = modifier
     ){
         Image(
-            painter = painterResource(id = R.drawable.test_movie_poster),
+            painter = rememberAsyncImagePainter(movie.poster),
             contentDescription = stringResource(id = R.string.movie_poster),
             modifier = Modifier
+                .fillMaxSize()
                 .clip(RoundedCornerShape(8.dp))
         )
+
+        Box(
+            modifier = Modifier
+                .padding(start = 8.dp, top = 8.dp)
+                .background(
+                    color = colorResource(id = R.color.black),
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .padding(
+                    vertical = 4.dp,
+                    horizontal = 8.dp
+                )
+        ){
+            Text(
+                text = "1.0",
+                fontSize = 12.sp,
+                fontFamily = FontFamily(Font(R.font.manrope)),
+                color = colorResource(id = R.color.white),
+                modifier = Modifier
+                    .align(Alignment.Center)
+            )
+        }
     }
 }

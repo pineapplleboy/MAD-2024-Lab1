@@ -56,5 +56,14 @@
     <string name="favorite_movies">Любимые фильмы</string>
     <string name="title_activity_favorites">FavoritesActivity</string>
     <string name="add_movie_to_favorites_button">Add movie to favorites button</string>
+    <string name="reviews">Отзывы</string>
+    <string name="user_s_avatar">User\'s avatar</string>
+    <string name="add_review">Добавить отзыв</string>
+    <string name="left_review">Left Review</string>
+    <string name="right_review">Right review</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

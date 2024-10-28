@@ -7,7 +7,7 @@ class ApiMovieDetails(
     val year: Int,
     val country: String?,
     val genres: List<ApiGenre>?,
-    val reviews: List<ApiReviewShort>?,
+    val reviews: List<ApiReview>?,
     val time: Int,
     val tagline: String?,
     val description: String?,

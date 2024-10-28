@@ -10,6 +10,7 @@ import com.example.moviecatalog.data.model.ApiUserRegister
 import com.example.moviecatalog.data.model.FavoriteMoviesApi
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -42,7 +43,7 @@ interface MovieCatalogApi {
     @POST("favorites/{id}/add")
     fun add(@Path("id") id: String): Call<Unit>
 
-    @POST("favorites/{id}/delete")
+    @DELETE("favorites/{id}/delete")
     fun delete(@Path("id") id: String): Call<Unit>
 
 

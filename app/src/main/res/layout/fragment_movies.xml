@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.presentation.ui.activity.MoviesActivity"
-    android:background="@color/dark">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    tools:context=".app.presentation.ui.fragment.MoviesFragment">
 
     <ScrollView
         android:id="@+id/moviesFeed"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/navigationPanel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +118,9 @@
                             android:text=""
                             android:textColor="@color/white"
                             android:textSize="36sp"
-                            tools:text="Название очень длинное" />
+                            tools:text="Название очень длинное"
+                            android:maxLines="1"
+                            android:ellipsize="end"/>
 
                     </LinearLayout>
 
@@ -150,7 +150,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_gravity="center_vertical">
-                
+
                 <ImageView
                     android:layout_marginStart="16dp"
                     android:layout_width="124dp"
@@ -179,7 +179,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="32dp"/>
-            
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/moviesRecyclerView"
                 android:scrollbars="vertical"
@@ -193,63 +193,4 @@
 
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/navigationPanel"
-        style="@style/BottomNavigation"
-        tools:ignore="MissingConstraints">
-
-        <LinearLayout
-            android:id="@+id/feedNavigation"
-            style="@style/BottomNavigationItem">
-
-            <View
-                style="@style/BottomNavigtaionIcon"
-                android:background="@drawable/feed"/>
-            <TextView
-                style="@style/BottomNavigationText"
-                android:text="@string/navigation_feed_text"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/moviesNavigation"
-            style="@style/BottomNavigationItem">
-
-            <View
-                style="@style/BottomNavigtaionIcon"
-                android:background="@drawable/movies"/>
-            <TextView
-                style="@style/BottomNavigationText"
-                android:text="@string/navigation_movies_text"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/libraryNavigation"
-            style="@style/BottomNavigationItem">
-
-            <View
-                style="@style/BottomNavigtaionIcon"
-                android:background="@drawable/library"/>
-            <TextView
-                style="@style/BottomNavigationText"
-                android:text="@string/navigation_lbrary_text"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/profileNavigation"
-            style="@style/BottomNavigationItem">
-
-            <View
-                style="@style/BottomNavigtaionIcon"
-                android:background="@drawable/profile"/>
-            <TextView
-                style="@style/BottomNavigationText"
-                android:text="@string/navigation_profile_text"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-    
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

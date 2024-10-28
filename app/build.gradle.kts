@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.runtime.livedata)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     val composeBom = platform("androidx.compose:compose-bom:2024.09.02")
     implementation(composeBom)

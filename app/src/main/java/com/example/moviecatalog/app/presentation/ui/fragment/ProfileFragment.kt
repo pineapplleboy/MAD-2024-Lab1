@@ -1,46 +1,43 @@
-package com.example.moviecatalog.app.presentation.ui.activity
+package com.example.moviecatalog.app.presentation.ui.fragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.presentation.ui.activity.WelcomeActivity
 import com.example.moviecatalog.data.api.MovieCatalogApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
-import com.example.moviecatalog.databinding.ActivityProfileBinding
+import com.example.moviecatalog.databinding.FragmentProfileBinding
 import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
 import com.example.moviecatalog.domain.usecase.LogOutUseCase
 import kotlinx.coroutines.launch
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileFragment : Fragment() {
 
-    private lateinit var binding: ActivityProfileBinding
+    private lateinit var binding: FragmentProfileBinding
 
-    @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivityProfileBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val personalInformationText: TextView = findViewById(R.id.personaInformationText)
+        val personalInformationText: TextView = binding.personaInformationText
 
         val paint = personalInformationText.paint
         val width = paint.measureText(personalInformationText.text.toString())
@@ -51,7 +48,7 @@ class ProfileActivity : AppCompatActivity() {
 
         personalInformationText.paint.shader = shader
 
-        val authPreferences = AuthPreferences(this)
+        val authPreferences = AuthPreferences(view.context)
         val authApi = MovieCatalogApiInstance.createApi(authPreferences)
 
         val authRepository = AuthRepositoryImpl(authApi, authPreferences)
@@ -64,7 +61,7 @@ class ProfileActivity : AppCompatActivity() {
             lifecycleScope.launch{
                 val result = logOutUseCase.execute()
                 result.onSuccess {
-                    val intent = Intent(this@ProfileActivity, WelcomeActivity::class.java)
+                    val intent = Intent(view.context, WelcomeActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -83,11 +80,6 @@ class ProfileActivity : AppCompatActivity() {
                 binding.maleText.setBackgroundResource(if(it.gender == 0) R.drawable.male_button_orange else R.drawable.male_button_dark)
                 binding.femaleText.setBackgroundResource(if(it.gender == 1) R.drawable.female_button_orange else R.drawable.female_button_dark)
             }
-        }
-
-        binding.moviesNavigation.setOnClickListener{
-            val intent = Intent(this, MoviesActivity::class.java)
-            startActivity(intent)
         }
     }
 }

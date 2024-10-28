@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context=".app.presentation.ui.fragment.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/head"
+                    android:layout_width="match_parent"
+                    android:layout_height="164dp"
+                    android:src="@drawable/profile_head"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:src="@drawable/welcome_screen_shadow"
+                    app:layout_constraintBottom_toBottomOf="@+id/head"
+                    app:layout_constraintEnd_toEndOf="@+id/head" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="116dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="32dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:id="@+id/profileHead"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_marginBottom="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/profileAvatar"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:layout_marginEnd="16dp"
+                            android:contentDescription="@string/profile_icon_description"
+                            android:src="@drawable/default_profile_icon" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/welcomeWords"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:fontFamily="@font/manrope"
+                                android:gravity="center_vertical"
+                                android:text="@string/good_morning_text"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/welcomeName"
+                                android:layout_width="match_parent"
+                                android:layout_height="32dp"
+                                android:fontFamily="@font/manrope_bold"
+                                android:gravity="center_vertical"
+                                android:text="Васечка Пупкин"
+                                android:textColor="@color/white"
+                                android:textSize="24sp" />
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/logOutButton"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/dark_button"
+                            android:contentDescription="@string/sign_out_button_description"
+                            android:src="@drawable/sign_out" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/infoContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/personaInformationText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/manrope_bold"
+                            android:text="@string/personal_information_hint"
+                            android:textColor="@color/gray"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/HintTextView"
+                                    android:text="@string/login_hint" />
+
+                                <TextView
+                                    android:id="@+id/loginText"
+                                    style="@style/InputTextView.Profile"
+                                    android:text="@string/login_hint" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/HintTextView"
+                                    android:text="@string/email_hint" />
+
+                                <TextView
+                                    android:id="@+id/emailText"
+                                    style="@style/InputTextView.Profile"
+                                    android:text="@string/email_hint" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/HintTextView"
+                                    android:text="@string/name_hint" />
+
+                                <TextView
+                                    android:id="@+id/nameText"
+                                    style="@style/InputTextView.Profile"
+                                    android:text="@string/name_hint" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/HintTextView"
+                                    android:text="@string/birthday_hint" />
+
+                                <TextView
+                                    android:id="@+id/birthdateText"
+                                    style="@style/InputTextView.Profile"
+                                    android:text="@string/birthday_hint" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/HintTextView"
+                                    android:text="Пол" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/maleText"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="48dp"
+                                        android:background="@drawable/male_button_orange"
+                                        android:textColor="@color/white"
+                                        android:text="@string/male_hint"
+                                        android:textAllCaps="false"/>
+
+                                    <androidx.appcompat.widget.AppCompatButton
+                                        android:id="@+id/femaleText"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="48dp"
+                                        android:background="@drawable/female_button_dark"
+                                        android:textColor="@color/white"
+                                        android:text="@string/female_hint"
+                                        android:textAllCaps="false"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

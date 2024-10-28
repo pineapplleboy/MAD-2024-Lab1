@@ -1,63 +1,49 @@
-package com.example.moviecatalog.app.presentation.ui.activity
+package com.example.moviecatalog.app.presentation.ui.fragment
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecatalog.R
-import com.example.moviecatalog.databinding.ActivityMoviesBinding
-import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.app.presentation.MovieListAdapter
 import com.example.moviecatalog.app.presentation.viewmodel.MoviesViewModel
+import com.example.moviecatalog.databinding.FragmentMoviesBinding
+import com.example.moviecatalog.domain.model.MovieElement
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesFragment : Fragment() {
 
     private val vm by viewModel<MoviesViewModel>()
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private var currentTopMovie = -1
     private lateinit var countDownTimer: CountDownTimer
-    private lateinit var binding: ActivityMoviesBinding
-
-    @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivityMoviesBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setupSystemBars()
-        setupRecyclerView()
-        setupNavigation()
-        setupTopMovieRotation()
-        observeDataChanges()
+    private lateinit var binding: FragmentMoviesBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentMoviesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun setupSystemBars() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        setupTopMovieRotation()
+        observeDataChanges()
     }
 
     private fun setupRecyclerView() {
         val movieAdapter = MovieListAdapter()
         binding.moviesRecyclerView.apply {
-            layoutManager = GridLayoutManager(this@MoviesActivity, 3)
+            layoutManager = GridLayoutManager(this.context, 3)
             adapter = movieAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -71,15 +57,6 @@ class MoviesActivity : AppCompatActivity() {
                     }
                 }
             })
-        }
-    }
-
-    private fun setupNavigation() {
-        binding.profileNavigation.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
-        }
-        binding.libraryNavigation.setOnClickListener {
-            startActivity(Intent(this, FavoritesActivity::class.java))
         }
     }
 
@@ -135,6 +112,13 @@ class MoviesActivity : AppCompatActivity() {
                 progressBar.progress = if (resetOnFinish) 0 else progressBar.max
             }
         }.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(runnable)
+        countDownTimer.cancel()
+        currentTopMovie = -1
     }
 
     override fun onDestroy() {

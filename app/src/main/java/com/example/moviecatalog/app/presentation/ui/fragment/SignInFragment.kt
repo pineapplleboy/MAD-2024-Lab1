@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.moviecatalog.R
 import com.example.moviecatalog.domain.model.LoginCredentials
-import com.example.moviecatalog.app.presentation.ui.activity.ProfileActivity
+import com.example.moviecatalog.app.presentation.ui.activity.MainActivity
 import com.example.moviecatalog.app.presentation.viewmodel.SignInViewModel
 import com.example.moviecatalog.databinding.FragmentSignInBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,7 +49,7 @@ class SignInFragment : Fragment() {
 
         vm.signInResult.observe(this){
             if(it){
-                val intent = Intent(view.context, ProfileActivity::class.java)
+                val intent = Intent(view.context, MainActivity::class.java)
                 startActivity(intent)
             }
         }

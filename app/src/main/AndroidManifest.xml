@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MovieCatalog"
         tools:targetApi="31">
         <activity
+            android:name=".app.presentation.ui.activity.FriendsActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.presentation.ui.activity.FavoritesActivity"
             android:exported="false"
             android:label="@string/title_activity_favorites"
@@ -29,7 +32,7 @@
             android:name=".app.presentation.ui.activity.MoviesActivity"
             android:exported="false" />
         <activity
-            android:name=".app.presentation.ui.activity.ProfileActivity"
+            android:name=".app.presentation.ui.activity.MainActivity"
             android:exported="false" />
         <activity
             android:name=".app.presentation.ui.activity.LaunchScreen"

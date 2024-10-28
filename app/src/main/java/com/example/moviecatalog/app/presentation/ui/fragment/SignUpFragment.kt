@@ -6,22 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
-import com.example.moviecatalog.data.api.MovieCatalogApiInstance
-import com.example.moviecatalog.data.preferences.AuthPreferences
-import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.domain.model.Gender
 import com.example.moviecatalog.domain.model.UserRegister
-import com.example.moviecatalog.domain.usecase.SignUpUseCase
-import com.example.moviecatalog.app.presentation.ui.activity.ProfileActivity
-import com.example.moviecatalog.app.presentation.viewmodel.MoviesViewModel
+import com.example.moviecatalog.app.presentation.ui.activity.MainActivity
 import com.example.moviecatalog.app.presentation.viewmodel.SignUpViewModel
 import com.example.moviecatalog.databinding.FragmentSignUpBinding
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignUpFragment : Fragment() {
@@ -79,7 +69,7 @@ class SignUpFragment : Fragment() {
 
         vm.signUpResult.observe(this) {
             if(it){
-                val intent = Intent(view.context, ProfileActivity::class.java)
+                val intent = Intent(view.context, MainActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.moviecatalog.databinding.MoviePreviewBinding
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.app.presentation.ui.activity.MovieDetailsActivity
+import com.example.moviecatalog.domain.usecase.GetMovieRatingUseCase
 
 
 class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -31,6 +32,8 @@ class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         Glide.with(view)
             .load(movie.poster)
             .into(binding.moviePoster)
+
+        movieRating.text = GetMovieRatingUseCase().execute(movie)
     }
 
 }
