@@ -3,14 +3,12 @@ package com.example.moviecatalog.app.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.example.moviecatalog.app.presentation.ui.compose.Favorites
 import com.example.moviecatalog.domain.model.Genre
 import com.example.moviecatalog.domain.model.MovieElement
-import com.example.moviecatalog.domain.usecase.DeleteFavoriteGenreUseCase
-import com.example.moviecatalog.domain.usecase.GetFavoriteGenresUseCase
-import com.example.moviecatalog.domain.usecase.GetFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.favorites.DeleteFavoriteGenreUseCase
+import com.example.moviecatalog.domain.usecase.favorites.GetFavoriteGenresUseCase
+import com.example.moviecatalog.domain.usecase.favorites.GetFavoritesUseCase
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(

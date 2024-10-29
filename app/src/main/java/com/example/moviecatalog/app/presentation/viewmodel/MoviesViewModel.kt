@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.domain.model.MovieElement
-import com.example.moviecatalog.domain.usecase.GetMoviesPageUseCase
-import com.example.moviecatalog.domain.usecase.GetTopMoviesUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetMoviesPageUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetTopMoviesUseCase
 import kotlinx.coroutines.launch
 
 class MoviesViewModel(

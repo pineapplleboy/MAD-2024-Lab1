@@ -12,14 +12,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.presentation.ui.activity.FriendsActivity
 import com.example.moviecatalog.app.presentation.ui.activity.WelcomeActivity
 import com.example.moviecatalog.data.api.MovieCatalogApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
 import com.example.moviecatalog.databinding.FragmentProfileBinding
-import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
-import com.example.moviecatalog.domain.usecase.LogOutUseCase
+import com.example.moviecatalog.domain.usecase.profile.GetUserProfileUseCase
+import com.example.moviecatalog.domain.usecase.profile.LogOutUseCase
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
@@ -65,6 +66,11 @@ class ProfileFragment : Fragment() {
                     startActivity(intent)
                 }
             }
+        }
+
+        binding.friendsPanel.setOnClickListener{
+            val intent = Intent(view.context, FriendsActivity::class.java)
+            startActivity(intent)
         }
 
         lifecycleScope.launch{

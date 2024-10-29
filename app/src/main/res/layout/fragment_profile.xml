@@ -102,6 +102,23 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/friendsPanel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/my_friends"
+                            android:fontFamily="@font/manrope"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/infoContainer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -91,7 +91,9 @@ fun MoviesDetailsScreen(
                         budget = movie!!.budget ?: 0,
                         income = movie!!.fees ?: 0
                     )
-                    ReviewPanel(reviews = movie!!.reviews ?: listOf())
+                    ReviewPanel(reviews = movie!!.reviews ?: listOf()){
+                        vm.addFriend(it)
+                    }
                 }
             }
         }

@@ -65,5 +65,9 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="return_to_profile_screen">Return to profile screen</string>
+    <string name="friends">Мои друзья</string>
+    <string name="my_friends">Мои друзья</string>
+    <string name="delete_friend">Delete friend</string>
 
 </resources>

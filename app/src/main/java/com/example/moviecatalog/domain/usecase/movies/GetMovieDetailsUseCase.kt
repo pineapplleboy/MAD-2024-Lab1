@@ -1,4 +1,4 @@
-package com.example.moviecatalog.domain.usecase
+package com.example.moviecatalog.domain.usecase.movies
 
 import android.util.Log
 import androidx.compose.runtime.Composable

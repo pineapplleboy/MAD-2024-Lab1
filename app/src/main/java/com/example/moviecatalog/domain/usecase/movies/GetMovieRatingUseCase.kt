@@ -1,4 +1,4 @@
-package com.example.moviecatalog.domain.usecase
+package com.example.moviecatalog.domain.usecase.movies
 
 import com.example.moviecatalog.domain.model.MovieElement
 

@@ -1,6 +1,5 @@
-package com.example.moviecatalog.domain.usecase
+package com.example.moviecatalog.domain.usecase.movies
 
-import android.util.Log
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.repository.MovieRepository
 

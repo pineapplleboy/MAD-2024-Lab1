@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.domain.model.UserRegister
-import com.example.moviecatalog.domain.usecase.SignUpUseCase
+import com.example.moviecatalog.domain.usecase.profile.SignUpUseCase
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(

@@ -2,6 +2,7 @@ package com.example.moviecatalog.app.presentation.ui.compose.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,7 +46,8 @@ import com.example.moviecatalog.domain.model.UserShort
 @Composable
 fun ReviewPanel(
     reviews: List<Review>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    addFriend: (UserShort) -> Unit
 ) {
 
     var currentReview by remember {
@@ -62,7 +64,9 @@ fun ReviewPanel(
         ) {
 
             if(reviews.isNotEmpty()){
-                ReviewElement(review = reviews[currentReview])
+                ReviewElement(review = reviews[currentReview]){
+                    addFriend(it)
+                }
             }
 
             Row(
@@ -136,7 +140,8 @@ fun ReviewPanel(
 
 @Composable
 fun ReviewElement(
-    review: Review
+    review: Review,
+    addFriend: (UserShort) -> Unit
 ){
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -158,6 +163,9 @@ fun ReviewElement(
                 modifier = Modifier
                     .size(32.dp)
                     .clip(CircleShape)
+                    .clickable {
+                        addFriend(review.author)
+                    }
             )
 
             Column(
@@ -213,23 +221,4 @@ fun ReviewElement(
             color = colorResource(id = R.color.white)
         )
     }
-}
-
-@Preview
-@Composable
-fun ReviewPanelPreview(){
-    ReviewPanel(reviews = listOf(
-        Review(
-            author = UserShort(
-                avatar = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0104a8dd-f118-4e4a-adb0-9bc611ffc816/dfvcqw0-6002e738-011c-452a-a809-bd18fe125e1d.png/v1/fill/w_894,h_894,q_70,strp/steam_profile_avatar___spiderman_by_darkgamer2099_dfvcqw0-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcLzAxMDRhOGRkLWYxMTgtNGU0YS1hZGIwLTliYzYxMWZmYzgxNlwvZGZ2Y3F3MC02MDAyZTczOC0wMTFjLTQ1MmEtYTgwOS1iZDE4ZmUxMjVlMWQucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.vSYx06vnkQxhcQVNnkjZkVSVW1YWz9nyECqDeTLgJtA",
-                userId = "",
-                nickName = "Dodik"
-            ),
-            createDateTime = "2024-10-26T14:30:51.560Z",
-            rating = 10,
-            id = "",
-            isAnonymous = false,
-            reviewText = "Мега имба"
-        )
-    ))
 }

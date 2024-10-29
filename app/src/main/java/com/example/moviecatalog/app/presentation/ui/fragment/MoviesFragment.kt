@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.moviecatalog.app.presentation.MovieListAdapter
+import com.example.moviecatalog.app.presentation.adapter.MovieListAdapter
 import com.example.moviecatalog.app.presentation.viewmodel.MoviesViewModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
 import com.example.moviecatalog.domain.model.MovieElement

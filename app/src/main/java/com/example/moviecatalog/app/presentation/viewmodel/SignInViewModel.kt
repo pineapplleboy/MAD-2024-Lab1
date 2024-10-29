@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.domain.model.LoginCredentials
-import com.example.moviecatalog.domain.model.UserRegister
-import com.example.moviecatalog.domain.usecase.SignInUseCase
+import com.example.moviecatalog.domain.usecase.profile.SignInUseCase
 import kotlinx.coroutines.launch
 
 class SignInViewModel(

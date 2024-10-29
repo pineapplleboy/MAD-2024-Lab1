@@ -1,4 +1,4 @@
-package com.example.moviecatalog.app.presentation
+package com.example.moviecatalog.app.presentation.viewholder
 
 import android.content.Intent
 import android.view.View
@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.moviecatalog.databinding.MoviePreviewBinding
 import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.app.presentation.ui.activity.MovieDetailsActivity
-import com.example.moviecatalog.domain.usecase.GetMovieRatingUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetMovieRatingUseCase
 
 
 class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -31,7 +31,7 @@ class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         Glide.with(view)
             .load(movie.poster)
-            .into(binding.moviePoster)
+            .into(moviePoster)
 
         movieRating.text = GetMovieRatingUseCase().execute(movie)
     }

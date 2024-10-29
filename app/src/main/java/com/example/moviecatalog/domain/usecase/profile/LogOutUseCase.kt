@@ -1,4 +1,4 @@
-package com.example.moviecatalog.domain.usecase
+package com.example.moviecatalog.domain.usecase.profile
 
 import android.util.Log
 import com.example.moviecatalog.domain.repository.AuthRepository

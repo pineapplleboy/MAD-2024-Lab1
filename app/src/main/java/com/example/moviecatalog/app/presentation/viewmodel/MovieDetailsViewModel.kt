@@ -7,14 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moviecatalog.domain.model.Genre
 import com.example.moviecatalog.domain.model.MovieDetails
-import com.example.moviecatalog.domain.model.MovieElement
-import com.example.moviecatalog.domain.usecase.AddFavoriteGenreUseCase
-import com.example.moviecatalog.domain.usecase.AddToFavoritesUseCase
-import com.example.moviecatalog.domain.usecase.DeleteFavoriteGenreUseCase
-import com.example.moviecatalog.domain.usecase.DeleteFromFavoritesUseCase
-import com.example.moviecatalog.domain.usecase.GetFavoriteGenresUseCase
-import com.example.moviecatalog.domain.usecase.GetFavoritesUseCase
-import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
+import com.example.moviecatalog.domain.model.UserShort
+import com.example.moviecatalog.domain.usecase.favorites.AddFavoriteGenreUseCase
+import com.example.moviecatalog.domain.usecase.favorites.AddToFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.favorites.DeleteFavoriteGenreUseCase
+import com.example.moviecatalog.domain.usecase.favorites.DeleteFromFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.favorites.GetFavoriteGenresUseCase
+import com.example.moviecatalog.domain.usecase.favorites.GetFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.friends.AddFriendUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetMovieDetailsUseCase
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(
@@ -24,7 +25,8 @@ class MovieDetailsViewModel(
     private val deleteFromFavoritesUseCase: DeleteFromFavoritesUseCase,
     private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase,
     private val addFavoriteGenreUseCase: AddFavoriteGenreUseCase,
-    private val deleteFavoriteGenreUseCase: DeleteFavoriteGenreUseCase
+    private val deleteFavoriteGenreUseCase: DeleteFavoriteGenreUseCase,
+    private val addFriendUseCase: AddFriendUseCase
 ) : ViewModel() {
 
     private val movieMutable = MutableLiveData<MovieDetails>()
@@ -104,5 +106,9 @@ class MovieDetailsViewModel(
 
     fun checkFavoriteGenre(genre: Genre): Boolean {
         return favoriteGenres.value?.any { it.id == genre.id } ?: false
+    }
+
+    fun addFriend(user: UserShort){
+        addFriendUseCase.execute(user)
     }
 }

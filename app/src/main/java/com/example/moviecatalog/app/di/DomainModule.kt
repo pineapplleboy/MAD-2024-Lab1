@@ -1,19 +1,22 @@
 package com.example.moviecatalog.app.di
 
 
-import com.example.moviecatalog.domain.usecase.AddFavoriteGenreUseCase
-import com.example.moviecatalog.domain.usecase.AddToFavoritesUseCase
-import com.example.moviecatalog.domain.usecase.DeleteFavoriteGenreUseCase
-import com.example.moviecatalog.domain.usecase.DeleteFromFavoritesUseCase
-import com.example.moviecatalog.domain.usecase.GetFavoriteGenresUseCase
-import com.example.moviecatalog.domain.usecase.GetFavoritesUseCase
-import com.example.moviecatalog.domain.usecase.GetMovieDetailsUseCase
-import com.example.moviecatalog.domain.usecase.GetMoviesPageUseCase
-import com.example.moviecatalog.domain.usecase.GetTopMoviesUseCase
-import com.example.moviecatalog.domain.usecase.GetUserProfileUseCase
-import com.example.moviecatalog.domain.usecase.LogOutUseCase
-import com.example.moviecatalog.domain.usecase.SignInUseCase
-import com.example.moviecatalog.domain.usecase.SignUpUseCase
+import com.example.moviecatalog.domain.usecase.favorites.AddFavoriteGenreUseCase
+import com.example.moviecatalog.domain.usecase.favorites.AddToFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.favorites.DeleteFavoriteGenreUseCase
+import com.example.moviecatalog.domain.usecase.favorites.DeleteFromFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.favorites.GetFavoriteGenresUseCase
+import com.example.moviecatalog.domain.usecase.favorites.GetFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.friends.AddFriendUseCase
+import com.example.moviecatalog.domain.usecase.friends.DeleteFriendUseCase
+import com.example.moviecatalog.domain.usecase.friends.GetFriendsUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetMovieDetailsUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetMoviesPageUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetTopMoviesUseCase
+import com.example.moviecatalog.domain.usecase.profile.GetUserProfileUseCase
+import com.example.moviecatalog.domain.usecase.profile.LogOutUseCase
+import com.example.moviecatalog.domain.usecase.profile.SignInUseCase
+import com.example.moviecatalog.domain.usecase.profile.SignUpUseCase
 import org.koin.dsl.module
 
 val domainModule = module{
@@ -71,5 +74,18 @@ val domainModule = module{
 
     factory<DeleteFavoriteGenreUseCase> {
         DeleteFavoriteGenreUseCase(repository = get())
+    }
+
+
+    factory<GetFriendsUseCase> {
+        GetFriendsUseCase(repository = get())
+    }
+
+    factory<AddFriendUseCase> {
+        AddFriendUseCase(repository = get())
+    }
+
+    factory<DeleteFriendUseCase> {
+        DeleteFriendUseCase(repository = get())
     }
 }

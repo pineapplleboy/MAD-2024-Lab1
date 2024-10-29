@@ -1,10 +1,11 @@
-package com.example.moviecatalog.app.presentation
+package com.example.moviecatalog.app.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.presentation.viewholder.MovieViewHolder
 import com.example.moviecatalog.domain.model.MovieElement
 
 class MovieListAdapter : ListAdapter<MovieElement, MovieViewHolder>(DIFF){

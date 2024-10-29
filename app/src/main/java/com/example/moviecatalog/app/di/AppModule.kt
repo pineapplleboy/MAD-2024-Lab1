@@ -1,6 +1,7 @@
 package com.example.moviecatalog.app.di
 
 import com.example.moviecatalog.app.presentation.viewmodel.FavoritesViewModel
+import com.example.moviecatalog.app.presentation.viewmodel.FriendsViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.MovieDetailsViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.MoviesViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.SignInViewModel
@@ -37,7 +38,8 @@ val appModule = module{
             deleteFromFavoritesUseCase = get(),
             getFavoriteGenresUseCase = get(),
             addFavoriteGenreUseCase = get(),
-            deleteFavoriteGenreUseCase = get()
+            deleteFavoriteGenreUseCase = get(),
+            addFriendUseCase = get()
         )
     }
 
@@ -46,6 +48,14 @@ val appModule = module{
             getFavoritesUseCase = get(),
             getFavoriteGenresUseCase = get(),
             deleteFavoriteGenreUseCase = get()
+        )
+    }
+
+    viewModel<FriendsViewModel>{
+        FriendsViewModel(
+            getFriendsUseCase = get(),
+            addFriendUseCase = get(),
+            deleteFriendUseCase = get()
         )
     }
 }
