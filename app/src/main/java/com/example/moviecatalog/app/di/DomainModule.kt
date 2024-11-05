@@ -7,6 +7,7 @@ import com.example.moviecatalog.domain.usecase.favorites.DeleteFavoriteGenreUseC
 import com.example.moviecatalog.domain.usecase.favorites.DeleteFromFavoritesUseCase
 import com.example.moviecatalog.domain.usecase.favorites.GetFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.favorites.GetFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.feed.GetNextUseCase
 import com.example.moviecatalog.domain.usecase.friends.AddFriendUseCase
 import com.example.moviecatalog.domain.usecase.friends.DeleteFriendUseCase
 import com.example.moviecatalog.domain.usecase.friends.GetFriendsUseCase
@@ -87,5 +88,10 @@ val domainModule = module{
 
     factory<DeleteFriendUseCase> {
         DeleteFriendUseCase(repository = get())
+    }
+
+
+    factory<GetNextUseCase> {
+        GetNextUseCase(repository = get(), preferences = get())
     }
 }

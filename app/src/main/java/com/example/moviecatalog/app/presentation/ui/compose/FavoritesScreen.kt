@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
@@ -53,33 +54,68 @@ fun Favorites(
     val favoriteMovies by vm.favoriteMovies.observeAsState(listOf())
     val favoriteGenres by vm.favoriteGenres.observeAsState(listOf())
 
-    Column(
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp),
         modifier = modifier
-            .background(
-                color = colorResource(id = R.color.dark)
+            .fillMaxSize()
+            .background(color = colorResource(id = R.color.dark))
+            .padding(top = 76.dp, start = 24.dp, end = 24.dp)
+    ) {
+        item(
+            span = { GridItemSpan(3)}
+        ) {
+            Text(
+                text = stringResource(R.string.favorites),
+                fontFamily = FontFamily(Font(R.font.manrope_bold)),
+                color = colorResource(id = R.color.white),
+                fontSize = 24.sp
             )
-            .padding(
-                top = 76.dp,
-                start = 24.dp,
-                end = 24.dp
+        }
+
+        item(
+            span = { GridItemSpan(3)}
+        ) {
+            Text(
+                text = stringResource(R.string.favorite_genres),
+                color = colorResource(id = R.color.white),
+                fontFamily = FontFamily(Font(R.font.manrope_bold)),
+                fontSize = 20.sp
             )
-    ){
-        Text(
-            text = stringResource(R.string.favorites),
-            fontFamily = FontFamily(Font(R.font.manrope_bold)),
-            color = colorResource(id = R.color.white),
-            fontSize = 24.sp
-        )
-        FavoriteGenres(
-            genres = favoriteGenres,
-            onDeleteGenre = {
-                vm.deleteFavoriteGenre(it)
-            }
-        )
-        FavoriteMovies(
-            movies = favoriteMovies
-        )
+        }
+
+        items(
+            favoriteGenres,
+            span = { GridItemSpan(3)}
+        ) { genre ->
+            GenreElement(
+                genre = genre,
+                onDelete = { vm.deleteFavoriteGenre(genre) }
+            )
+        }
+
+        item(
+            span = { GridItemSpan(3)}
+        ) {
+            Text(
+                text = stringResource(R.string.favorite_movies),
+                color = colorResource(id = R.color.white),
+                fontFamily = FontFamily(Font(R.font.manrope_bold)),
+                fontSize = 20.sp
+            )
+        }
+
+        items(
+            favoriteMovies
+        ) { movie ->
+            MovieElementUI(
+                movie = movie,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(2f / 3f)
+            )
+        }
     }
 }
 

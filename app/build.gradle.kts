@@ -72,6 +72,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.9.2")
+
+    implementation(libs.android.card.stack.view)
+
     implementation (libs.accompanist.flowlayout)
     implementation(libs.coil.compose)
     implementation(libs.androidx.core.ktx)

@@ -9,9 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.moviecatalog.app.presentation.adapter.FavoriteAdapter
 import com.example.moviecatalog.app.presentation.adapter.MovieListAdapter
+import com.example.moviecatalog.app.presentation.viewmodel.FavoritesViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.MoviesViewModel
 import com.example.moviecatalog.databinding.FragmentMoviesBinding
 import com.example.moviecatalog.domain.model.MovieElement
@@ -20,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MoviesFragment : Fragment() {
 
     private val vm by viewModel<MoviesViewModel>()
+    private val favoritesVM by viewModel<FavoritesViewModel>()
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private var currentTopMovie = -1
@@ -36,6 +40,7 @@ class MoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setupFavoritesRecycler()
         setupTopMovieRotation()
         observeDataChanges()
     }
@@ -60,6 +65,19 @@ class MoviesFragment : Fragment() {
         }
     }
 
+    private fun setupFavoritesRecycler() {
+        val favoriteAdapter = FavoriteAdapter()
+        binding.favoritesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = favoriteAdapter
+        }
+
+        favoritesVM.getFavoriteMovies()
+        favoritesVM.favoriteMovies.observe(this) {
+            (binding.favoritesRecyclerView.adapter as FavoriteAdapter).submitList(it)
+        }
+    }
+
     private fun setupTopMovieRotation() {
         val progressBarArray = arrayOf(
             binding.progressBar1,
@@ -71,7 +89,9 @@ class MoviesFragment : Fragment() {
 
         handler = Handler()
         runnable = Runnable {
-            currentTopMovie = if (currentTopMovie >= (vm.topMovies.value?.size ?: 0) - 1) 0 else (currentTopMovie + 1)
+            currentTopMovie = if (currentTopMovie >= (vm.topMovies.value?.size
+                    ?: 0) - 1
+            ) 0 else (currentTopMovie + 1)
             if (currentTopMovie == 0) resetProgressBars(progressBarArray)
             showTopMovie(vm.topMovies.value?.get(currentTopMovie))
             startProgressBar(progressBarArray[currentTopMovie], currentTopMovie == 4)

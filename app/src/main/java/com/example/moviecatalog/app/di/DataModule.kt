@@ -5,6 +5,7 @@ import com.example.moviecatalog.data.api.MovieCatalogApiInstance
 import com.example.moviecatalog.data.preferences.AuthPreferences
 import com.example.moviecatalog.data.preferences.FriendsPreferences
 import com.example.moviecatalog.data.preferences.GenresPreferences
+import com.example.moviecatalog.data.preferences.MoviesPreferences
 import com.example.moviecatalog.data.repository.AuthRepositoryImpl
 import com.example.moviecatalog.data.repository.FavoriteGenresRepositoryImpl
 import com.example.moviecatalog.data.repository.FavoritesRepositoryImpl
@@ -31,6 +32,10 @@ val dataModule = module{
 
     single<FriendsPreferences> {
         FriendsPreferences(context = get())
+    }
+
+    single<MoviesPreferences> {
+        MoviesPreferences(context = get())
     }
 
     single<MovieCatalogApi> {
