@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.app.AppComponent
 import com.example.moviecatalog.app.presentation.adapter.FavoriteAdapter
 import com.example.moviecatalog.app.presentation.adapter.MovieCardAdapter
 import com.example.moviecatalog.app.presentation.viewmodel.FeedViewModel
@@ -23,13 +24,13 @@ import com.google.android.material.chip.Chip
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FeedFragment : Fragment() {
 
     private lateinit var binding: FragmentFeedBinding
-    private val vm by viewModel<FeedViewModel>()
+    private lateinit var appComponent: AppComponent
+    private lateinit var vm: FeedViewModel
 
     private var currPosition = 0
 
@@ -38,6 +39,10 @@ class FeedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
+
+        appComponent = AppComponent(binding.root.context)
+        vm = appComponent.provideFeedViewModel()
+
         return binding.root
     }
 
@@ -141,7 +146,7 @@ class FeedFragment : Fragment() {
         vm.getNextMovie()
         (binding.movieStackView.adapter as MovieCardAdapter).submitList(vm.movies.value)
 
-        vm.movies.observe(this){
+        vm.movies.observe(viewLifecycleOwner){
             (binding.movieStackView.adapter as MovieCardAdapter).submitList(it)
 
             if (it.isNotEmpty() && currPosition == 0) {

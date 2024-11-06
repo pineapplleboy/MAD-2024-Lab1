@@ -7,21 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.app.AppComponent
 import com.example.moviecatalog.domain.model.LoginCredentials
 import com.example.moviecatalog.app.presentation.ui.activity.MainActivity
 import com.example.moviecatalog.app.presentation.viewmodel.SignInViewModel
 import com.example.moviecatalog.databinding.FragmentSignInBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding
-    private val vm by viewModel<SignInViewModel>()
+    private lateinit var appComponent: AppComponent
+    private lateinit var vm: SignInViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
+
+        appComponent = AppComponent(binding.root.context)
+        vm = appComponent.provideSignInViewModel()
+
         return binding.root
     }
 
@@ -47,7 +52,7 @@ class SignInFragment : Fragment() {
             )
         }
 
-        vm.signInResult.observe(this){
+        vm.signInResult.observe(viewLifecycleOwner){
             if(it){
                 val intent = Intent(view.context, MainActivity::class.java)
                 startActivity(intent)

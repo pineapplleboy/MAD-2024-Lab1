@@ -80,23 +80,86 @@
             app:layout_constraintBottom_toTopOf="@+id/confirmSignUpButton"
             android:layout_marginBottom="32dp">
 
-            <EditText
-                android:id="@+id/signUpLoginField"
-                style="@style/InputTextView.Welcome"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/login_hint" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
 
-            <EditText
-                android:id="@+id/emailField"
-                style="@style/InputTextView.Welcome"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/email_hint"/>
+                <EditText
+                    android:id="@+id/signUpLoginField"
+                    style="@style/InputTextView.Welcome"
+                    android:hint="@string/login_hint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/nameField"
-                style="@style/InputTextView.Welcome"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/name_hint"/>
+                <ImageButton
+                    android:id="@+id/deleteLoginButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/close"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/emailField"
+                    style="@style/InputTextView.Welcome"
+                    android:hint="@string/email_hint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/deleteEmailButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/close"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/nameField"
+                    style="@style/InputTextView.Welcome"
+                    android:hint="@string/name_hint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/deleteNameButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/close"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
                 android:id="@+id/signUpPasswordField"
@@ -112,11 +175,35 @@
                 android:hint="@string/confirm_password_hint"
                 android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/birthdayField"
-                style="@style/InputTextView.Welcome"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/birthday_hint"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/birthdayField"
+                    style="@style/InputTextView.Welcome"
+                    android:hint="@string/birthday_hint"
+                    android:focusable="false"
+                    android:inputType="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/setBirthdayButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/close"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,7 +228,8 @@
                     android:background="@drawable/female_button_dark"
                     android:textColor="@color/white"
                     android:text="@string/female_hint"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    />
 
             </LinearLayout>
 

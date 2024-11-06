@@ -71,5 +71,13 @@
     <string name="delete_friend">Delete friend</string>
     <string name="favorite_movies_recycler">Мне нравится</string>
     <string name="all">Все</string>
+    <string name="favorites_empty">Здесь пока пусто</string>
+    <string name="empty_favorites_tip">Добавьте любимые жанры и фильмы, чтобы вернуться к ним позже</string>
+    <string name="find_movie_button_text">Найти фильм для себя</string>
+    <string name="not_equal_passwords">Пароль должен совпадать!</string>
+    <string name="no_login">Логин - обязательное поле!</string>
+    <string name="no_name">Имя - обязательное поле!</string>
+    <string name="no_birthday">Дата рождения - обязательное поле!</string>
+    <string name="small_password">Пароль слишком маленький!</string>
 
 </resources>

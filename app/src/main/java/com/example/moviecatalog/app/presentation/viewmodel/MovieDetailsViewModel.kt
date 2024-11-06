@@ -63,7 +63,7 @@ class MovieDetailsViewModel(
             }
         }
 
-        isInFavorites()
+        isInFavoritesCheck()
         getFavoriteGenres()
     }
 
@@ -94,7 +94,7 @@ class MovieDetailsViewModel(
         }
     }
 
-    fun isInFavorites() {
+    fun isInFavoritesCheck() {
         viewModelScope.launch {
             val result = getFavoritesUseCase.execute()
 
@@ -117,10 +117,6 @@ class MovieDetailsViewModel(
         favoriteGenresMutable.value?.find { it.id == genre.id }
             ?.let { deleteFavoriteGenreUseCase.execute(it) }
         getFavoriteGenres()
-    }
-
-    fun checkFavoriteGenre(genre: Genre): Boolean {
-        return favoriteGenres.value?.any { it.id == genre.id } ?: false
     }
 
     fun addFriend(user: UserShort){

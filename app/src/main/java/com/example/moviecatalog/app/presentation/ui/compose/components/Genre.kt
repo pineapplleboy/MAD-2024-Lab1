@@ -28,8 +28,8 @@ fun Genre(
     modifier: Modifier = Modifier
 ){
     val favoriteGenres by vm.favoriteGenres.observeAsState()
-    Log.d("API", vm.checkFavoriteGenre(genre).toString())
-    val genreModifier = if(vm.checkFavoriteGenre(genre))
+
+    val genreModifier = if(favoriteGenres?.any { it.id == genre.id } == true)
         modifier.background(
             brush = Brush.linearGradient(
                 colors = listOf(
@@ -54,7 +54,7 @@ fun Genre(
                 vertical = 8.dp
             )
             .clickable {
-                if (vm.checkFavoriteGenre(genre)) {
+                if (favoriteGenres?.any { it.id == genre.id } == true) {
                     vm.deleteFromFavoriteGenres(genre)
                 } else {
                     vm.addToFavoriteGenres(genre)

@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".app.app.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,6 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieCatalog"
         tools:targetApi="31">
+        <activity
+            android:name=".app.presentation.ui.activity.LaunchActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".app.presentation.ui.activity.FriendsActivity"
             android:exported="false" />
@@ -39,12 +49,8 @@
             android:exported="false" />
         <activity
             android:name=".app.presentation.ui.activity.WelcomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

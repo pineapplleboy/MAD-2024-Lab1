@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Rect
 import android.graphics.Shader
+import android.opengl.Visibility
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.app.AppComponent
 import com.example.moviecatalog.app.presentation.adapter.FavoriteAdapter
 import com.example.moviecatalog.app.presentation.adapter.MovieListAdapter
 import com.example.moviecatalog.app.presentation.ui.activity.MovieDetailsActivity
@@ -34,12 +36,13 @@ import com.example.moviecatalog.domain.model.MovieElement
 import com.google.android.material.chip.Chip
 import com.grzegorzojdana.spacingitemdecoration.Spacing
 import com.grzegorzojdana.spacingitemdecoration.SpacingItemDecoration
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesFragment : Fragment() {
 
-    private val vm by viewModel<MoviesViewModel>()
-    private val favoritesVM by viewModel<FavoritesViewModel>()
+    private lateinit var appComponent: AppComponent
+    private lateinit var vm: MoviesViewModel
+    private lateinit var favoritesVM: FavoritesViewModel
+
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private var currentTopMovie = -1
@@ -50,6 +53,11 @@ class MoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
+
+        appComponent = AppComponent(binding.root.context)
+        vm = appComponent.provideMoviesViewModel()
+        favoritesVM = appComponent.provideFavoritesViewModel()
+
         return binding.root
     }
 
@@ -133,33 +141,42 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupFavoritesRecycler() {
-        val favoriteAdapter = FavoriteAdapter()
-        binding.favoritesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = favoriteAdapter
+        if(favoritesVM.favoriteMovies.value?.isNotEmpty() == true){
 
-            var firstVisiblePosition = (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
-            favoriteAdapter.setScaledPosition(firstVisiblePosition)
+            binding.favorites.visibility = View.VISIBLE
+
+            val favoriteAdapter = FavoriteAdapter()
+            binding.favoritesRecyclerView.apply {
+                layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = favoriteAdapter
+
+                var firstVisiblePosition = (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                favoriteAdapter.setScaledPosition(firstVisiblePosition)
 
 
-            addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
 
-                    val newPosition = (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                        val newPosition = (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
-                    if(firstVisiblePosition != newPosition){
-                        firstVisiblePosition = newPosition
-                        favoriteAdapter.setScaledPosition(firstVisiblePosition)
+                        if(firstVisiblePosition != newPosition){
+                            firstVisiblePosition = newPosition
+                            favoriteAdapter.setScaledPosition(firstVisiblePosition)
+                        }
                     }
-                }
-            })
+                })
 
+            }
+
+            favoritesVM.getFavoriteMovies()
+            favoritesVM.favoriteMovies.observe(viewLifecycleOwner) {
+                (binding.favoritesRecyclerView.adapter as FavoriteAdapter).submitList(it)
+            }
         }
 
-        favoritesVM.getFavoriteMovies()
-        favoritesVM.favoriteMovies.observe(this) {
-            (binding.favoritesRecyclerView.adapter as FavoriteAdapter).submitList(it)
+        else{
+            binding.favorites.visibility = View.GONE
         }
     }
 
@@ -191,10 +208,10 @@ class MoviesFragment : Fragment() {
     }
 
     private fun observeDataChanges() {
-        vm.topMovies.observe(this) {
+        vm.topMovies.observe(viewLifecycleOwner) {
             handler.post(runnable)
         }
-        vm.movies.observe(this) {
+        vm.movies.observe(viewLifecycleOwner) {
             (binding.moviesRecyclerView.adapter as MovieListAdapter).submitList(it)
         }
     }

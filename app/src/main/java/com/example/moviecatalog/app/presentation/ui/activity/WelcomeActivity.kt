@@ -27,11 +27,5 @@ class WelcomeActivity : AppCompatActivity() {
             .replace(R.id.loginScreen, loginChoiceFragment)
             .addToBackStack(null)
             .commit()
-
-        val authPreferences = AuthPreferences(this)
-        if(authPreferences.getToken() != ""){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

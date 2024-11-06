@@ -1,23 +1,30 @@
 package com.example.moviecatalog.app.presentation.ui.compose
 
+import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
@@ -35,6 +42,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -43,8 +51,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import coil.compose.rememberAsyncImagePainter
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.presentation.ui.activity.MovieDetailsActivity
 import com.example.moviecatalog.app.presentation.viewmodel.FavoritesViewModel
 import com.example.moviecatalog.domain.model.Genre
 import com.example.moviecatalog.domain.model.MovieElement
@@ -123,6 +133,106 @@ fun Favorites(
     }
 }
 
+//@Composable
+//fun EmptyFavoritesScreen(
+//    modifier: Modifier = Modifier
+//){
+//    Image(
+//        painter = painterResource(id = R.drawable.welcome_screen_bg),
+//        contentDescription = null,
+//        contentScale = ContentScale.Crop,
+//        modifier = Modifier.fillMaxSize()
+//    )
+//
+//    Column(
+//        modifier = Modifier.fillMaxSize()
+//    ){
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(434.dp)
+//                .background(
+//                    brush = Brush.verticalGradient(
+//                        colors = listOf(
+//                            colorResource(id = R.color.shadow_dark),
+//                            colorResource(id = R.color.shadow_bright)
+//                        )
+//                    )
+//                )
+//        )
+//    }
+//
+//    Column(
+//        modifier = Modifier.fillMaxSize()
+//    ){
+//
+//        Box(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(314.dp)
+//                .background(
+//                    brush = Brush.verticalGradient(
+//                        colors = listOf(
+//                            colorResource(id = R.color.shadow_bright),
+//                            colorResource(id = R.color.shadow_dark)
+//                        )
+//                    )
+//                )
+//        )
+//
+//        Column(
+//            modifier = Modifier
+//                .background(
+//                    color = colorResource(id = R.color.dark)
+//                )
+//                .fillMaxWidth()
+//                .padding(
+//                    start = 24.dp,
+//                    end = 24.dp,
+//                    bottom = 104.dp,
+//                    top = 32.dp
+//                )
+//        ) {
+//            Text(
+//                text = stringResource(R.string.favorites_empty),
+//                fontSize = 24.sp,
+//                fontFamily = FontFamily(Font(R.font.manrope_bold)),
+//                color = colorResource(id = R.color.white)
+//            )
+//
+//            Spacer(modifier = Modifier.height(8.dp))
+//
+//            Text(
+//                text = stringResource(R.string.empty_favorites_tip),
+//                fontSize = 16.sp,
+//                fontFamily = FontFamily(Font(R.font.manrope)),
+//                color = colorResource(id = R.color.white)
+//            )
+//
+//            Spacer(modifier = Modifier.height(24.dp))
+//
+//            Text(
+//                text = stringResource(R.string.find_movie_button_text),
+//                fontSize = 14.sp,
+//                fontFamily = FontFamily(Font(R.font.manrope_bold)),
+//                color = colorResource(id = R.color.white),
+//                modifier = Modifier
+//                    .background(
+//                        brush = Brush.linearGradient(
+//                            colors = listOf(
+//                                colorResource(id = R.color.orange_dark),
+//                                colorResource(id = R.color.orange_bright)
+//                            )
+//                        ),
+//                        shape = RoundedCornerShape(8.dp)
+//                    )
+//                    .padding(horizontal = 24.dp, vertical = 14.dp)
+//            )
+//        }
+//    }
+//
+//}
+
 @Composable
 fun GenreElement(
     genre: Genre,
@@ -178,6 +288,8 @@ fun MovieElementUI(
     movie: MovieElement,
     modifier: Modifier = Modifier
 ){
+    val context = LocalContext.current
+
     Box(
         modifier = modifier
     ){
@@ -187,6 +299,13 @@ fun MovieElementUI(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    val intent = Intent(context, MovieDetailsActivity::class.java).apply {
+                        putExtra("MOVIE_ID", movie.id)
+                    }
+
+                    context.startActivity(intent)
+                }
         )
 
         Box(

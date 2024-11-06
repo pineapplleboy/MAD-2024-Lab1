@@ -9,21 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.app.AppComponent
 import com.example.moviecatalog.app.presentation.ui.activity.FriendsActivity
 import com.example.moviecatalog.app.presentation.ui.activity.WelcomeActivity
 import com.example.moviecatalog.app.presentation.viewmodel.ProfileViewModel
-import com.example.moviecatalog.data.api.MovieCatalogApiInstance
-import com.example.moviecatalog.data.preferences.AuthPreferences
-import com.example.moviecatalog.data.repository.AuthRepositoryImpl
-import com.example.moviecatalog.data.repository.UserProfileRepositoryImpl
 import com.example.moviecatalog.databinding.FragmentProfileBinding
-import com.example.moviecatalog.domain.usecase.profile.GetUserProfileUseCase
-import com.example.moviecatalog.domain.usecase.profile.LogOutUseCase
-import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -31,13 +22,18 @@ import java.util.Locale
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private val vm by viewModel<ProfileViewModel>()
+    private lateinit var appComponent: AppComponent
+    private lateinit var vm: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        appComponent = AppComponent(binding.root.context)
+        vm = appComponent.provideProfileViewModel()
+
         return binding.root
     }
 
@@ -53,7 +49,7 @@ class ProfileFragment : Fragment() {
 
         paint.shader = shader
 
-        vm.profile.observe(this){
+        vm.profile.observe(viewLifecycleOwner){
             if(it == null){
                 val intent = Intent(view.context, WelcomeActivity::class.java)
                 startActivity(intent)

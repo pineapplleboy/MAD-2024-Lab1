@@ -2,6 +2,7 @@ package com.example.moviecatalog.app.presentation.ui.compose
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +37,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,7 +61,7 @@ fun MoviesDetailsScreen(
     vm: MovieDetailsViewModel,
     modifier: Modifier = Modifier
 ) {
-    vm.isInFavorites()
+    vm.isInFavoritesCheck()
     vm.getFriends()
 
     val movie by vm.movie.observeAsState()

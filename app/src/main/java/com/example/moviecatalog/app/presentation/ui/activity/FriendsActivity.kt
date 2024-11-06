@@ -9,22 +9,27 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviecatalog.R
+import com.example.moviecatalog.app.app.AppComponent
 import com.example.moviecatalog.app.presentation.adapter.FriendAdapter
 import com.example.moviecatalog.app.presentation.adapter.MovieListAdapter
 import com.example.moviecatalog.app.presentation.viewmodel.FriendsViewModel
 import com.example.moviecatalog.databinding.ActivityFriendsBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FriendsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFriendsBinding
-    private val vm by viewModel<FriendsViewModel>()
+    private lateinit var appComponent: AppComponent
+    private lateinit var vm: FriendsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityFriendsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        appComponent = AppComponent(this)
+        vm = appComponent.provideFriendsViewModel()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

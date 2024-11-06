@@ -183,7 +183,10 @@ fun ReviewElement(
                     text = review.author.nickName ?: "",
                     fontFamily = FontFamily(Font(R.font.manrope)),
                     fontSize = 12.sp,
-                    color = colorResource(id = R.color.white)
+                    color = colorResource(id = R.color.white),
+                    modifier = Modifier.clickable {
+                        addFriend(review.author)
+                    }
                 )
                 Text(
                     text = review.createDateTime,
