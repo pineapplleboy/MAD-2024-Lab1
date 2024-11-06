@@ -5,14 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.moviecatalog.domain.model.Genre
 import com.example.moviecatalog.domain.model.MovieElement
+import com.example.moviecatalog.domain.usecase.favorites.GetFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.movies.GetMoviesPageUseCase
 import com.example.moviecatalog.domain.usecase.movies.GetTopMoviesUseCase
 import kotlinx.coroutines.launch
 
 class MoviesViewModel(
     private val getMoviesPageUseCase: GetMoviesPageUseCase,
-    private val getTopMoviesUseCase: GetTopMoviesUseCase
+    private val getTopMoviesUseCase: GetTopMoviesUseCase,
+    private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase
 ) : ViewModel() {
 
     private val topMoviesMutable = MutableLiveData<List<MovieElement>>()
@@ -25,6 +28,10 @@ class MoviesViewModel(
 
     private var currentPage = 0
     private var currentTopMovie = -1
+
+
+    private val favoriteGenresMutable = MutableLiveData<List<Genre>>(listOf())
+    val favoriteGenres: LiveData<List<Genre>> get() = favoriteGenresMutable
 
     init {
         loadTopMovies()
@@ -72,6 +79,10 @@ class MoviesViewModel(
             }
         }
         timer.start()
+    }
+
+    fun getFavoriteGenres(){
+        favoriteGenresMutable.value = getFavoriteGenresUseCase.execute()
     }
 
 }

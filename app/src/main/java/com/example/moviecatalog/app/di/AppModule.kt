@@ -5,6 +5,7 @@ import com.example.moviecatalog.app.presentation.viewmodel.FeedViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.FriendsViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.MovieDetailsViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.MoviesViewModel
+import com.example.moviecatalog.app.presentation.viewmodel.ProfileViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.SignInViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.SignUpViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -16,7 +17,8 @@ val appModule = module{
     viewModel<MoviesViewModel>{
         MoviesViewModel(
             getTopMoviesUseCase = get(),
-            getMoviesPageUseCase = get()
+            getMoviesPageUseCase = get(),
+            getFavoriteGenresUseCase = get()
         )
     }
 
@@ -41,7 +43,8 @@ val appModule = module{
             getFavoriteGenresUseCase = get(),
             addFavoriteGenreUseCase = get(),
             deleteFavoriteGenreUseCase = get(),
-            addFriendUseCase = get()
+            addFriendUseCase = get(),
+            getFriendsUseCase = get()
         )
     }
 
@@ -66,6 +69,13 @@ val appModule = module{
             getNextUseCase = get(),
             addFavoriteUseCase = get(),
             getFavoriteGenresUseCase = get()
+        )
+    }
+
+    viewModel<ProfileViewModel>{
+        ProfileViewModel(
+            getUserProfileUseCase = get(),
+            logOutUseCase = get()
         )
     }
 }

@@ -164,7 +164,7 @@ class FeedFragment : Fragment() {
                 isClickable = false
                 setTextColor(resources.getColor(R.color.white, null))
                 setPadding(12, 4, 12, 4)
-                textSize = 14f
+                textSize = 16f
                 chipStrokeWidth = 0f
 
                 if(vm.favoriteGenres.value?.find {it.id == genre.id} == null){

@@ -70,5 +70,6 @@
     <string name="my_friends">Мои друзья</string>
     <string name="delete_friend">Delete friend</string>
     <string name="favorite_movies_recycler">Мне нравится</string>
+    <string name="all">Все</string>
 
 </resources>

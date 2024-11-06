@@ -75,6 +75,8 @@ dependencies {
 
     implementation(libs.android.card.stack.view)
 
+    implementation("com.github.grzegorzojdana:SpacingItemDecoration:1.1.0")
+
     implementation (libs.accompanist.flowlayout)
     implementation(libs.coil.compose)
     implementation(libs.androidx.core.ktx)

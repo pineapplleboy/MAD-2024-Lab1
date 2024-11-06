@@ -1,6 +1,9 @@
 package com.example.moviecatalog.app.presentation.viewholder
 
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -33,7 +36,26 @@ class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             .load(movie.poster)
             .into(moviePoster)
 
-        movieRating.text = GetMovieRatingUseCase().execute(movie)
+        val rating = GetMovieRatingUseCase().execute(movie)
+
+        movieRating.text = rating
+        movieRating.background = createRoundedBackground(getRatingColor(rating.toFloat()))
     }
 
+    private fun getRatingColor(rating: Float): Int {
+        val normalizedRating = rating / 10f
+
+        val red = (255 * (1 - normalizedRating)).toInt()
+        val green = (255 * normalizedRating).toInt()
+
+        return Color.rgb(red, green, 0)
+    }
+
+    private fun createRoundedBackground(color: Int): GradientDrawable {
+        val drawable = GradientDrawable()
+        drawable.shape = GradientDrawable.RECTANGLE
+        drawable.cornerRadius = 4 * Resources.getSystem().displayMetrics.density
+        drawable.setColor(color)
+        return drawable
+    }
 }

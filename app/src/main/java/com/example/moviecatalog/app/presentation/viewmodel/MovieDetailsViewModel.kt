@@ -15,6 +15,7 @@ import com.example.moviecatalog.domain.usecase.favorites.DeleteFromFavoritesUseC
 import com.example.moviecatalog.domain.usecase.favorites.GetFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.favorites.GetFavoritesUseCase
 import com.example.moviecatalog.domain.usecase.friends.AddFriendUseCase
+import com.example.moviecatalog.domain.usecase.friends.GetFriendsUseCase
 import com.example.moviecatalog.domain.usecase.movies.GetMovieDetailsUseCase
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,8 @@ class MovieDetailsViewModel(
     private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase,
     private val addFavoriteGenreUseCase: AddFavoriteGenreUseCase,
     private val deleteFavoriteGenreUseCase: DeleteFavoriteGenreUseCase,
-    private val addFriendUseCase: AddFriendUseCase
+    private val addFriendUseCase: AddFriendUseCase,
+    private val getFriendsUseCase: GetFriendsUseCase
 ) : ViewModel() {
 
     private val movieMutable = MutableLiveData<MovieDetails>()
@@ -39,6 +41,19 @@ class MovieDetailsViewModel(
 
     private val favoriteGenresMutable = MutableLiveData<List<Genre>>()
     val favoriteGenres: LiveData<List<Genre>> get() = favoriteGenresMutable
+
+
+    private val friendsMutable = MutableLiveData<List<UserShort>>()
+    val friends: LiveData<List<UserShort>> get() = friendsMutable
+
+
+    fun getFriends(){
+
+        friendsMutable.value = getFriendsUseCase.execute().filter {friend ->
+            (movie.value?.reviews?.find { friend.userId == it.author.userId }?.rating ?: 0) > 6
+        }
+    }
+
 
     fun getMovieDetails(id: String) {
         viewModelScope.launch {
@@ -110,5 +125,6 @@ class MovieDetailsViewModel(
 
     fun addFriend(user: UserShort){
         addFriendUseCase.execute(user)
+        getFriends()
     }
 }

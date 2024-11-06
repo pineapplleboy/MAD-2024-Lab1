@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
@@ -158,14 +159,20 @@ fun ReviewElement(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = rememberAsyncImagePainter(review.author.avatar),
+                painter = if(review.author.avatar != null)
+                    rememberAsyncImagePainter(review.author.avatar)
+                else
+                    painterResource(
+                        id = R.drawable.default_profile_icon
+                    ),
                 contentDescription = stringResource(R.string.user_s_avatar),
                 modifier = Modifier
                     .size(32.dp)
                     .clip(CircleShape)
                     .clickable {
                         addFriend(review.author)
-                    }
+                    },
+                contentScale = ContentScale.Crop
             )
 
             Column(

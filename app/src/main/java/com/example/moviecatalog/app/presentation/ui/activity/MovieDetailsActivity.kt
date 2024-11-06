@@ -1,6 +1,7 @@
 package com.example.moviecatalog.app.presentation.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

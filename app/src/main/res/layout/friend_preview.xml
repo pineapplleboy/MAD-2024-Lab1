@@ -5,16 +5,18 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatar"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginStart="7dp"
         android:layout_marginEnd="7dp"
         android:src="@drawable/default_profile_icon"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/CircleImageStyle" />
 
     <TextView
         android:id="@+id/name"

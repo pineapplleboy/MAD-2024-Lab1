@@ -31,6 +31,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -120,65 +124,6 @@ fun Favorites(
 }
 
 @Composable
-fun FavoriteGenres(
-    genres: List<Genre>,
-    modifier: Modifier = Modifier,
-    onDeleteGenre: (Genre) -> Unit
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier
-    ) {
-        Text(
-            text = stringResource(R.string.favorite_genres),
-            color = colorResource(id = R.color.white),
-            fontFamily = FontFamily(Font(R.font.manrope_bold)),
-            fontSize = 20.sp
-        )
-
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(genres){
-                GenreElement(genre = it){
-                    onDeleteGenre(it)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun FavoriteMovies(
-    movies: List<MovieElement>,
-    modifier: Modifier = Modifier
-){
-    Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier
-    ) {
-        Text(
-            text = stringResource(R.string.favorite_movies),
-            color = colorResource(id = R.color.white),
-            fontFamily = FontFamily(Font(R.font.manrope_bold)),
-            fontSize = 20.sp
-        )
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            items(movies){
-                MovieElementUI(movie = it, modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(2f / 3f))
-            }
-        }
-    }
-}
-
-@Composable
 fun GenreElement(
     genre: Genre,
     modifier: Modifier = Modifier,
@@ -218,8 +163,10 @@ fun GenreElement(
             }
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.chevron_left),
+                painter = painterResource(id = R.drawable.dislike),
                 contentDescription = null,
+                modifier = Modifier
+                    .size(24.dp),
                 tint = colorResource(id = R.color.white)
             )
         }

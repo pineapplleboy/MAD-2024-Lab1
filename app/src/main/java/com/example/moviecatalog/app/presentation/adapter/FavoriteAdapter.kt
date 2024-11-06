@@ -11,6 +11,8 @@ import com.example.moviecatalog.domain.model.MovieElement
 
 class FavoriteAdapter: ListAdapter<MovieElement, FavoriteViewHolder>(DIFF){
 
+    private var scaledPosition: Int? = null
+
     private companion object {
         val DIFF = object : DiffUtil.ItemCallback<MovieElement>(){
             override fun areItemsTheSame(oldItem: MovieElement, newItem: MovieElement): Boolean {
@@ -24,6 +26,7 @@ class FavoriteAdapter: ListAdapter<MovieElement, FavoriteViewHolder>(DIFF){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
+
         return FavoriteViewHolder(
             LayoutInflater
                 .from(parent.context)
@@ -32,7 +35,19 @@ class FavoriteAdapter: ListAdapter<MovieElement, FavoriteViewHolder>(DIFF){
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+
+        val isScaled = position == scaledPosition
+
         val movieElement = getItem(position)
-        holder.bind(movieElement)
+        holder.bind(movieElement, isScaled)
+    }
+
+    fun setScaledPosition(position: Int){
+        val previousPosition = scaledPosition
+        scaledPosition = position
+        if (previousPosition != null) {
+            notifyItemChanged(previousPosition)
+        }
+        notifyItemChanged(position)
     }
 }
