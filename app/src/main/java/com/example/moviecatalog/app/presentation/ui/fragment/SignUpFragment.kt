@@ -104,6 +104,11 @@ class SignUpFragment : Fragment() {
                     view.context,
                     getString(R.string.no_login), Toast.LENGTH_SHORT
                 ).show()
+            } else if (!isValidEmail(binding.emailField.text.toString())) {
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.wrong_email), Toast.LENGTH_SHORT
+                ).show()
             } else if (binding.nameField.text.toString() == "") {
                 Toast.makeText(
                     view.context,
@@ -180,5 +185,10 @@ class SignUpFragment : Fragment() {
         button.setOnClickListener {
             field.text.clear()
         }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val regex = Regex("([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]+)")
+        return regex.matches(email)
     }
 }

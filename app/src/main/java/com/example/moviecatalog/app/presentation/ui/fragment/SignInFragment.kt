@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.compose.ui.res.stringResource
+import androidx.core.widget.addTextChangedListener
 import com.example.moviecatalog.R
 import com.example.moviecatalog.app.app.AppComponent
 import com.example.moviecatalog.domain.model.LoginCredentials
@@ -44,12 +47,24 @@ class SignInFragment : Fragment() {
 
         binding.confirmLoginButton.setOnClickListener{
 
-            vm.signIn(
-                LoginCredentials(
-                    login = binding.loginField.text.toString(),
-                    password = binding.passwordField.text.toString(),
+            if(binding.loginField.text.toString() == ""){
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.no_login), Toast.LENGTH_SHORT).show()
+            }
+            else if(binding.passwordField.text.toString() == ""){
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.no_password), Toast.LENGTH_SHORT).show()
+            }
+            else{
+                vm.signIn(
+                    LoginCredentials(
+                        login = binding.loginField.text.toString(),
+                        password = binding.passwordField.text.toString(),
+                    )
                 )
-            )
+            }
         }
 
         vm.signInResult.observe(viewLifecycleOwner){

@@ -87,5 +87,7 @@
     <string name="send">Отправить</string>
     <string name="rating_score">Оценка</string>
     <string name="add_review_button">Добавить отзыв</string>
+    <string name="no_password">Пароль - обязательное поле!</string>
+    <string name="wrong_email">Неправильный формат почты</string>
 
 </resources>
