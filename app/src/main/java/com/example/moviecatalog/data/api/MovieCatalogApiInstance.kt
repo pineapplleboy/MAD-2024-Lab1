@@ -7,9 +7,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object MovieCatalogApiInstance{
+object MovieCatalogApiInstance {
 
-    private fun createClient(authPreferences: AuthPreferences): OkHttpClient{
+    private fun createClient(authPreferences: AuthPreferences): OkHttpClient {
         val interceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -20,7 +20,7 @@ object MovieCatalogApiInstance{
             .build()
     }
 
-    fun createApi(authPreferences: AuthPreferences): MovieCatalogApi{
+    fun createApi(authPreferences: AuthPreferences): MovieCatalogApi {
         return Retrofit.Builder()
             .baseUrl("https://react-midterm.kreosoft.space/api/")
             .client(createClient(authPreferences))

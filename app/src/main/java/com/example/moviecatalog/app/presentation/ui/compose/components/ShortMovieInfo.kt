@@ -22,7 +22,7 @@ fun ShortMovieInfo(
     name: String,
     tagline: String,
     modifier: Modifier = Modifier
-){
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()

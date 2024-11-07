@@ -14,10 +14,10 @@ class FriendAdapter(
     private val vm: FriendsViewModel
 ) : ListAdapter<UserShort, FriendViewHolder>(
     DIFF
-){
+) {
 
     private companion object {
-        val DIFF = object : DiffUtil.ItemCallback<UserShort>(){
+        val DIFF = object : DiffUtil.ItemCallback<UserShort>() {
             override fun areItemsTheSame(oldItem: UserShort, newItem: UserShort): Boolean {
                 return oldItem.userId == newItem.userId
             }

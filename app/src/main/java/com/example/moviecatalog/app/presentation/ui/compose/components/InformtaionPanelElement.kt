@@ -19,7 +19,7 @@ fun InformationPanelElement(
     modifier: Modifier = Modifier,
     name: String,
     content: String
-){
+) {
     Column(
         modifier = modifier
             .background(
@@ -30,7 +30,7 @@ fun InformationPanelElement(
                 horizontal = 12.dp,
                 vertical = 8.dp
             )
-    ){
+    ) {
         Text(
             text = name,
             color = colorResource(id = R.color.gray),

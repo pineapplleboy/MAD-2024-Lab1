@@ -9,6 +9,7 @@ import com.example.moviecatalog.domain.model.MovieElement
 import com.example.moviecatalog.domain.usecase.favorites.DeleteFavoriteGenreUseCase
 import com.example.moviecatalog.domain.usecase.favorites.GetFavoriteGenresUseCase
 import com.example.moviecatalog.domain.usecase.favorites.GetFavoritesUseCase
+import com.example.moviecatalog.domain.usecase.movies.GetMovieRatingUseCase
 import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
@@ -25,6 +26,10 @@ class FavoritesViewModel(
     val favoriteMovies: LiveData<List<MovieElement>> get() = favoriteMoviesMutable
 
 
+    private val ratingMutable = MutableLiveData<String>()
+    val rating: LiveData<String> get() = ratingMutable
+
+
     fun getFavoriteMovies() {
         viewModelScope.launch {
 
@@ -39,7 +44,7 @@ class FavoritesViewModel(
         favoriteGenresMutable.value = getFavoriteGenresUseCase.execute()
     }
 
-    fun deleteFavoriteGenre(genre: Genre){
+    fun deleteFavoriteGenre(genre: Genre) {
         deleteFavoriteGenreUseCase.execute(genre)
         getFavoriteGenres()
     }

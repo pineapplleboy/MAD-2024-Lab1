@@ -6,7 +6,7 @@ import com.example.moviecatalog.domain.repository.FriendsRepository
 
 class FriendsRepositoryImpl(
     private val friendsPreferences: FriendsPreferences
-): FriendsRepository {
+) : FriendsRepository {
 
     override fun getFriends(): List<UserShort> {
         return friendsPreferences.getFriends()

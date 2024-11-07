@@ -24,22 +24,21 @@ class FriendViewHolder(
     private val binding = FriendPreviewBinding.bind(view)
     private var friend: UserShort? = null
 
-    init{
-        binding.deleteFriendButton.setOnClickListener{
+    init {
+        binding.deleteFriendButton.setOnClickListener {
             friend?.let { it1 -> vm.deleteFriend(it1) }
         }
     }
 
-    fun bind(user: UserShort) = with(binding){
+    fun bind(user: UserShort) = with(binding) {
 
         friend = user
 
-        if(user.avatar != null && user.avatar != ""){
+        if (user.avatar != null && user.avatar != "") {
             Glide.with(view)
                 .load(user.avatar)
                 .into(avatar)
-        }
-        else{
+        } else {
             avatar.setImageResource(R.drawable.default_profile_icon)
         }
 

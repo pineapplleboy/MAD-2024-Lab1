@@ -20,16 +20,12 @@ class MoviesPreferences(
 
     private val gson = Gson()
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    init{
+    init {
         val movies = listOf<MovieElement>()
         saveMovies(movies)
-
-        val pageInfo: PageInfo? = null
-        val editor = sharedPreferences.edit()
-        editor.putString(PAGE_INFO_KEY, gson.toJson(pageInfo))
-        editor.apply()
     }
 
     fun getRemainingMovies(): List<MovieElement> {
@@ -44,11 +40,11 @@ class MoviesPreferences(
 
     fun skipMovie(movie: MovieElement) {
         val movies = getRemainingMovies().toMutableList()
-        movies.remove(movies.find {movie.id == it.id})
+        movies.remove(movies.find { movie.id == it.id })
         saveMovies(movies)
     }
 
-    fun changePage(moviesPagedInfo: MoviesPagedList){
+    fun changePage(moviesPagedInfo: MoviesPagedList) {
         val editor = sharedPreferences.edit()
         editor.putString(PAGE_INFO_KEY, gson.toJson(moviesPagedInfo.pageInfo))
         editor.apply()
@@ -70,6 +66,15 @@ class MoviesPreferences(
     private fun saveMovies(movies: List<MovieElement>) {
         val editor = sharedPreferences.edit()
         editor.putString(REMAINING_MOVIES_TOKEN_KEY, gson.toJson(movies))
+        editor.apply()
+    }
+
+    fun clear() {
+        val editor = sharedPreferences.edit()
+        editor.putString(REMAINING_MOVIES_TOKEN_KEY, gson.toJson(listOf<MovieElement>()))
+        editor.apply()
+
+        editor.putString(PAGE_INFO_KEY, gson.toJson(null))
         editor.apply()
     }
 }

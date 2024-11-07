@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val signUpUseCase: SignUpUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val signUpResultMutable = MutableLiveData(false)
     val signUpResult: LiveData<Boolean> get() = signUpResultMutable

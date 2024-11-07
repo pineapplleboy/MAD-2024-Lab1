@@ -16,7 +16,7 @@ class MovieCardViewHolder(
     private var movie: MovieElement? = null
 
     init {
-        binding.poster.setOnClickListener{
+        binding.poster.setOnClickListener {
             val intent = Intent(view.context, MovieDetailsActivity::class.java).apply {
                 putExtra("MOVIE_ID", movie?.id)
             }
@@ -25,7 +25,7 @@ class MovieCardViewHolder(
         }
     }
 
-    fun bind(movieElement: MovieElement) = with(binding){
+    fun bind(movieElement: MovieElement) = with(binding) {
 
         movie = movieElement
 

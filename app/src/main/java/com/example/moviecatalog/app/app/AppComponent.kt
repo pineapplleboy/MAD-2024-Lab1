@@ -45,6 +45,11 @@ import com.example.moviecatalog.app.presentation.viewmodel.MoviesViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.ProfileViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.SignInViewModel
 import com.example.moviecatalog.app.presentation.viewmodel.SignUpViewModel
+import com.example.moviecatalog.data.repository.ReviewRepositoryImpl
+import com.example.moviecatalog.domain.repository.ReviewRepository
+import com.example.moviecatalog.domain.usecase.review.AddReviewUseCase
+import com.example.moviecatalog.domain.usecase.review.DeleteReviewUseCase
+import com.example.moviecatalog.domain.usecase.review.EditReviewUseCase
 
 class AppComponent(private val context: Context) {
 
@@ -53,36 +58,126 @@ class AppComponent(private val context: Context) {
     private val friendsPreferences: FriendsPreferences by lazy { FriendsPreferences(context) }
     private val moviesPreferences: MoviesPreferences by lazy { MoviesPreferences(context) }
 
-    private val movieCatalogApi: MovieCatalogApi by lazy { MovieCatalogApiInstance.createApi(authPreferences) }
+    private val movieCatalogApi: MovieCatalogApi by lazy {
+        MovieCatalogApiInstance.createApi(
+            authPreferences
+        )
+    }
 
     private val movieRepository: MovieRepository by lazy { MovieRepositoryImpl(movieCatalogApi) }
-    private val authRepository: AuthRepository by lazy { AuthRepositoryImpl(movieCatalogApi, authPreferences) }
-    private val favoritesRepository: FavoritesRepository by lazy { FavoritesRepositoryImpl(movieCatalogApi) }
-    private val userProfileRepository: UserProfileRepository by lazy { UserProfileRepositoryImpl(movieCatalogApi) }
-    private val favoriteGenresRepository: FavoriteGenresRepository by lazy { FavoriteGenresRepositoryImpl(genresPreferences) }
-    private val friendsRepository: FriendsRepository by lazy { FriendsRepositoryImpl(friendsPreferences) }
+    private val authRepository: AuthRepository by lazy {
+        AuthRepositoryImpl(
+            movieCatalogApi,
+            authPreferences
+        )
+    }
+    private val favoritesRepository: FavoritesRepository by lazy {
+        FavoritesRepositoryImpl(
+            movieCatalogApi
+        )
+    }
+    private val userProfileRepository: UserProfileRepository by lazy {
+        UserProfileRepositoryImpl(
+            movieCatalogApi
+        )
+    }
+    private val favoriteGenresRepository: FavoriteGenresRepository by lazy {
+        FavoriteGenresRepositoryImpl(
+            genresPreferences
+        )
+    }
+    private val friendsRepository: FriendsRepository by lazy {
+        FriendsRepositoryImpl(
+            friendsPreferences
+        )
+    }
+    private val reviewRepository: ReviewRepository by lazy { ReviewRepositoryImpl(movieCatalogApi) }
 
-    private val getTopMoviesUseCase: GetTopMoviesUseCase by lazy { GetTopMoviesUseCase(movieRepository) }
-    private val getMoviesPageUseCase: GetMoviesPageUseCase by lazy { GetMoviesPageUseCase(movieRepository) }
-    private val getMovieDetailsUseCase: GetMovieDetailsUseCase by lazy { GetMovieDetailsUseCase(movieRepository) }
-    private val addToFavoritesUseCase: AddToFavoritesUseCase by lazy { AddToFavoritesUseCase(favoritesRepository) }
-    private val deleteFromFavoritesUseCase: DeleteFromFavoritesUseCase by lazy { DeleteFromFavoritesUseCase(favoritesRepository) }
-    private val getFavoritesUseCase: GetFavoritesUseCase by lazy { GetFavoritesUseCase(favoritesRepository) }
+    private val getTopMoviesUseCase: GetTopMoviesUseCase by lazy {
+        GetTopMoviesUseCase(
+            movieRepository
+        )
+    }
+    private val getMoviesPageUseCase: GetMoviesPageUseCase by lazy {
+        GetMoviesPageUseCase(
+            movieRepository
+        )
+    }
+    private val getMovieDetailsUseCase: GetMovieDetailsUseCase by lazy {
+        GetMovieDetailsUseCase(
+            movieRepository
+        )
+    }
+    private val addToFavoritesUseCase: AddToFavoritesUseCase by lazy {
+        AddToFavoritesUseCase(
+            favoritesRepository
+        )
+    }
+    private val deleteFromFavoritesUseCase: DeleteFromFavoritesUseCase by lazy {
+        DeleteFromFavoritesUseCase(
+            favoritesRepository
+        )
+    }
+    private val getFavoritesUseCase: GetFavoritesUseCase by lazy {
+        GetFavoritesUseCase(
+            favoritesRepository
+        )
+    }
 
-    private val getUserProfileUseCase: GetUserProfileUseCase by lazy { GetUserProfileUseCase(userProfileRepository) }
-    private val logOutUseCase: LogOutUseCase by lazy { LogOutUseCase(authRepository) }
+    private val getUserProfileUseCase: GetUserProfileUseCase by lazy {
+        GetUserProfileUseCase(
+            userProfileRepository
+        )
+    }
+    private val logOutUseCase: LogOutUseCase by lazy {
+        LogOutUseCase(
+            authRepository,
+            friendsPreferences,
+            genresPreferences,
+            moviesPreferences
+        )
+    }
     private val signInUseCase: SignInUseCase by lazy { SignInUseCase(authRepository) }
     private val signUpUseCase: SignUpUseCase by lazy { SignUpUseCase(authRepository) }
 
-    private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase by lazy { GetFavoriteGenresUseCase(favoriteGenresRepository) }
-    private val addFavoriteGenreUseCase: AddFavoriteGenreUseCase by lazy { AddFavoriteGenreUseCase(favoriteGenresRepository) }
-    private val deleteFavoriteGenreUseCase: DeleteFavoriteGenreUseCase by lazy { DeleteFavoriteGenreUseCase(favoriteGenresRepository) }
+    private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase by lazy {
+        GetFavoriteGenresUseCase(
+            favoriteGenresRepository
+        )
+    }
+    private val addFavoriteGenreUseCase: AddFavoriteGenreUseCase by lazy {
+        AddFavoriteGenreUseCase(
+            favoriteGenresRepository
+        )
+    }
+    private val deleteFavoriteGenreUseCase: DeleteFavoriteGenreUseCase by lazy {
+        DeleteFavoriteGenreUseCase(
+            favoriteGenresRepository
+        )
+    }
 
     private val getFriendsUseCase: GetFriendsUseCase by lazy { GetFriendsUseCase(friendsRepository) }
     private val addFriendUseCase: AddFriendUseCase by lazy { AddFriendUseCase(friendsRepository) }
-    private val deleteFriendUseCase: DeleteFriendUseCase by lazy { DeleteFriendUseCase(friendsRepository) }
+    private val deleteFriendUseCase: DeleteFriendUseCase by lazy {
+        DeleteFriendUseCase(
+            friendsRepository
+        )
+    }
 
-    private val getNextUseCase: GetNextUseCase by lazy { GetNextUseCase(moviesPreferences, movieRepository) }
+    private val getNextUseCase: GetNextUseCase by lazy {
+        GetNextUseCase(
+            moviesPreferences,
+            movieRepository
+        )
+    }
+
+    private val addReviewUseCase: AddReviewUseCase by lazy { AddReviewUseCase(reviewRepository) }
+    private val editReviewUseCase: EditReviewUseCase by lazy { EditReviewUseCase(reviewRepository) }
+    private val deleteReviewUseCase: DeleteReviewUseCase by lazy {
+        DeleteReviewUseCase(
+            reviewRepository
+        )
+    }
 
     fun provideMoviesViewModel(): MoviesViewModel {
         return MoviesViewModel(
@@ -110,7 +205,10 @@ class AppComponent(private val context: Context) {
             addFavoriteGenreUseCase = addFavoriteGenreUseCase,
             deleteFavoriteGenreUseCase = deleteFavoriteGenreUseCase,
             addFriendUseCase = addFriendUseCase,
-            getFriendsUseCase = getFriendsUseCase
+            getFriendsUseCase = getFriendsUseCase,
+            addReviewUseCase = addReviewUseCase,
+            editReviewUseCase = editReviewUseCase,
+            deleteReviewUseCase = deleteReviewUseCase
         )
     }
 

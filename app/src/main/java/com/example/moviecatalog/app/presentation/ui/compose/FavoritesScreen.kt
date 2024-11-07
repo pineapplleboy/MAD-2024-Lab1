@@ -78,7 +78,7 @@ fun Favorites(
             .padding(top = 76.dp, start = 24.dp, end = 24.dp)
     ) {
         item(
-            span = { GridItemSpan(3)}
+            span = { GridItemSpan(3) }
         ) {
             Text(
                 text = stringResource(R.string.favorites),
@@ -89,7 +89,7 @@ fun Favorites(
         }
 
         item(
-            span = { GridItemSpan(3)}
+            span = { GridItemSpan(3) }
         ) {
             Text(
                 text = stringResource(R.string.favorite_genres),
@@ -101,7 +101,7 @@ fun Favorites(
 
         items(
             favoriteGenres,
-            span = { GridItemSpan(3)}
+            span = { GridItemSpan(3) }
         ) { genre ->
             GenreElement(
                 genre = genre,
@@ -110,7 +110,7 @@ fun Favorites(
         }
 
         item(
-            span = { GridItemSpan(3)}
+            span = { GridItemSpan(3) }
         ) {
             Text(
                 text = stringResource(R.string.favorite_movies),
@@ -125,6 +125,9 @@ fun Favorites(
         ) { movie ->
             MovieElementUI(
                 movie = movie,
+                rating = String.format("%.1f",
+                    movie.reviews?.sumOf { it.rating }?.toFloat()?.div(movie.reviews.size)
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(2f / 3f)
@@ -286,13 +289,14 @@ fun GenreElement(
 @Composable
 fun MovieElementUI(
     movie: MovieElement,
+    rating: String,
     modifier: Modifier = Modifier
-){
+) {
     val context = LocalContext.current
 
     Box(
         modifier = modifier
-    ){
+    ) {
         Image(
             painter = rememberAsyncImagePainter(movie.poster),
             contentDescription = stringResource(id = R.string.movie_poster),
@@ -319,9 +323,9 @@ fun MovieElementUI(
                     vertical = 4.dp,
                     horizontal = 8.dp
                 )
-        ){
+        ) {
             Text(
-                text = "1.0",
+                text = rating,
                 fontSize = 12.sp,
                 fontFamily = FontFamily(Font(R.font.manrope)),
                 color = colorResource(id = R.color.white),

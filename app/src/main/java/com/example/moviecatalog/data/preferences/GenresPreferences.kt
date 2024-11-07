@@ -18,7 +18,8 @@ class GenresPreferences(
 
     private val gson = Gson()
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     fun getGenres(): List<Genre> {
         val json = sharedPreferences.getString(GENRES_TOKEN_KEY, null)
@@ -45,6 +46,12 @@ class GenresPreferences(
     private fun saveGenres(genres: List<Genre>) {
         val editor = sharedPreferences.edit()
         editor.putString(GENRES_TOKEN_KEY, gson.toJson(genres))
+        editor.apply()
+    }
+
+    fun clear() {
+        val editor = sharedPreferences.edit()
+        editor.putString(GENRES_TOKEN_KEY, gson.toJson(listOf<Genre>()))
         editor.apply()
     }
 }

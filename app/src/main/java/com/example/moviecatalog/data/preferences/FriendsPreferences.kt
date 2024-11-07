@@ -16,7 +16,8 @@ class FriendsPreferences(
 
     private val gson = Gson()
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     fun getFriends(): List<UserShort> {
         val json = sharedPreferences.getString(GENRES_TOKEN_KEY, null)
@@ -30,7 +31,7 @@ class FriendsPreferences(
 
     fun addFriend(user: UserShort) {
         val friends = getFriends().toMutableList()
-        if(friends.find {it.userId == user.userId} == null){
+        if (friends.find { it.userId == user.userId } == null) {
             friends.add(user)
             saveFriends(friends)
         }
@@ -45,6 +46,12 @@ class FriendsPreferences(
     private fun saveFriends(friends: List<UserShort>) {
         val editor = sharedPreferences.edit()
         editor.putString(GENRES_TOKEN_KEY, gson.toJson(friends))
+        editor.apply()
+    }
+
+    fun clear() {
+        val editor = sharedPreferences.edit()
+        editor.putString(GENRES_TOKEN_KEY, gson.toJson(listOf<UserShort>()))
         editor.apply()
     }
 }

@@ -26,7 +26,7 @@ fun DirectorPanel(
     name: String,
     image: String?,
     modifier: Modifier = Modifier
-){
+) {
     MoviePanel(
         iconID = R.drawable.money,
         textID = R.string.information_director,
@@ -46,7 +46,7 @@ fun DirectorPanel(
                     horizontal = 12.dp,
                     vertical = 8.dp
                 )
-        ){
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.default_profile_icon),
                 contentDescription = stringResource(R.string.director_photo_description),

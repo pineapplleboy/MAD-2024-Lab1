@@ -9,12 +9,12 @@ import com.example.moviecatalog.app.presentation.viewholder.FavoriteViewHolder
 import com.example.moviecatalog.app.presentation.viewmodel.FavoritesViewModel
 import com.example.moviecatalog.domain.model.MovieElement
 
-class FavoriteAdapter: ListAdapter<MovieElement, FavoriteViewHolder>(DIFF){
+class FavoriteAdapter : ListAdapter<MovieElement, FavoriteViewHolder>(DIFF) {
 
     private var scaledPosition: Int? = null
 
     private companion object {
-        val DIFF = object : DiffUtil.ItemCallback<MovieElement>(){
+        val DIFF = object : DiffUtil.ItemCallback<MovieElement>() {
             override fun areItemsTheSame(oldItem: MovieElement, newItem: MovieElement): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -42,7 +42,7 @@ class FavoriteAdapter: ListAdapter<MovieElement, FavoriteViewHolder>(DIFF){
         holder.bind(movieElement, isScaled)
     }
 
-    fun setScaledPosition(position: Int){
+    fun setScaledPosition(position: Int) {
         val previousPosition = scaledPosition
         scaledPosition = position
         if (previousPosition != null) {

@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 
 class LaunchViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val resultMutable = MutableLiveData<Int>(0)
     val result: LiveData<Int> get() = resultMutable
 
-    fun getProfile(){
+    fun getProfile() {
         viewModelScope.launch {
             val profile = getUserProfileUseCase.execute()
 

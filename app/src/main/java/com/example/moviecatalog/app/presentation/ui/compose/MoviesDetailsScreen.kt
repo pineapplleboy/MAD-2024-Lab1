@@ -2,9 +2,9 @@ package com.example.moviecatalog.app.presentation.ui.compose
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +19,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,6 +31,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -35,9 +39,11 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.moviecatalog.R
@@ -53,6 +59,7 @@ import com.example.moviecatalog.app.presentation.ui.compose.components.MovieRati
 import com.example.moviecatalog.app.presentation.ui.compose.components.ReviewPanel
 import com.example.moviecatalog.app.presentation.ui.compose.components.ShortMovieInfo
 import com.example.moviecatalog.app.presentation.viewmodel.MovieDetailsViewModel
+import com.example.moviecatalog.domain.model.ReviewModify
 import kotlinx.coroutines.flow.map
 
 @Composable
@@ -70,6 +77,10 @@ fun MoviesDetailsScreen(
 
     val lazyListState = rememberLazyListState()
     var isTitleVisible by remember { mutableStateOf(true) }
+
+    var addingReview by remember {
+        mutableStateOf(false)
+    }
 
     LaunchedEffect(lazyListState) {
         snapshotFlow { lazyListState.firstVisibleItemIndex }
@@ -117,7 +128,7 @@ fun MoviesDetailsScreen(
                     )
                 }
 
-                if(!isTitleVisible){
+                if (!isTitleVisible) {
                     Spacer(
                         modifier = Modifier.width(16.dp)
                     )
@@ -129,7 +140,9 @@ fun MoviesDetailsScreen(
                         fontFamily = FontFamily(Font(R.font.manrope_bold)),
                         fontSize = 24.sp,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.fillMaxWidth().weight(1f)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
                     )
 
                     Spacer(
@@ -192,36 +205,36 @@ fun MoviesDetailsScreen(
                         bottom = 24.dp
                     )
             ) {
-                item{
+                item {
                     Spacer(
                         modifier = Modifier.height((295.dp))
                     )
                 }
 
-                item{
+                item {
                     ShortMovieInfo(
                         name = movie!!.name ?: stringResource(R.string.unnamed),
                         tagline = movie!!.tagline ?: ""
                     )
                 }
 
-                item{
+                item {
                     FriendsInfo(
                         friends = friends ?: listOf()
                     )
                 }
 
-                item{
+                item {
                     MovieDescription(
                         text = movie!!.description ?: ""
                     )
                 }
 
-                item{
+                item {
                     MovieRating()
                 }
 
-                item{
+                item {
                     InformationPanel(
                         countries = movie!!.country ?: "",
                         durability = movie!!.time,
@@ -230,30 +243,196 @@ fun MoviesDetailsScreen(
                     )
                 }
 
-                item{
+                item {
                     DirectorPanel(name = movie!!.director ?: "", image = movie!!.director)
                 }
 
-                item{
+                item {
                     GenresPanel(
                         genres = movie!!.genres ?: listOf(),
                         vm = vm
                     )
                 }
 
-                item{
+                item {
                     FinancePanel(
                         budget = movie!!.budget ?: 0,
                         income = movie!!.fees ?: 0
                     )
                 }
 
-                item{
-                    ReviewPanel(reviews = movie!!.reviews ?: listOf()){
-                        vm.addFriend(it)
-                    }
+                item {
+                    ReviewPanel(
+                        reviews = movie!!.reviews ?: listOf(),
+                        addFriend = {
+                            vm.addFriend(it)
+                        },
+                        addReview = {
+                            addingReview = true
+                        }
+                    )
                 }
             }
         }
+
+        if (addingReview) {
+            AddReviewPanel { rating, text, isAnonymous ->
+                vm.addReview(rating, text, isAnonymous)
+                addingReview = false
+            }
+        }
+    }
+}
+
+@Composable
+fun AddReviewPanel(
+    modifier: Modifier = Modifier,
+    onAdding: (rating: Int, text: String, isAnonymous: Boolean) -> Unit
+) {
+    var reviewText by remember {
+        mutableStateOf("")
+    }
+
+    var rating by remember {
+        mutableStateOf("")
+    }
+
+    var isUnanimous by remember {
+        mutableStateOf(false)
+    }
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(
+                color = colorResource(id = R.color.dark),
+                shape = RoundedCornerShape(28.dp)
+            )
+            .padding(24.dp)
+    ) {
+        Text(
+            text = stringResource(R.string.add_review_button),
+            fontSize = 20.sp,
+            fontFamily = FontFamily(Font(R.font.manrope_bold)),
+            color = colorResource(id = R.color.white)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Column(
+
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.rating_score),
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily(Font(R.font.manrope)),
+                    color = colorResource(id = R.color.gray)
+                )
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                TextField(
+                    value = rating,
+                    onValueChange = {
+                        rating = it
+                    },
+                    textStyle = TextStyle(
+                        fontSize = 14.sp,
+                        color = colorResource(id = R.color.white),
+                        fontFamily = FontFamily(Font(R.font.manrope))
+                    ),
+                    colors = TextFieldDefaults.colors(
+                        unfocusedContainerColor = colorResource(id = R.color.dark_faded)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            color = colorResource(id = R.color.dark_faded),
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextField(
+                value = reviewText,
+                onValueChange = {
+                    reviewText = it
+                },
+                textStyle = TextStyle(
+                    fontSize = 16.sp,
+                    color = colorResource(id = R.color.white),
+                    fontFamily = FontFamily(Font(R.font.manrope))
+                ),
+                colors = TextFieldDefaults.colors(
+                    unfocusedContainerColor = colorResource(id = R.color.dark_faded)
+                ),
+                singleLine = false,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        color = colorResource(id = R.color.dark_faded),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .padding(16.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.anonimus_review),
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily(Font(R.font.manrope)),
+                    color = colorResource(id = R.color.gray)
+                )
+
+                Switch(
+                    checked = isUnanimous,
+                    onCheckedChange = {
+                        isUnanimous = it
+                    }
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = stringResource(R.string.send),
+            fontSize = 14.sp,
+            fontFamily = FontFamily(Font(R.font.manrope_bold)),
+            color = colorResource(id = R.color.white),
+            modifier = Modifier
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            colorResource(id = R.color.orange_dark),
+                            colorResource(id = R.color.orange_bright)
+                        )
+                    ),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .padding(
+                    vertical = 10.dp,
+                    horizontal = 24.dp
+                )
+                .align(AbsoluteAlignment.Right)
+                .clickable {
+                    onAdding(
+                        rating.toInt(),
+                        reviewText,
+                        isUnanimous
+                    )
+                }
+        )
     }
 }

@@ -49,28 +49,28 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
 
-        binding.moviesNavigation.setOnClickListener{
+        binding.moviesNavigation.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.navigationScreen, moviesFragment)
                 .addToBackStack(null)
                 .commit()
         }
 
-        binding.profileNavigation.setOnClickListener{
+        binding.profileNavigation.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.navigationScreen, profileFragment)
                 .addToBackStack(null)
                 .commit()
         }
 
-        binding.libraryNavigation.setOnClickListener{
+        binding.libraryNavigation.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.navigationScreen, favoritesFragment)
                 .addToBackStack(null)
                 .commit()
         }
 
-        binding.feedNavigation.setOnClickListener{
+        binding.feedNavigation.setOnClickListener {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.navigationScreen, feedFragment)
                 .addToBackStack(null)

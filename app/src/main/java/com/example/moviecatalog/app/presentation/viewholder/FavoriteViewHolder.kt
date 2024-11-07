@@ -19,7 +19,7 @@ class FavoriteViewHolder(
     private var movie: MovieElement? = null
 
     init {
-        binding.poster.setOnClickListener{
+        binding.poster.setOnClickListener {
             val intent = Intent(view.context, MovieDetailsActivity::class.java).apply {
                 putExtra("MOVIE_ID", movie?.id)
             }
@@ -28,7 +28,7 @@ class FavoriteViewHolder(
         }
     }
 
-    fun bind(movieElement: MovieElement, isScaled: Boolean) = with(binding){
+    fun bind(movieElement: MovieElement, isScaled: Boolean) = with(binding) {
 
         movie = movieElement
 
@@ -36,11 +36,10 @@ class FavoriteViewHolder(
             .load(movieElement.poster)
             .into(poster)
 
-        if(isScaled){
+        if (isScaled) {
             itemView.scaleX = 1.067f
             itemView.scaleY = 1.067f
-        }
-        else{
+        } else {
             itemView.scaleX = 1f
             itemView.scaleY = 1f
         }

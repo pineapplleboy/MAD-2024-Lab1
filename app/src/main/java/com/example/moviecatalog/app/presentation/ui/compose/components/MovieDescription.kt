@@ -19,7 +19,7 @@ import com.example.moviecatalog.R
 fun MovieDescription(
     text: String,
     modifier: Modifier = Modifier
-){
+) {
     Text(
         text = text,
         color = colorResource(id = R.color.white),

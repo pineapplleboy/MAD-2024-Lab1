@@ -8,10 +8,10 @@ import com.example.moviecatalog.R
 import com.example.moviecatalog.app.presentation.viewholder.MovieCardViewHolder
 import com.example.moviecatalog.domain.model.MovieElement
 
-class MovieCardAdapter: ListAdapter<MovieElement, MovieCardViewHolder>(DIFF){
+class MovieCardAdapter : ListAdapter<MovieElement, MovieCardViewHolder>(DIFF) {
 
     private companion object {
-        val DIFF = object : DiffUtil.ItemCallback<MovieElement>(){
+        val DIFF = object : DiffUtil.ItemCallback<MovieElement>() {
             override fun areItemsTheSame(oldItem: MovieElement, newItem: MovieElement): Boolean {
                 return oldItem.id == newItem.id
             }

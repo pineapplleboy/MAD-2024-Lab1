@@ -7,7 +7,7 @@ import com.example.moviecatalog.domain.repository.UserProfileRepository
 
 class UserProfileRepositoryImpl(
     private val api: MovieCatalogApi
-): UserProfileRepository {
+) : UserProfileRepository {
 
     override suspend fun getProfile(): Result<UserProfile> {
 

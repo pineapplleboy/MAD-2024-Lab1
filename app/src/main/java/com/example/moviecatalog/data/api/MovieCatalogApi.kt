@@ -4,6 +4,7 @@ import com.example.moviecatalog.data.model.ApiLogOutMsg
 import com.example.moviecatalog.data.model.ApiLoginCredentials
 import com.example.moviecatalog.data.model.ApiMovieDetails
 import com.example.moviecatalog.data.model.ApiMoviesPagedList
+import com.example.moviecatalog.data.model.ApiReviewModify
 import com.example.moviecatalog.data.model.ApiToken
 import com.example.moviecatalog.data.model.ApiUserProfile
 import com.example.moviecatalog.data.model.ApiUserRegister
@@ -13,6 +14,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface MovieCatalogApi {
@@ -47,5 +49,16 @@ interface MovieCatalogApi {
     fun delete(@Path("id") id: String): Call<Unit>
 
 
+    @POST("movie/{movieId}/review/add")
+    fun addReview(@Path("movieId") movieId: String, @Body reviewModify: ApiReviewModify): Call<Unit>
 
+    @PUT("movie/{movieId}/review/{id}/edit")
+    fun editReview(
+        @Path("movieId") movieId: String,
+        @Path("movieId") id: String,
+        @Body reviewModify: ApiReviewModify
+    ): Call<Unit>
+
+    @DELETE("movie/{movieId}/review/delete")
+    fun deleteReview(@Path("movieId") movieId: String, @Path("movieId") id: String): Call<Unit>
 }

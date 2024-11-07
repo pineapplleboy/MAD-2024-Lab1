@@ -26,10 +26,10 @@ fun Genre(
     genre: Genre,
     vm: MovieDetailsViewModel,
     modifier: Modifier = Modifier
-){
+) {
     val favoriteGenres by vm.favoriteGenres.observeAsState()
 
-    val genreModifier = if(favoriteGenres?.any { it.id == genre.id } == true)
+    val genreModifier = if (favoriteGenres?.any { it.id == genre.id } == true)
         modifier.background(
             brush = Brush.linearGradient(
                 colors = listOf(

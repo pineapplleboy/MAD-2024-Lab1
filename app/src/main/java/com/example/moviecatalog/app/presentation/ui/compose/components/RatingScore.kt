@@ -22,7 +22,7 @@ fun RatingScore(
     value: Float,
     modifier: Modifier = Modifier,
     icon: @Composable () -> Unit
-){
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -38,7 +38,7 @@ fun RatingScore(
                 top = 8.dp,
                 bottom = 8.dp
             )
-    ){
+    ) {
 
         icon()
 

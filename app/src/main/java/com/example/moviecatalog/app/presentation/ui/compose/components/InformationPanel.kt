@@ -18,12 +18,12 @@ fun InformationPanel(
     durability: Int,
     year: Int,
     modifier: Modifier = Modifier
-){
+) {
     MoviePanel(
         iconID = R.drawable.info,
         textID = R.string.information_panel,
         modifier = modifier
-    ){
+    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -46,7 +46,7 @@ fun InformationPanel(
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ){
+            ) {
                 InformationPanelElement(
                     name = stringResource(R.string.information_durability),
                     content = durability.toString(),

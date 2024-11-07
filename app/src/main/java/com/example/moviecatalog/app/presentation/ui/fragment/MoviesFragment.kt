@@ -73,25 +73,27 @@ class MoviesFragment : Fragment() {
         setGradientText(binding.allMoviesText)
     }
 
-    private fun setGradientText(textView: TextView){
+    private fun setGradientText(textView: TextView) {
         val paint = textView.paint
         val width = paint.measureText(textView.text.toString())
 
-        val shader = LinearGradient(0f, 0f, width, textView.textSize,
+        val shader = LinearGradient(
+            0f, 0f, width, textView.textSize,
             intArrayOf(Color.parseColor("#DF2800"), Color.parseColor("#FF6633")),
-            null, Shader.TileMode.CLAMP)
+            null, Shader.TileMode.CLAMP
+        )
 
         paint.shader = shader
     }
 
-    private fun setRandomMovieListener(){
-        binding.randomMovieButton.setOnClickListener{
+    private fun setRandomMovieListener() {
+        binding.randomMovieButton.setOnClickListener {
             vm.movies.value?.random()?.let { it1 -> startMovieDetailsActivity(it1.id) }
         }
     }
 
-    private fun setWatchAllFavoritesButton(){
-        binding.watchAllFavoritesText.setOnClickListener{
+    private fun setWatchAllFavoritesButton() {
+        binding.watchAllFavoritesText.setOnClickListener {
             val favoritesFragment = FavoritesFragment()
 
             parentFragmentManager.beginTransaction()
@@ -141,16 +143,18 @@ class MoviesFragment : Fragment() {
     }
 
     private fun setupFavoritesRecycler() {
-        if(favoritesVM.favoriteMovies.value?.isNotEmpty() == true){
+        if (favoritesVM.favoriteMovies.value?.isNotEmpty() == true) {
 
             binding.favorites.visibility = View.VISIBLE
 
             val favoriteAdapter = FavoriteAdapter()
             binding.favoritesRecyclerView.apply {
-                layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager =
+                    LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = favoriteAdapter
 
-                var firstVisiblePosition = (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                var firstVisiblePosition =
+                    (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
                 favoriteAdapter.setScaledPosition(firstVisiblePosition)
 
 
@@ -158,9 +162,10 @@ class MoviesFragment : Fragment() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
 
-                        val newPosition = (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+                        val newPosition =
+                            (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
 
-                        if(firstVisiblePosition != newPosition){
+                        if (firstVisiblePosition != newPosition) {
                             firstVisiblePosition = newPosition
                             favoriteAdapter.setScaledPosition(firstVisiblePosition)
                         }
@@ -173,9 +178,7 @@ class MoviesFragment : Fragment() {
             favoritesVM.favoriteMovies.observe(viewLifecycleOwner) {
                 (binding.favoritesRecyclerView.adapter as FavoriteAdapter).submitList(it)
             }
-        }
-
-        else{
+        } else {
             binding.favorites.visibility = View.GONE
         }
     }
@@ -231,7 +234,7 @@ class MoviesFragment : Fragment() {
 
             binding.genres.removeAllViews()
 
-            for(genre in movie.genres ?: listOf()){
+            for (genre in movie.genres ?: listOf()) {
 
                 val chip = Chip(this.context).apply {
                     text = genre.name
@@ -242,10 +245,9 @@ class MoviesFragment : Fragment() {
                     textSize = 16f
                     chipStrokeWidth = 0f
 
-                    if(vm.favoriteGenres.value?.find {it.id == genre.id} == null){
+                    if (vm.favoriteGenres.value?.find { it.id == genre.id } == null) {
                         setChipBackgroundColorResource(R.color.dark_faded)
-                    }
-                    else{
+                    } else {
                         setChipBackgroundColorResource(R.color.orange_dark)
                     }
                 }
@@ -268,7 +270,7 @@ class MoviesFragment : Fragment() {
         }.start()
     }
 
-    private fun startMovieDetailsActivity(id: String){
+    private fun startMovieDetailsActivity(id: String) {
         val intent = Intent(this.context, MovieDetailsActivity::class.java).apply {
             putExtra("MOVIE_ID", id)
         }

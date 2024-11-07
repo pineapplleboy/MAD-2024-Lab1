@@ -13,15 +13,16 @@ fun FinancePanel(
     budget: Int,
     income: Int,
     modifier: Modifier = Modifier
-){
+) {
     MoviePanel(
         iconID = R.drawable.money,
         textID = R.string.information_finance,
-        modifier = modifier) {
+        modifier = modifier
+    ) {
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ){
+        ) {
             InformationPanelElement(
                 name = stringResource(R.string.information_budget),
                 content = budget.toString(),

@@ -10,7 +10,8 @@ class AuthPreferences(context: Context) {
         private const val AUTH_TOKEN_KEY = "auth_token"
     }
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     fun saveToken(token: String) {
         sharedPreferences.edit().putString(AUTH_TOKEN_KEY, token).apply()

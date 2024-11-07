@@ -58,11 +58,12 @@ class FeedFragment : Fragment() {
             override fun onCardSwiped(direction: Direction) {
                 when (direction) {
                     Direction.Right -> {
-                        vm.getNextMovie()
+                        vm.getNextMovie(vm.movies.value?.get(currPosition))
                         vm.movies.value?.get(currPosition)?.let { vm.addToFavorites(it.id) }
                     }
+
                     Direction.Left -> {
-                        vm.getNextMovie()
+                        vm.getNextMovie(vm.movies.value?.get(currPosition))
                     }
 
                     Direction.Top -> return
@@ -72,7 +73,8 @@ class FeedFragment : Fragment() {
 
             override fun onCardDragging(direction: Direction, ratio: Float) {
 
-                val cardView = binding.movieStackView.layoutManager?.findViewByPosition(currPosition)
+                val cardView =
+                    binding.movieStackView.layoutManager?.findViewByPosition(currPosition)
 
                 val alpha = (ratio * 200).toInt().coerceIn(0, 200)
 
@@ -84,14 +86,19 @@ class FeedFragment : Fragment() {
                         poster?.setColorFilter(Color.argb(alpha, 51, 51, 51))
                         icon?.setImageResource(R.drawable.dislike)
                     }
+
                     Direction.Right -> {
                         val gradientDrawable = GradientDrawable(
                             GradientDrawable.Orientation.LEFT_RIGHT,
-                            intArrayOf(Color.argb(alpha, 223, 40, 0), Color.argb(alpha, 255, 102, 51))
+                            intArrayOf(
+                                Color.argb(alpha, 223, 40, 0),
+                                Color.argb(alpha, 255, 102, 51)
+                            )
                         )
                         poster?.foreground = gradientDrawable
                         icon?.setImageResource(R.drawable.like)
                     }
+
                     else -> {
                         poster?.clearColorFilter()
                         poster?.foreground = null
@@ -103,7 +110,8 @@ class FeedFragment : Fragment() {
             override fun onCardRewound() {}
 
             override fun onCardCanceled() {
-                val cardView = binding.movieStackView.layoutManager?.findViewByPosition(currPosition)
+                val cardView =
+                    binding.movieStackView.layoutManager?.findViewByPosition(currPosition)
 
                 cardView?.findViewById<ImageView>(R.id.poster)?.apply {
                     clearColorFilter()
@@ -117,7 +125,7 @@ class FeedFragment : Fragment() {
 
                 currPosition = position
                 val movie = vm.movies.value?.get(position)
-                if(movie != null){
+                if (movie != null) {
                     displayMovie(movie)
                 }
 
@@ -136,17 +144,24 @@ class FeedFragment : Fragment() {
                 }
 
                 view.findViewById<ImageView>(R.id.icon)?.setImageDrawable(null)
+
+                if (position == (vm.movies.value?.size ?: 0) - 1) {
+                    binding.name.text = ""
+                    binding.info.text = ""
+
+                    binding.genres.removeAllViews()
+                }
             }
         })
 
         binding.movieStackView.layoutManager = manager
         binding.movieStackView.adapter = movieCardAdapter
 
-        vm.getNextMovie()
-        vm.getNextMovie()
+        vm.getNextMovie(null)
+        vm.getNextMovie(null)
         (binding.movieStackView.adapter as MovieCardAdapter).submitList(vm.movies.value)
 
-        vm.movies.observe(viewLifecycleOwner){
+        vm.movies.observe(viewLifecycleOwner) {
             (binding.movieStackView.adapter as MovieCardAdapter).submitList(it)
 
             if (it.isNotEmpty() && currPosition == 0) {
@@ -155,13 +170,13 @@ class FeedFragment : Fragment() {
         }
     }
 
-    private fun displayMovie(movie: MovieElement){
+    private fun displayMovie(movie: MovieElement) {
         binding.name.text = movie.name
         binding.info.text = "${movie.country}•${movie.year}"
 
         binding.genres.removeAllViews()
 
-        for(genre in movie.genres ?: listOf()){
+        for (genre in movie.genres ?: listOf()) {
 
             val chip = Chip(this.context).apply {
                 text = genre.name
@@ -172,10 +187,9 @@ class FeedFragment : Fragment() {
                 textSize = 16f
                 chipStrokeWidth = 0f
 
-                if(vm.favoriteGenres.value?.find {it.id == genre.id} == null){
+                if (vm.favoriteGenres.value?.find { it.id == genre.id } == null) {
                     setChipBackgroundColorResource(R.color.dark_faded)
-                }
-                else{
+                } else {
                     setChipBackgroundColorResource(R.color.orange_dark)
                 }
             }

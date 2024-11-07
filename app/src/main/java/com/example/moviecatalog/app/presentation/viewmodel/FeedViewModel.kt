@@ -16,7 +16,7 @@ class FeedViewModel(
     private val getNextUseCase: GetNextUseCase,
     private val addFavoriteUseCase: AddToFavoritesUseCase,
     private val getFavoriteGenresUseCase: GetFavoriteGenresUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val moviesMutable = MutableLiveData<List<MovieElement>>(listOf())
     val movies: LiveData<List<MovieElement>> get() = moviesMutable
@@ -25,23 +25,23 @@ class FeedViewModel(
     private val favoriteGenresMutable = MutableLiveData<List<Genre>>(listOf())
     val favoriteGenres: LiveData<List<Genre>> get() = favoriteGenresMutable
 
-    fun getNextMovie(){
-        viewModelScope.launch{
-            val movie = getNextUseCase.execute()
-            if(movie != null){
+    fun getNextMovie(currMovie: MovieElement?) {
+        viewModelScope.launch {
+            val movie = getNextUseCase.execute(currMovie)
+            if (movie != null) {
                 val currentMovies = moviesMutable.value ?: emptyList()
                 moviesMutable.value = currentMovies + movie
             }
         }
     }
 
-    fun addToFavorites(id: String){
-        viewModelScope.launch{
+    fun addToFavorites(id: String) {
+        viewModelScope.launch {
             addFavoriteUseCase.execute(id)
         }
     }
 
-    fun getFavoriteGenres(){
+    fun getFavoriteGenres() {
         favoriteGenresMutable.value = getFavoriteGenresUseCase.execute()
     }
 }

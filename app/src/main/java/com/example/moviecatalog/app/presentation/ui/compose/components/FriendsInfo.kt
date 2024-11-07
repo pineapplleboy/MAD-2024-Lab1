@@ -33,8 +33,8 @@ import com.example.moviecatalog.domain.model.UserShort
 fun FriendsInfo(
     friends: List<UserShort>,
     modifier: Modifier = Modifier
-){
-    if(friends.isNotEmpty()){
+) {
+    if (friends.isNotEmpty()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
@@ -45,10 +45,10 @@ fun FriendsInfo(
                     shape = RoundedCornerShape(16.dp)
                 )
                 .padding(16.dp)
-        ){
+        ) {
 
             Image(
-                painter = if(friends[0].avatar != null)
+                painter = if (friends[0].avatar != null)
                     rememberAsyncImagePainter(friends[0].avatar)
                 else
                     painterResource(
@@ -61,9 +61,9 @@ fun FriendsInfo(
                 contentScale = ContentScale.Crop
             )
 
-            if(friends.size > 1){
+            if (friends.size > 1) {
                 Image(
-                    painter = if(friends[1].avatar != null)
+                    painter = if (friends[1].avatar != null)
                         rememberAsyncImagePainter(friends[1].avatar)
                     else
                         painterResource(
@@ -77,9 +77,9 @@ fun FriendsInfo(
                 )
             }
 
-            if(friends.size > 2){
+            if (friends.size > 2) {
                 Image(
-                    painter = if(friends[2].avatar != null)
+                    painter = if (friends[2].avatar != null)
                         rememberAsyncImagePainter(friends[2].avatar)
                     else
                         painterResource(

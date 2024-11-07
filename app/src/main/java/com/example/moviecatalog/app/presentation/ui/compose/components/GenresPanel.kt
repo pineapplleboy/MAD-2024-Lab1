@@ -17,7 +17,7 @@ fun GenresPanel(
     genres: List<Genre>,
     vm: MovieDetailsViewModel,
     modifier: Modifier = Modifier
-){
+) {
     MoviePanel(
         iconID = R.drawable.genres,
         textID = R.string.information_genres

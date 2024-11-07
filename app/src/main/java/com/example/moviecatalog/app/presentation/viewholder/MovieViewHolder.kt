@@ -18,8 +18,8 @@ class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val binding = MoviePreviewBinding.bind(view)
     private var id: String? = null
 
-    init{
-        binding.moviePoster.setOnClickListener{
+    init {
+        binding.moviePoster.setOnClickListener {
             val intent = Intent(view.context, MovieDetailsActivity::class.java).apply {
                 putExtra("MOVIE_ID", id)
             }
@@ -28,7 +28,7 @@ class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(movie: MovieElement) = with(binding){
+    fun bind(movie: MovieElement) = with(binding) {
 
         id = movie.id
 
@@ -39,7 +39,7 @@ class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val rating = GetMovieRatingUseCase().execute(movie)
 
         movieRating.text = rating
-        movieRating.background = createRoundedBackground(getRatingColor(rating.toFloat()))
+//        movieRating.background = createRoundedBackground(getRatingColor(rating.toFloat()))
     }
 
     private fun getRatingColor(rating: Float): Int {

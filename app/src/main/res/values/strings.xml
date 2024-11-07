@@ -79,5 +79,13 @@
     <string name="no_name">Имя - обязательное поле!</string>
     <string name="no_birthday">Дата рождения - обязательное поле!</string>
     <string name="small_password">Пароль слишком маленький!</string>
+    <string name="good_morning">Доброе утро,</string>
+    <string name="good_afternoon">Добрый день,</string>
+    <string name="good_evening">Добрый вечер,</string>
+    <string name="good_night">Доброй ночи,</string>
+    <string name="anonimus_review">Анонимный отзыв</string>
+    <string name="send">Отправить</string>
+    <string name="rating_score">Оценка</string>
+    <string name="add_review_button">Добавить отзыв</string>
 
 </resources>

@@ -48,7 +48,8 @@ import com.example.moviecatalog.domain.model.UserShort
 fun ReviewPanel(
     reviews: List<Review>,
     modifier: Modifier = Modifier,
-    addFriend: (UserShort) -> Unit
+    addFriend: (UserShort) -> Unit,
+    addReview: () -> Unit
 ) {
 
     var currentReview by remember {
@@ -64,8 +65,8 @@ fun ReviewPanel(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-            if(reviews.isNotEmpty()){
-                ReviewElement(review = reviews[currentReview]){
+            if (reviews.isNotEmpty()) {
+                ReviewElement(review = reviews[currentReview]) {
                     addFriend(it)
                 }
             }
@@ -74,7 +75,7 @@ fun ReviewPanel(
                 horizontalArrangement = Arrangement.spacedBy(24.dp),
                 modifier = Modifier
                     .height(40.dp)
-            ){
+            ) {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
@@ -89,24 +90,27 @@ fun ReviewPanel(
                             ),
                             shape = RoundedCornerShape(8.dp)
                         )
-                ){
+                ) {
                     Text(
                         text = stringResource(R.string.add_review),
                         fontFamily = FontFamily(Font(R.font.manrope_bold)),
                         color = colorResource(id = R.color.white),
+                        modifier = Modifier.clickable {
+                            addReview()
+                        }
                     )
                 }
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
-                ){
+                ) {
                     IconButton(
                         onClick = {
-                            currentReview = if(currentReview > 0) (currentReview - 1) else 0
+                            currentReview = if (currentReview > 0) (currentReview - 1) else 0
                         },
                         modifier = Modifier
                             .background(
-                                color = colorResource(id = if(currentReview > 0) R.color.dark else R.color.dark_faded),
+                                color = colorResource(id = if (currentReview > 0) R.color.dark else R.color.dark_faded),
                                 shape = RoundedCornerShape(8.dp)
                             )
                     ) {
@@ -119,11 +123,12 @@ fun ReviewPanel(
 
                     IconButton(
                         onClick = {
-                            currentReview = if(currentReview < reviews.size - 1) (currentReview + 1) else (reviews.size - 1)
+                            currentReview =
+                                if (currentReview < reviews.size - 1) (currentReview + 1) else (reviews.size - 1)
                         },
                         modifier = Modifier
                             .background(
-                                color = colorResource(id = if(currentReview < reviews.size - 1) R.color.dark else R.color.dark_faded),
+                                color = colorResource(id = if (currentReview < reviews.size - 1) R.color.dark else R.color.dark_faded),
                                 shape = RoundedCornerShape(8.dp)
                             )
                     ) {
@@ -143,7 +148,7 @@ fun ReviewPanel(
 fun ReviewElement(
     review: Review,
     addFriend: (UserShort) -> Unit
-){
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier
@@ -153,13 +158,13 @@ fun ReviewElement(
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(12.dp)
-    ){
+    ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = if(review.author.avatar != null)
+                painter = if (review.author.avatar != null)
                     rememberAsyncImagePainter(review.author.avatar)
                 else
                     painterResource(

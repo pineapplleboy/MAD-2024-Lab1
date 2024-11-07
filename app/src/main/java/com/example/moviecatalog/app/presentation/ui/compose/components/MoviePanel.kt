@@ -29,7 +29,7 @@ fun MoviePanel(
     iconID: Int,
     textID: Int,
     content: @Composable () -> Unit
-){
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier

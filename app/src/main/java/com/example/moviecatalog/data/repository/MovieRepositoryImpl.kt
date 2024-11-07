@@ -20,7 +20,7 @@ import com.example.moviecatalog.domain.repository.MovieRepository
 
 class MovieRepositoryImpl(
     private val api: MovieCatalogApi
-): MovieRepository {
+) : MovieRepository {
 
     override suspend fun getMoviesByPage(page: Int): Result<MoviesPagedList> {
 
@@ -54,15 +54,15 @@ class MovieRepositoryImpl(
     }
 }
 
-fun ApiMovieDetails.toDomainModel(): MovieDetails{
+fun ApiMovieDetails.toDomainModel(): MovieDetails {
     return MovieDetails(
         name = this.name,
         id = this.id,
         poster = this.poster,
         year = this.year,
         country = this.country,
-        genres = this.genres?.map{ it.toDomainModel() },
-        reviews = this.reviews?.map {it.toDomainModel() },
+        genres = this.genres?.map { it.toDomainModel() },
+        reviews = this.reviews?.map { it.toDomainModel() },
         time = this.time,
         tagline = this.tagline,
         description = this.description,
@@ -85,21 +85,21 @@ fun ApiMovieElement.toDomainModel(): MovieElement {
     )
 }
 
-fun ApiGenre.toDomainModel() : Genre {
+fun ApiGenre.toDomainModel(): Genre {
     return Genre(
         id = this.id,
         name = this.name
     )
 }
 
-fun ApiReviewShort.toDomainModel(): ReviewShort{
+fun ApiReviewShort.toDomainModel(): ReviewShort {
     return ReviewShort(
         id = this.id,
         rating = this.rating
     )
 }
 
-fun ApiReview.toDomainModel(): Review{
+fun ApiReview.toDomainModel(): Review {
     return Review(
         id = this.id,
         rating = this.rating,
@@ -110,7 +110,7 @@ fun ApiReview.toDomainModel(): Review{
     )
 }
 
-fun ApiUserShort.toDomainModel(): UserShort{
+fun ApiUserShort.toDomainModel(): UserShort {
     return UserShort(
         userId = this.userId,
         avatar = this.avatar,

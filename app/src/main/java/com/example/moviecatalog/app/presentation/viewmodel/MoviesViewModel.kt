@@ -43,7 +43,12 @@ class MoviesViewModel(
             currentPage++
             val result = getMoviesPageUseCase.execute(currentPage)
             result.onSuccess {
-                val updatedMovies = moviesMutable.value.orEmpty() + it.movies.orEmpty()
+                val updatedMovies =
+                    moviesMutable.value.orEmpty() + it.movies.orEmpty().filter { movie ->
+                        topMovies.value?.find { topMovie ->
+                            topMovie.id == movie.id
+                        } == null
+                    }
                 moviesMutable.postValue(updatedMovies)
             }
 
@@ -74,6 +79,7 @@ class MoviesViewModel(
             override fun onTick(millisUntilFinished: Long) {
 
             }
+
             override fun onFinish() {
                 startProgressBarCycle()
             }
@@ -81,7 +87,7 @@ class MoviesViewModel(
         timer.start()
     }
 
-    fun getFavoriteGenres(){
+    fun getFavoriteGenres() {
         favoriteGenresMutable.value = getFavoriteGenresUseCase.execute()
     }
 

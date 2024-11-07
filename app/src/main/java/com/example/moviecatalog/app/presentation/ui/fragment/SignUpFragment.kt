@@ -2,13 +2,18 @@ package com.example.moviecatalog.app.presentation.ui.fragment
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.example.moviecatalog.R
 import com.example.moviecatalog.app.app.AppComponent
@@ -89,39 +94,42 @@ class SignUpFragment : Fragment() {
 
         binding.confirmSignUpButton.setOnClickListener {
 
-            if(binding.signUpPasswordField.text.toString() != binding.signUpConfirmPasswordField.text.toString()){
-                Toast.makeText(view.context,
-                    getString(R.string.not_equal_passwords), Toast.LENGTH_SHORT).show()
-            }
-
-            else if(binding.signUpLoginField.text.toString() == ""){
-                Toast.makeText(view.context,
-                    getString(R.string.no_login), Toast.LENGTH_SHORT).show()
-            }
-
-            else if(binding.nameField.text.toString() == ""){
-                Toast.makeText(view.context,
-                    getString(R.string.no_name), Toast.LENGTH_SHORT).show()
-            }
-
-            else if(binding.signUpPasswordField.text.toString().length < 6){
-                Toast.makeText(view.context,
-                    getString(R.string.small_password), Toast.LENGTH_SHORT).show()
-            }
-
-            else if(binding.birthdayField.toString() == ""){
-                Toast.makeText(view.context,
-                    getString(R.string.no_birthday), Toast.LENGTH_SHORT).show()
-            }
-
-            else{
+            if (binding.signUpPasswordField.text.toString() != binding.signUpConfirmPasswordField.text.toString()) {
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.not_equal_passwords), Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.signUpLoginField.text.toString() == "") {
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.no_login), Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.nameField.text.toString() == "") {
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.no_name), Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.signUpPasswordField.text.toString().length < 6) {
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.small_password), Toast.LENGTH_SHORT
+                ).show()
+            } else if (binding.birthdayField.toString() == "") {
+                Toast.makeText(
+                    view.context,
+                    getString(R.string.no_birthday), Toast.LENGTH_SHORT
+                ).show()
+            } else {
                 vm.signUp(
                     userRegister = UserRegister(
                         login = binding.signUpLoginField.text.toString(),
                         email = binding.emailField.text.toString(),
                         name = binding.nameField.text.toString(),
                         password = binding.signUpPasswordField.text.toString(),
-                        birthday = SimpleDateFormat("yyyy-MM-dd", Locale("ru")).format(calendar.time),
+                        birthday = SimpleDateFormat(
+                            "yyyy-MM-dd",
+                            Locale("ru")
+                        ).format(calendar.time),
                         gender = gender.code
                     )
                 )
@@ -129,10 +137,48 @@ class SignUpFragment : Fragment() {
         }
 
         vm.signUpResult.observe(viewLifecycleOwner) {
-            if(it){
+            if (it) {
                 val intent = Intent(view.context, MainActivity::class.java)
                 startActivity(intent)
             }
+        }
+
+        setTextChangedListener(binding.signUpLoginField, binding.deleteLoginButton)
+        setTextChangedListener(binding.nameField, binding.deleteNameButton)
+        setTextChangedListener(binding.emailField, binding.deleteEmailButton)
+
+        binding.birthdayField.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrEmpty()) {
+                    binding.setBirthdayButton.setColorFilter(Color.GRAY)
+                } else {
+                    binding.setBirthdayButton.setColorFilter(Color.WHITE)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun setTextChangedListener(field: EditText, button: ImageButton) {
+        field.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrEmpty()) {
+                    button.visibility = View.GONE
+                } else {
+                    button.visibility = View.VISIBLE
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        button.setOnClickListener {
+            field.text.clear()
         }
     }
 }

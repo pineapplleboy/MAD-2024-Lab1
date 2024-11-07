@@ -39,7 +39,7 @@ fun MoviePoster(
 
         Column(
             modifier = Modifier.matchParentSize()
-        ){
+        ) {
             Spacer(modifier = Modifier.height(304.dp))
             Box(
                 modifier = Modifier

@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 class ProfileViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val logOutUseCase: LogOutUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val profileMutable = MutableLiveData<UserProfile?>()
     val profile: LiveData<UserProfile?> get() = profileMutable
 
 
-    fun getProfile(){
+    fun getProfile() {
         viewModelScope.launch {
             val result = getUserProfileUseCase.execute()
 
@@ -28,8 +28,8 @@ class ProfileViewModel(
         }
     }
 
-    fun logOut(){
-        viewModelScope.launch{
+    fun logOut() {
+        viewModelScope.launch {
             val result = logOutUseCase.execute()
 
             result.onSuccess {

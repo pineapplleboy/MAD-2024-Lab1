@@ -6,7 +6,7 @@ import com.example.moviecatalog.domain.repository.FavoriteGenresRepository
 
 class FavoriteGenresRepositoryImpl(
     private val genresPreferences: GenresPreferences
-): FavoriteGenresRepository {
+) : FavoriteGenresRepository {
 
     override fun getGenres(): List<Genre> {
         return genresPreferences.getGenres()

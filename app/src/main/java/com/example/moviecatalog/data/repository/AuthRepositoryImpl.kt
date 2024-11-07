@@ -12,7 +12,7 @@ import com.example.moviecatalog.domain.repository.AuthRepository
 class AuthRepositoryImpl(
     private val api: MovieCatalogApi,
     private val authPreferences: AuthPreferences
-): AuthRepository {
+) : AuthRepository {
 
     override suspend fun register(userRegister: UserRegister): Result<Unit> {
 
