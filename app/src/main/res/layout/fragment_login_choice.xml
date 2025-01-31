@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context=".app.presentation.ui.fragment.LoginChoiceFragment">
+
+    <ImageView
+        android:id="@+id/topShadow"
+        android:layout_width="match_parent"
+        android:layout_height="434dp"
+        android:src="@drawable/welcome_screen_shadow"
+        android:rotation="180"/>
+
+    <ImageView
+        android:id="@+id/bottomShadow"
+        android:layout_width="match_parent"
+        android:layout_height="434dp"
+        android:src="@drawable/welcome_screen_shadow"
+        android:rotation="0"
+        android:layout_gravity="bottom"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/welcomeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="@string/welcome_text"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:layout_marginTop="24dp"
+            android:lineHeight="50.4dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/loginChoiceButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signInButton"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/orange_button"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:text="@string/sign_in_text"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signUpButton"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/dark_button"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:text="@string/sign_up_text"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="HintTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/manrope</item>
+    </style>
+
+    <style name="InputTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/dark_button</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="InputTextView.Profile">
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:letterSpacing">0.0071</item>
+    </style>
+
+    <style name="InputTextView.Welcome">
+        <item name="android:fontFamily">@font/manrope</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray_faded</item>
+    </style>
+
+    <style name="MovieProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:progress">0</item>
+        <item name="android:max">100</item>
+        <item name="android:backgroundTint">@color/gray</item>
+        <item name="android:progressDrawable">@drawable/progress_gradient</item>
+    </style>
+
+    <style name="BottomNavigation">
+        <item name="android:id">@id/navigationPanel</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:background">@drawable/dark_button</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="BottomNavigationItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="BottomNavigtaionIcon">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+    <style name="BottomNavigationText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/gray_faded</item>
+    </style>
+    <style name="Widget.Theme.MovieCatalog.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <style name="CircleImageStyle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>
