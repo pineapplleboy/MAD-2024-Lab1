@@ -16,15 +16,15 @@ jobs:
 
       - name: List directory contents
         run: ls -la
-        working-directory: ./MAD-2024-Lab1
+        working-directory: .
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        working-directory: ./MAD-2024-Lab1
+        working-directory: .
 
       - name: Check Gradle version
         run: ./gradlew --version
-        working-directory: ./MAD-2024-Lab1
+        working-directory: .
 
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -39,4 +39,4 @@ jobs:
         run: snyk test --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        working-directory: ./MAD-2024-Lab1
+        working-directory: .
