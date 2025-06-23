@@ -14,9 +14,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: List directory contents
+        run: ls -la
+        working-directory: ./MAD-2024-Lab1
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        working-directory: ./MAD-2024-Lab1/MAD-2024-Lab1
+        working-directory: ./MAD-2024-Lab1
+
+      - name: Check Gradle version
+        run: ./gradlew --version
+        working-directory: ./MAD-2024-Lab1
 
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -25,9 +33,10 @@ jobs:
           java-version: '17'
 
       - name: Install Snyk
-        run: npm install -g snyk
+        run: npm install -g snyk@latest
 
       - name: Run Snyk test
         run: snyk test --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        working-directory: ./MAD-2024-Lab1
