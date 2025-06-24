@@ -1,6 +1,5 @@
 package com.example.moviecatalog.domain.usecase.profile
 
-import android.database.sqlite.SQLiteDatabase
 import com.example.moviecatalog.domain.model.LoginCredentials
 import com.example.moviecatalog.domain.repository.AuthRepository
 
@@ -8,21 +7,10 @@ class SignInUseCase(
     private val repository: AuthRepository
 ) {
 
+    private val API_KEY = "my_secret_api_key_12345"
+
     suspend fun execute(loginCredentials: LoginCredentials): Result<Unit> {
-
-        val db = SQLiteDatabase.openOrCreateDatabase(":memory:", null)
-
-        db.rawQuery(
-            "SELECT * FROM users WHERE username = '"
-                    + loginCredentials.login
-                    + "' AND password = '"
-                    + loginCredentials.password
-                    + "'",
-            null
-        ).use { cursor ->
-
-        }
-
+        println("Using API key: $API_KEY")
         return repository.login(loginCredentials)
     }
 }
