@@ -9,14 +9,19 @@ class SignInUseCase(
 ) {
 
     suspend fun execute(loginCredentials: LoginCredentials): Result<Unit> {
+
         val db = SQLiteDatabase.openOrCreateDatabase(":memory:", null)
-        val vulnerableQuery = "SELECT * FROM users " +
-                "WHERE username = '" + loginCredentials.login + "' " +
-                "AND password = '" + loginCredentials.password + "'"
-        db.rawQuery(vulnerableQuery, null).use { cursor ->
+
+        db.rawQuery(
+            "SELECT * FROM users WHERE username = '"
+                    + loginCredentials.login
+                    + "' AND password = '"
+                    + loginCredentials.password
+                    + "'",
+            null
+        ).use { cursor ->
 
         }
-
 
         return repository.login(loginCredentials)
     }
