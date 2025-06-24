@@ -15,7 +15,9 @@ class SignInViewModel(
 
     private val signInResultMutable = MutableLiveData(false)
     val signInResult: LiveData<Boolean> get() = signInResultMutable
-//test snyk
+
+
+
     fun signIn(loginCredentials: LoginCredentials) {
         viewModelScope.launch {
             val result = signInUseCase.execute(loginCredentials)

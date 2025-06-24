@@ -1,6 +1,6 @@
 package com.example.moviecatalog.domain.usecase.profile
 
-import android.util.Log
+import android.database.sqlite.SQLiteDatabase
 import com.example.moviecatalog.domain.model.LoginCredentials
 import com.example.moviecatalog.domain.repository.AuthRepository
 
@@ -9,6 +9,15 @@ class SignInUseCase(
 ) {
 
     suspend fun execute(loginCredentials: LoginCredentials): Result<Unit> {
+        val db = SQLiteDatabase.openOrCreateDatabase(":memory:", null)
+        val vulnerableQuery = "SELECT * FROM users " +
+                "WHERE username = '" + loginCredentials.login + "' " +
+                "AND password = '" + loginCredentials.password + "'"
+        db.rawQuery(vulnerableQuery, null).use { cursor ->
+
+        }
+
+
         return repository.login(loginCredentials)
     }
 }
